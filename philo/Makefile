@@ -8,6 +8,7 @@ RM					= rm -rf
 
 PHILO_DIR			=	$(SRC_DIR)philo.c \
 							$(UTL_DIR)utils.c \
+							$(UTL_DIR)philo_utils.c \
 
 SRCS 				= $(PHILO_DIR)
 OBJ					= $(PHILO_DIR:.c=.o)
