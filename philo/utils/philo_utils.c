@@ -11,22 +11,21 @@ static void	*say_hello(void *argv)
 
 }
 
-int	init_philo(t_data *data, char *philo_count_av)
+void	init_philo(t_data *data, char *philo_count_av)
 {
 	int	i;
 
 	i = 0;
 	if (ft_atoi(philo_count_av, &data->philo_count))
-		return (1);
+		error_check(data, ERR_INVALID_ARG, NULL);
 	data->philos = malloc(sizeof(t_philo) * data->philo_count);
-
+	error_check(data, ERR_MALLOC_FAIL, data->philos);
 	while (i < data->philo_count)
 	{
 		data->philos[i].id = i + 1;
 		data->philos[i].data = data;
 		i++;
 	}
-	return (0);
 }
 
 void	create_philo(t_data *data)

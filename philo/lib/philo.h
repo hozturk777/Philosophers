@@ -1,6 +1,14 @@
 #ifndef PHILO_H
 # define PHILO_H
 
+# ifndef ERR_MALLOC_FAIL
+#	define ERR_MALLOC_FAIL 1
+# endif
+
+# ifndef ERR_INvALID_ARG
+#	define ERR_INVALID_ARG 2
+# endif
+
 #include <unistd.h>
 #include <stdio.h>
 #include <pthread.h>
@@ -31,9 +39,9 @@ typedef struct s_data
 }	t_data;
 
 int ft_atoi(char *str, int *res);
-int	init_philo(t_data *data, char *philo_count_av);
+void	init_philo(t_data *data, char *philo_count_av);
 void	create_philo(t_data *data);
-
-
+void	error_check(t_data *data, int err_code, void *ptr);
+void	cleanup(t_data data);
 
 #endif

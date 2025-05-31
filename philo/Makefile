@@ -2,6 +2,7 @@ MAKEFLAGS 			+= --no-print-directory
 NAME				= philo
 SRC_DIR				= src/
 UTL_DIR				= utils/
+ERR_DIR				= error/
 CC					= @cc
 #CFLAGS				= -Wall -Werror -Wextra
 RM					= rm -rf
@@ -9,6 +10,7 @@ RM					= rm -rf
 PHILO_DIR			=	$(SRC_DIR)philo.c \
 							$(UTL_DIR)utils.c \
 							$(UTL_DIR)philo_utils.c \
+							$(ERR_DIR)error_handle.c \
 
 SRCS 				= $(PHILO_DIR)
 OBJ					= $(PHILO_DIR:.c=.o)
