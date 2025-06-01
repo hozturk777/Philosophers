@@ -9,6 +9,7 @@ int	main(int argc, char *argv[])
 	if (argc == 2)
 	{
 		init_philo(&data, argv[1]);
+		init_forks(&data);
 		create_philo(&data);
 		cleanup(data);
 		return (0);

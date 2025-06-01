@@ -5,6 +5,7 @@
 void	cleanup(t_data data)
 {
 	free(data.philos);
+	free(data.forks);
 }
 
 void	error_check(t_data *data, int err_code, void *ptr)

@@ -40,6 +40,7 @@ typedef struct s_data
 
 int ft_atoi(char *str, int *res);
 void	init_philo(t_data *data, char *philo_count_av);
+void	init_forks(t_data *data);
 void	create_philo(t_data *data);
 void	error_check(t_data *data, int err_code, void *ptr);
 void	cleanup(t_data data);
