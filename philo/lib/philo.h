@@ -12,6 +12,7 @@
 #include <unistd.h>
 #include <stdio.h>
 #include <pthread.h>
+#include <sys/time.h>
 
 typedef struct s_data t_data;
 
@@ -32,7 +33,7 @@ typedef struct s_data
 	//int				time_to_eat;
 	//int				time_to_sleep;
 	//int				dead;
-	//long long		start_time;
+	long long		start_time;
 	pthread_mutex_t	*forks;
 	//pthread_mutex_t	print_mutext;
 	t_philo			*philos;
@@ -44,5 +45,7 @@ void	init_forks(t_data *data);
 void	create_philo(t_data *data);
 void	error_check(t_data *data, int err_code, void *ptr);
 void	cleanup(t_data data);
+long long	get_time_in_ms(void);
+
 
 #endif

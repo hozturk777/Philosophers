@@ -7,14 +7,25 @@ static void	*say_hello(void *argv)
 
 	philo = (t_philo *)argv;
 
-	if (philo->left_fork != philo->right_fork) // tek thread geldiğinde left_fork 0.indeks'de right_fork'da 0.indeks'de olduğu için thread kendini deadlock'a sokuyordu
+	//if (philo->id % 2 == 0)
+    //usleep(100); // başlangıçta offset
+
+
+	if (philo->id % 2 == 0)
 	{
 		pthread_mutex_lock(philo->left_fork);
 		pthread_mutex_lock(philo->right_fork);
 	}
 	else
+	{
+		pthread_mutex_lock(philo->right_fork);
 		pthread_mutex_lock(philo->left_fork);
+	}
 	printf("thread_id: %d  -  philo_count: %d \\ \n", philo->id, philo->data->philo_count);
+	printf("just EAT! ms: %lld\n", get_time_in_ms() - philo->data->start_time);
+	usleep(9000);
+	pthread_mutex_unlock(philo->left_fork);
+	pthread_mutex_unlock(philo->right_fork);
 }
 
 void	init_philo(t_data *data, char *philo_count_av)
