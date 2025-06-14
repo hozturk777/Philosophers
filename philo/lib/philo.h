@@ -20,7 +20,7 @@ typedef struct s_philo
 {
 	int	id;
 	pthread_t thread;
-	//long long last_meal;
+	long long last_meal;
 	pthread_mutex_t *left_fork;
 	pthread_mutex_t *right_fork;
 	t_data	*data;
@@ -29,8 +29,8 @@ typedef struct s_philo
 typedef struct s_data
 {
 	int				philo_count;
-	//int				time_to_die;
-	//int				time_to_eat;
+	int				time_to_die;
+	int				time_to_eat;
 	//int				time_to_sleep;
 	//int				dead;
 	long long		start_time;
@@ -40,7 +40,7 @@ typedef struct s_data
 }	t_data;
 
 int ft_atoi(char *str, int *res);
-void	init_philo(t_data *data, char *philo_count_av);
+void	init_philo(t_data *data, char *argv[]);
 void	init_forks(t_data *data);
 void	create_philo(t_data *data);
 void	error_check(t_data *data, int err_code, void *ptr);

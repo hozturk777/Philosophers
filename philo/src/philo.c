@@ -20,12 +20,19 @@ int	main(int argc, char *argv[])
 
 	data.philos = NULL;
 	set_time(&data);
-	if (argc == 2)
+	if (argc == 4)
 	{
-		init_philo(&data, argv[1]);
+		init_philo(&data, argv);
 		init_forks(&data);
 		create_philo(&data);
-		cleanup(data);
+		//if (get_time_in_ms() - data.start_time > data.time_to_die)
+		//{
+		//	printf("YAT ASSA\n");
+		//	printf("last_meal: %lld\n", data.philos->last_meal);
+		//	printf("time_to_die: %lld\n", data.time_to_die);
+		//	printf("current_time: %lld\n", get_time_in_ms() - data.start_time);
+		//}
+		//cleanup(data);
 		return (0);
 	}
 	else
