@@ -29,6 +29,7 @@ typedef struct s_philo
 typedef struct s_data
 {
 	int				philo_count;
+	int				is_dead;
 	int				time_to_die;
 	int				time_to_eat;
 	//int				time_to_sleep;
@@ -46,6 +47,8 @@ void	create_philo(t_data *data);
 void	error_check(t_data *data, int err_code, void *ptr);
 void	cleanup(t_data data);
 long long	get_time_in_ms(void);
+void	monitor_philo(t_data *data);
+
 
 
 #endif
