@@ -7,9 +7,9 @@ static void	*say_hello(void *argv)
 
 	philo = (t_philo *)argv;
 
-	while (!philo->data->is_dead) // Burada !philo.dead kosulu olacak
+	while (!philo->data->is_dead)
 	{
-		printf("philo_is_dead: %d\n", philo->data->is_dead);
+		
 		if (philo->id % 2 == 0)
 		{
 			pthread_mutex_lock(philo->left_fork);
@@ -20,18 +20,25 @@ static void	*say_hello(void *argv)
 			pthread_mutex_lock(philo->left_fork);
 			pthread_mutex_lock(philo->right_fork);
 		}
-		printf("thread_id: %d  -  philo_count: %d \\ \n", philo->id, philo->data->philo_count);
-		printf("just EAT! ms: %lld\n", get_time_in_ms() - philo->data->start_time);
+		printf("thread_id: %d - philo_count: %d - just EAT! ms: %lld philo_is_dead: %d", philo->id, philo->data->philo_count, get_time_in_ms() - philo->data->start_time, philo->data->is_dead);
 
+		pthread_mutex_lock(&philo->meal_mutex);
 		philo->last_meal = get_time_in_ms(); // Mutex kullanılacak
-		usleep(philo->data->time_to_eat * 1000);
 
-		//printf("last_meal: %lld\n", get_time_in_ms() - philo->last_meal);
+		pthread_mutex_unlock(&philo->meal_mutex);
+		
+		usleep(philo->data->time_to_eat * 1000);
+		if (philo->data->is_dead)
+		{
+			pthread_exit(NULL);  // 🔥 Burada çıkış yap
+			break;  // ya da return (NULL);
+		}
+		printf(" - last_meal: %d \n", get_time_in_ms() - philo->last_meal);
 
 		pthread_mutex_unlock(philo->left_fork);
 		pthread_mutex_unlock(philo->right_fork);
 
-		usleep(100); // Uyuma kismi olacak
+		usleep(200 * 1000); // Uyuma kismi olacak
 	}
 }
 
@@ -50,6 +57,7 @@ void	init_philo(t_data *data, char *argv[])
 	{
 		data->philos[i].id = i + 1;
 		data->philos[i].data = data;
+		data->philos[i].last_meal = get_time_in_ms();
 		i++;
 	}
 }
@@ -77,23 +85,27 @@ void	monitor_test(void *argv) // Düzenlenecek ve mutex oluşturulacak öldükte
 	datas = (t_data *)argv;
 	while (1)
 	{
-		if (get_time_in_ms() - datas->philos->last_meal > datas->time_to_die)
+		usleep(200 * 1000);
+		i = -1;
+		while (++i < datas->philo_count)
 		{
-			datas->is_dead = 1;
-			//printf("YAT ASSA\n");
-			//printf("last_meal: %lld\n", datas->philos->last_meal);
-			//printf("time_to_die: %lld\n", datas->time_to_die);
-			//printf("current_time: %lld\n", get_time_in_ms() - datas->start_time);
-			printf("DEAAAAAAAAAAAAAAAAAAAD\n");
-			usleep(1000);
+			pthread_mutex_lock(&datas->philos[i].meal_mutex);
+			long long last = datas->philos[i].last_meal;
+			pthread_mutex_unlock(&datas->philos[i].meal_mutex);
+			if (get_time_in_ms() - last > datas->time_to_die)
+			{
+				datas->is_dead = 1;
+				printf("last_meal: %lld\n",get_time_in_ms() -  last);
+				printf("DEAAAAAAAAAAAAAAAAAAAD\n");
+				pthread_exit(NULL);  // 🔥 Burada çıkış yap
+			}
 		}
 	}
-	
 }
 
 void	monitor_philo(t_data *data)
 {
-	pthread_t philo;
+	pthread_t philo; // struct yapisina koyulacak
 
 	pthread_create(
 		&philo,
@@ -114,7 +126,10 @@ void	init_forks(t_data *data)
 	error_check(data, ERR_MALLOC_FAIL, data->forks);
 
 	while (++i < data->philo_count)
+	{
 		pthread_mutex_init(&data->forks[i], NULL);
+		pthread_mutex_init(&data->philos[i].meal_mutex, NULL);
+	}
 
 	i = -1;
 	while (++i < data->philo_count)

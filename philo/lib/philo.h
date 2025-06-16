@@ -23,6 +23,7 @@ typedef struct s_philo
 	long long last_meal;
 	pthread_mutex_t *left_fork;
 	pthread_mutex_t *right_fork;
+	pthread_mutex_t meal_mutex;
 	t_data	*data;
 } t_philo;
 
