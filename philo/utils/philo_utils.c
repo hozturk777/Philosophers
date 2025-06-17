@@ -6,7 +6,7 @@
 /*   By: huozturk <huozturk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/17 17:46:25 by huozturk          #+#    #+#             */
-/*   Updated: 2025/06/17 17:57:57 by huozturk         ###   ########.fr       */
+/*   Updated: 2025/06/17 18:16:46 by huozturk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,14 @@ static void	*say_hello(void *argv)
 
 	philo = (t_philo *)argv;
 
+	
 	// start flag 1 olunca patlat
+	while (1)
+	{
+		if (philo->data->start_flag)
+			break;
+	}
+	
 	while (!philo->data->is_dead)
 	{
 		if (philo->id % 2 == 0)
@@ -38,16 +45,15 @@ static void	*say_hello(void *argv)
 		pthread_mutex_lock(&philo->meal_mutex);
 		philo->last_meal = get_time_in_ms(); // Mutex kullanılacak
 		pthread_mutex_unlock(&philo->meal_mutex);
-		
-		
+				
 		if (philo->data->is_dead) // Dead mutex eklenebilir.
 		{
 			// pthread_exit(NULL);  // Burada çıkış yap
 			break;  // ya da return (NULL);
 		}
+		
 		usleep(philo->data->time_to_eat * 1000);
 		printf(" - last_meal: %d \n", get_time_in_ms() - philo->last_meal);
-
 		pthread_mutex_unlock(philo->left_fork);
 		pthread_mutex_unlock(philo->right_fork);
 
@@ -95,8 +101,9 @@ void	monitor_test(void *argv) // Düzenlenecek ve mutex oluşturulacak öldükte
 {
 	t_data	*datas;
 	int	i;
-	// start flag 1
+	
 	datas = (t_data *)argv;
+	datas->start_flag = 1;
 	while (1)
 	{
 		i = -1;
@@ -104,7 +111,6 @@ void	monitor_test(void *argv) // Düzenlenecek ve mutex oluşturulacak öldükte
 		{
 			pthread_mutex_lock(&datas->philos[i].meal_mutex);
 			long long last = datas->philos[i].last_meal;
-			pthread_mutex_unlock(&datas->philos[i].meal_mutex);
 			if (get_time_in_ms() - last > datas->time_to_die)
 			{
 				pthread_mutex_lock(&datas->philos[i].dead_mutex); // DENEMEK GEREK OLMADI
@@ -116,6 +122,8 @@ void	monitor_test(void *argv) // Düzenlenecek ve mutex oluşturulacak öldükte
 				pthread_exit(NULL);
 
 			}
+			pthread_mutex_unlock(&datas->philos[i].meal_mutex);
+
 		}
 	}
 }

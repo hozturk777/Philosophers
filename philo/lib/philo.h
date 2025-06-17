@@ -6,7 +6,7 @@
 /*   By: huozturk <huozturk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/17 17:46:30 by huozturk          #+#    #+#             */
-/*   Updated: 2025/06/17 17:46:31 by huozturk         ###   ########.fr       */
+/*   Updated: 2025/06/17 18:00:50 by huozturk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,10 @@ typedef struct s_data
 	//pthread_mutex_t	print_mutext;
 	t_philo			*philos;
 	pthread_t		monitor_philo;
+
+
+	int	start_flag;
+
 }	t_data;
 
 int ft_atoi(char *str, int *res);
