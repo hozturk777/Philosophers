@@ -6,7 +6,7 @@
 /*   By: huozturk <huozturk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/17 17:46:25 by huozturk          #+#    #+#             */
-/*   Updated: 2025/06/17 17:46:26 by huozturk         ###   ########.fr       */
+/*   Updated: 2025/06/17 17:57:57 by huozturk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@ static void	*say_hello(void *argv)
 
 	philo = (t_philo *)argv;
 
+	// start flag 1 olunca patlat
 	while (!philo->data->is_dead)
 	{
 		if (philo->id % 2 == 0)
@@ -29,14 +30,13 @@ static void	*say_hello(void *argv)
 		}
 		else
 		{
-			pthread_mutex_lock(philo->left_fork);
 			pthread_mutex_lock(philo->right_fork);
+			pthread_mutex_lock(philo->left_fork);
 		}
 		printf("thread_id: %d - philo_count: %d - just EAT! ms: %lld philo_is_dead: %d", philo->id, philo->data->philo_count, get_time_in_ms() - philo->data->start_time, philo->data->is_dead);
 
 		pthread_mutex_lock(&philo->meal_mutex);
 		philo->last_meal = get_time_in_ms(); // Mutex kullanılacak
-
 		pthread_mutex_unlock(&philo->meal_mutex);
 		
 		
@@ -95,11 +95,10 @@ void	monitor_test(void *argv) // Düzenlenecek ve mutex oluşturulacak öldükte
 {
 	t_data	*datas;
 	int	i;
-
+	// start flag 1
 	datas = (t_data *)argv;
 	while (1)
 	{
-		usleep(200 * 1000);
 		i = -1;
 		while (++i < datas->philo_count)
 		{
