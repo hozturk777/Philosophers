@@ -3,9 +3,9 @@
 
 long long	get_time_in_ms(void) // ARAŞTIRILACAK
 {
-	struct timespec ts;
-    clock_gettime(CLOCK_MONOTONIC, &ts);
-    return (long long)(ts.tv_sec * 1000LL + ts.tv_nsec / 1000000LL);
+	struct timeval	tv;
+	gettimeofday(&tv, NULL);
+	return ((tv.tv_sec * 1000LL) + (tv.tv_usec / 1000));
 }
 
 
@@ -34,6 +34,9 @@ int	main(int argc, char *argv[])
 				data.philos[i].thread,
 				NULL);
 		}
+		pthread_join(
+			data.monitor_philo,
+			NULL);
 		cleanup(data);
 		return (0);
 	}

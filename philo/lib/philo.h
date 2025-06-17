@@ -39,6 +39,7 @@ typedef struct s_data
 	pthread_mutex_t	*forks;
 	//pthread_mutex_t	print_mutext;
 	t_philo			*philos;
+	pthread_t		monitor_philo;
 }	t_data;
 
 int ft_atoi(char *str, int *res);

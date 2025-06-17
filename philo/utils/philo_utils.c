@@ -30,7 +30,7 @@ static void	*say_hello(void *argv)
 		usleep(philo->data->time_to_eat * 1000);
 		if (philo->data->is_dead)
 		{
-			pthread_exit(NULL);  // 🔥 Burada çıkış yap
+			pthread_exit(NULL);  // Burada çıkış yap
 			break;  // ya da return (NULL);
 		}
 		printf(" - last_meal: %d \n", get_time_in_ms() - philo->last_meal);
@@ -94,10 +94,10 @@ void	monitor_test(void *argv) // Düzenlenecek ve mutex oluşturulacak öldükte
 			pthread_mutex_unlock(&datas->philos[i].meal_mutex);
 			if (get_time_in_ms() - last > datas->time_to_die)
 			{
-				datas->is_dead = 1;
+				datas->is_dead = 1; // Buraya da mutex lazım(sanırım)
 				printf("last_meal: %lld\n",get_time_in_ms() -  last);
 				printf("DEAAAAAAAAAAAAAAAAAAAD\n");
-				pthread_exit(NULL);  // 🔥 Burada çıkış yap
+				pthread_exit(NULL);
 			}
 		}
 	}
@@ -105,16 +105,13 @@ void	monitor_test(void *argv) // Düzenlenecek ve mutex oluşturulacak öldükte
 
 void	monitor_philo(t_data *data)
 {
-	pthread_t philo; // struct yapisina koyulacak
+	// pthread_t philo; // struct yapisina koyulacak
 
 	pthread_create(
-		&philo,
+		&data->monitor_philo,
 		NULL,
 		monitor_test,
 		&*data);
-	pthread_join(
-				philo,
-				NULL);
 }
 
 void	init_forks(t_data *data)
