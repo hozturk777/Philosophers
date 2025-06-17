@@ -1,4 +1,5 @@
 #include "../lib/philo.h"
+#include "../lib/error.h"
 #include <stdlib.h>
 
 static void	*say_hello(void *argv)
@@ -105,8 +106,6 @@ void	monitor_test(void *argv) // Düzenlenecek ve mutex oluşturulacak öldükte
 
 void	monitor_philo(t_data *data)
 {
-	// pthread_t philo; // struct yapisina koyulacak
-
 	pthread_create(
 		&data->monitor_philo,
 		NULL,

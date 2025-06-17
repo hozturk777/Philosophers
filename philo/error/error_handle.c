@@ -1,4 +1,5 @@
 #include "../lib/philo.h"
+#include "../lib/error.h"
 #include <stdlib.h>
 #include <stdio.h>
 

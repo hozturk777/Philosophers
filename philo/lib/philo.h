@@ -1,18 +1,20 @@
 #ifndef PHILO_H
 # define PHILO_H
 
-# ifndef ERR_MALLOC_FAIL
-#	define ERR_MALLOC_FAIL 1
-# endif
+// # ifndef ERR_MALLOC_FAIL
+// #	define ERR_MALLOC_FAIL 1
+// # endif
 
-# ifndef ERR_INvALID_ARG
-#	define ERR_INVALID_ARG 2
-# endif
+// # ifndef ERR_INvALID_ARG
+// #	define ERR_INVALID_ARG 2
+// # endif
 
 #include <unistd.h>
 #include <stdio.h>
 #include <pthread.h>
 #include <sys/time.h>
+
+
 
 typedef struct s_data t_data;
 
