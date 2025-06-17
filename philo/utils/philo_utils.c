@@ -10,7 +10,6 @@ static void	*say_hello(void *argv)
 
 	while (!philo->data->is_dead)
 	{
-		
 		if (philo->id % 2 == 0)
 		{
 			pthread_mutex_lock(philo->left_fork);
@@ -28,18 +27,19 @@ static void	*say_hello(void *argv)
 
 		pthread_mutex_unlock(&philo->meal_mutex);
 		
-		usleep(philo->data->time_to_eat * 1000);
-		if (philo->data->is_dead)
+		
+		if (philo->data->is_dead) // Dead mutex eklenebilir.
 		{
-			pthread_exit(NULL);  // Burada çıkış yap
+			// pthread_exit(NULL);  // Burada çıkış yap
 			break;  // ya da return (NULL);
 		}
+		usleep(philo->data->time_to_eat * 1000);
 		printf(" - last_meal: %d \n", get_time_in_ms() - philo->last_meal);
 
 		pthread_mutex_unlock(philo->left_fork);
 		pthread_mutex_unlock(philo->right_fork);
 
-		usleep(200 * 1000); // Uyuma kismi olacak
+		usleep(philo->data->time_to_sleep * 1000); // Uyuma kismi olacak
 	}
 }
 
@@ -50,7 +50,8 @@ void	init_philo(t_data *data, char *argv[])
 	i = 0;
 	if (ft_atoi(argv[1], &data->philo_count)
 		|| ft_atoi(argv[2], &data->time_to_die)
-		|| ft_atoi(argv[3], &data->time_to_eat))
+		|| ft_atoi(argv[3], &data->time_to_eat)
+		|| ft_atoi(argv[3], &data->time_to_sleep))
 		error_check(data, ERR_INVALID_ARG, NULL);
 	data->philos = malloc(sizeof(t_philo) * data->philo_count);
 	error_check(data, ERR_MALLOC_FAIL, data->philos);
@@ -95,10 +96,14 @@ void	monitor_test(void *argv) // Düzenlenecek ve mutex oluşturulacak öldükte
 			pthread_mutex_unlock(&datas->philos[i].meal_mutex);
 			if (get_time_in_ms() - last > datas->time_to_die)
 			{
+				pthread_mutex_lock(&datas->philos[i].dead_mutex); // DENEMEK GEREK OLMADI
 				datas->is_dead = 1; // Buraya da mutex lazım(sanırım)
-				printf("last_meal: %lld\n",get_time_in_ms() -  last);
+				printf("\nlast_meal: %lld\n",get_time_in_ms() -  last);
+				pthread_mutex_unlock(&datas->philos[i].dead_mutex);
+
 				printf("DEAAAAAAAAAAAAAAAAAAAD\n");
 				pthread_exit(NULL);
+
 			}
 		}
 	}
@@ -125,6 +130,7 @@ void	init_forks(t_data *data)
 	{
 		pthread_mutex_init(&data->forks[i], NULL);
 		pthread_mutex_init(&data->philos[i].meal_mutex, NULL);
+		pthread_mutex_init(&data->philos[i].dead_mutex, NULL);
 	}
 
 	i = -1;

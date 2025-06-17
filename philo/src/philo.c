@@ -22,7 +22,7 @@ int	main(int argc, char *argv[])
 	data.philos = NULL;
 	data.is_dead = 0;
 	set_time(&data);
-	if (argc == 4)
+	if (argc == 5)
 	{
 		init_philo(&data, argv);
 		init_forks(&data);
@@ -33,6 +33,12 @@ int	main(int argc, char *argv[])
 			pthread_join(
 				data.philos[i].thread,
 				NULL);
+			// if(data)
+			// {
+			// 	// printf("\nis_dead_MAİN: %d\n", data.is_dead);
+			// 	// pthread_exit(NULL);
+			// 	break;
+			// }
 		}
 		pthread_join(
 			data.monitor_philo,
