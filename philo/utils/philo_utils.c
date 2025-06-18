@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   philo_utils.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: huozturk <huozturk@student.42.fr>          +#+  +:+       +#+        */
+/*   By: hsyn <hsyn@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/17 17:46:25 by huozturk          #+#    #+#             */
-/*   Updated: 2025/06/17 18:16:46 by huozturk         ###   ########.fr       */
+/*   Updated: 2025/06/18 14:46:25 by hsyn             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 #include "../lib/error.h"
 #include <stdlib.h>
 
-static void	*say_hello(void *argv)
+static void	*say_hello(void *argv) // Tek thread sayisinda olum senaryosunda process kapanmiyor cift sayilarda kapaniyor problem left | right forklarda buyuk ihtimalle
 {
 	t_philo *philo;
 
@@ -45,14 +45,12 @@ static void	*say_hello(void *argv)
 		pthread_mutex_lock(&philo->meal_mutex);
 		philo->last_meal = get_time_in_ms(); // Mutex kullanılacak
 		pthread_mutex_unlock(&philo->meal_mutex);
-				
-		if (philo->data->is_dead) // Dead mutex eklenebilir.
-		{
-			// pthread_exit(NULL);  // Burada çıkış yap
-			break;  // ya da return (NULL);
-		}
 		
 		usleep(philo->data->time_to_eat * 1000);
+		if (philo->data->is_dead)
+		{
+			pthread_exit(NULL);
+		} // Dead mutex eklenebilir.
 		printf(" - last_meal: %d \n", get_time_in_ms() - philo->last_meal);
 		pthread_mutex_unlock(philo->left_fork);
 		pthread_mutex_unlock(philo->right_fork);
@@ -97,7 +95,7 @@ void	create_philo(t_data *data)
 	}
 }
 
-void	monitor_test(void *argv) // Düzenlenecek ve mutex oluşturulacak öldükten sonra race condition oluyor ve bazı threadler bittikten sonra da çalışıyor ve her philoya bakmak gerek örnek kod chatgpt'de 
+void	monitor_test(void *argv)
 {
 	t_data	*datas;
 	int	i;
@@ -120,10 +118,8 @@ void	monitor_test(void *argv) // Düzenlenecek ve mutex oluşturulacak öldükte
 
 				printf("DEAAAAAAAAAAAAAAAAAAAD\n");
 				pthread_exit(NULL);
-
 			}
 			pthread_mutex_unlock(&datas->philos[i].meal_mutex);
-
 		}
 	}
 }

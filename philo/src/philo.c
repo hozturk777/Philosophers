@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   philo.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: huozturk <huozturk@student.42.fr>          +#+  +:+       +#+        */
+/*   By: hsyn <hsyn@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/17 17:46:28 by huozturk          #+#    #+#             */
-/*   Updated: 2025/06/17 18:04:52 by huozturk         ###   ########.fr       */
+/*   Updated: 2025/06/18 16:48:58 by hsyn             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,11 @@ long long	get_time_in_ms(void) // ARAŞTIRILACAK
 	struct timeval	tv;
 	gettimeofday(&tv, NULL);
 	return ((tv.tv_sec * 1000LL) + (tv.tv_usec / 1000));
-}
 
+	//struct timespec ts;
+    //clock_gettime(CLOCK_MONOTONIC, &ts);
+    //return (long long)(ts.tv_sec * 1000LL + ts.tv_nsec / 1000000LL);
+}
 
 void	set_time(t_data *data)
 {
@@ -39,23 +42,19 @@ int	main(int argc, char *argv[])
 	{
 		init_philo(&data, argv);
 		init_forks(&data);
-		create_philo(&data);
 		monitor_philo(&data);
+		create_philo(&data);
+		pthread_join(
+			data.monitor_philo,
+			NULL);
 		while (++i < data.philo_count)  // Bekleme fonksiyonu olusturulacak
 		{
 			pthread_join(
 				data.philos[i].thread,
 				NULL);
-			// if(data)
-			// {
-			// 	// printf("\nis_dead_MAİN: %d\n", data.is_dead);
-			// 	// pthread_exit(NULL);
-			// 	break;
-			// }
 		}
-		pthread_join(
-			data.monitor_philo,
-			NULL);
+		printf("GELDII\n");
+		
 		cleanup(data);
 		return (0);
 	}
