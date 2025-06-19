@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   philo_utils.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hsyn <hsyn@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: huozturk <huozturk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/17 17:46:25 by huozturk          #+#    #+#             */
-/*   Updated: 2025/06/18 14:46:25 by hsyn             ###   ########.fr       */
+/*   Updated: 2025/06/19 17:18:31 by huozturk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,6 @@ static void	*say_hello(void *argv) // Tek thread sayisinda olum senaryosunda pro
 	t_philo *philo;
 
 	philo = (t_philo *)argv;
-
 	
 	// start flag 1 olunca patlat
 	while (1)
@@ -113,10 +112,10 @@ void	monitor_test(void *argv)
 			{
 				pthread_mutex_lock(&datas->philos[i].dead_mutex); // DENEMEK GEREK OLMADI
 				datas->is_dead = 1; // Buraya da mutex lazım(sanırım)
-				printf("\nlast_meal: %lld\n",get_time_in_ms() -  last);
+				// printf("\nlast_meal: %lld\n",get_time_in_ms() -  last);
 				pthread_mutex_unlock(&datas->philos[i].dead_mutex);
 
-				printf("DEAAAAAAAAAAAAAAAAAAAD\n");
+				printf("\n    DEAD_ID: %d LAST_MEAL: %d\n", datas->philos[i].id, get_time_in_ms() -  last);
 				pthread_exit(NULL);
 			}
 			pthread_mutex_unlock(&datas->philos[i].meal_mutex);

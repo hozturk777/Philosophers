@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   philo.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hsyn <hsyn@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: huozturk <huozturk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/17 17:46:28 by huozturk          #+#    #+#             */
-/*   Updated: 2025/06/18 16:48:58 by hsyn             ###   ########.fr       */
+/*   Updated: 2025/06/19 17:17:57 by huozturk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,6 @@ int	main(int argc, char *argv[])
 	t_data	data;
 	int i = -1;
 
-	data.philos = NULL;
 	data.is_dead = 0;
 	set_time(&data);
 	if (argc == 5)
@@ -52,9 +51,7 @@ int	main(int argc, char *argv[])
 			pthread_join(
 				data.philos[i].thread,
 				NULL);
-		}
-		printf("GELDII\n");
-		
+		}		
 		cleanup(data);
 		return (0);
 	}
