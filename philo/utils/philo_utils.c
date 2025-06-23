@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   philo_utils.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: huozturk <huozturk@student.42.fr>          +#+  +:+       +#+        */
+/*   By: hsyn <hsyn@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/17 17:46:25 by huozturk          #+#    #+#             */
-/*   Updated: 2025/06/19 17:18:31 by huozturk         ###   ########.fr       */
+/*   Updated: 2025/06/22 01:20:04 by hsyn             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,10 @@ static void	*say_hello(void *argv) // Tek thread sayisinda olum senaryosunda pro
 			break;
 	}
 	
-	while (!philo->data->is_dead)
+	if (philo->id % 2 != 0)
+		usleep(100);
+
+	while (!philo->data->is_dead) // Buraya mutex kontrollü koşul lazım
 	{
 		if (philo->id % 2 == 0)
 		{
@@ -36,8 +39,8 @@ static void	*say_hello(void *argv) // Tek thread sayisinda olum senaryosunda pro
 		}
 		else
 		{
-			pthread_mutex_lock(philo->right_fork);
 			pthread_mutex_lock(philo->left_fork);
+			pthread_mutex_lock(philo->right_fork);
 		}
 		printf("thread_id: %d - philo_count: %d - just EAT! ms: %lld philo_is_dead: %d", philo->id, philo->data->philo_count, get_time_in_ms() - philo->data->start_time, philo->data->is_dead);
 
@@ -84,7 +87,7 @@ void	create_philo(t_data *data)
 	int	i;
 
 	i = -1;
-	while (++i < data->philo_count)
+	while (++i < data->philo_count) // Philo oluşup oluşmadı mı kontrol id ile yapılabilir
 	{
 		pthread_create(
 			&data->philos[i].thread,
