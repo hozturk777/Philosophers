@@ -14,7 +14,7 @@ int ft_atoi(char *str, int *res)
 			sign *= -1;
 		i++;
 	}
-	while (*(str + i) >= '0' && *(str + i) <= '9' || *(str + i) != '\0')
+	while ((*(str + i) >= '0' && *(str + i) <= '9') || *(str + i) != '\0')
 	{
 		if (!(*(str + i) >= '0' && *(str + i) <= '9'))
 			return (1);	// Buralara check error'a gönderip error message dönülmeli

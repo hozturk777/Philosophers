@@ -6,7 +6,7 @@
 /*   By: huozturk <huozturk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/17 17:46:25 by huozturk          #+#    #+#             */
-/*   Updated: 2025/06/25 13:26:14 by huozturk         ###   ########.fr       */
+/*   Updated: 2025/06/26 16:46:42 by huozturk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,50 +14,70 @@
 #include "../lib/error.h"
 #include <stdlib.h>
 
-static void	*say_hello(void *argv) // Tek thread sayisinda olum senaryosunda process kapanmiyor cift sayilarda kapaniyor problem left | right forklarda buyuk ihtimalle
+void	*say_hello(void *arg) // Tek thread sayisinda olum senaryosunda process kapanmiyor cift sayilarda kapaniyor problem left | right forklarda buyuk ihtimalle
 {
 	t_philo *philo;
 
-	philo = (t_philo *)argv;
+	philo = (t_philo *)arg;
 	
 	// start flag 1 olunca patlat
-	// while (1)
-	// {
-	// 	if (philo->data->start_flag)
-	// 		break;
-	// }
+	while (1)
+	{
+		if (philo->data->start_flag)
+			break;
+	}
 	
 	if (philo->id % 2 != 0)
 		usleep(100);
 
+	pthread_mutex_t *first;
+	pthread_mutex_t *second;
+	
+	if (philo->left_fork < philo->right_fork)
+	{
+		first = philo->left_fork;
+		second = philo->right_fork;
+	}
+	else
+	{
+		first = philo->right_fork;
+		second = philo->left_fork;
+	}
 	while (!check_dead(philo)) // Buraya mutex kontrollü koşul lazım
 	{
-		if (philo->id % 2 == 0)
-		{
-			pthread_mutex_lock(philo->left_fork);
-			pthread_mutex_lock(philo->right_fork);
-		}
-		else
-		{
-			pthread_mutex_lock(philo->left_fork);
-			pthread_mutex_lock(philo->right_fork);
-		}
+		pthread_mutex_lock(first);
+		pthread_mutex_lock(second);
+		// pthread_mutex_lock(philo->left_fork);
+		// pthread_mutex_lock(philo->right_fork);
 		// printf("thread_id: %d - philo_count: %d - just EAT! ms: %lld philo_is_dead: %d", philo->id, philo->data->philo_count, get_time_in_ms() - philo->data->start_time, philo->data->is_dead);
 
 		pthread_mutex_lock(&philo->meal_mutex);
 		philo->last_meal = get_time_in_ms(); // Mutex kullanılacak
 		pthread_mutex_unlock(&philo->meal_mutex);
 		
+		// pthread_mutex_lock(&philo->dead_mutex2);
+
 		usleep(philo->data->time_to_eat * 1000);
+		// pthread_mutex_unlock(&philo->dead_mutex2);
+		
+		pthread_mutex_lock(&philo->dead_mutex);
 		if (philo->data->is_dead)
 		{
 			pthread_exit(NULL);
 		} // Dead mutex eklenebilir.
+		pthread_mutex_unlock(&philo->dead_mutex);
+		
 		// printf(" - last_meal: %d \n", get_time_in_ms() - philo->last_meal);
-		pthread_mutex_unlock(philo->left_fork);
-		pthread_mutex_unlock(philo->right_fork);
+		// pthread_mutex_unlock(philo->left_fork);
+		// pthread_mutex_unlock(philo->right_fork);
+		pthread_mutex_unlock(first);
+		pthread_mutex_unlock(second);
+		
+		// pthread_mutex_lock(&philo->dead_mutex2);
 
 		usleep(philo->data->time_to_sleep * 1000); // Uyuma kismi olacak
+		// pthread_mutex_unlock(&philo->dead_mutex2);
+		
 	}
 }
 
@@ -97,7 +117,7 @@ void	create_philo(t_data *data)
 	}
 }
 
-void	monitor_test(void *argv)
+void	*monitor_test(void *argv)
 {
 	t_data	*datas;
 	int	i;
@@ -109,7 +129,7 @@ void	monitor_test(void *argv)
 		i = -1;
 		while (++i < datas->philo_count)
 		{
-			pthread_mutex_lock(&datas->philos[i].meal_mutex);
+			// pthread_mutex_lock(&datas->philos[i].meal_mutex);
 			long long last = datas->philos[i].last_meal;
 			if (get_time_in_ms() - last > datas->time_to_die)
 			{
@@ -118,10 +138,12 @@ void	monitor_test(void *argv)
 				// printf("\nlast_meal: %lld\n",get_time_in_ms() -  last);
 				pthread_mutex_unlock(&datas->philos[i].dead_mutex);
 
+				pthread_mutex_lock(&datas->philos[i].print_mutex);
 				printf("\n    DEAD_ID: %d LAST_MEAL: %d\n", datas->philos[i].id, get_time_in_ms() -  last);
+				pthread_mutex_unlock(&datas->philos[i].print_mutex);
 				pthread_exit(NULL);
 			}
-			pthread_mutex_unlock(&datas->philos[i].meal_mutex);
+			// pthread_mutex_unlock(&datas->philos[i].meal_mutex);
 		}
 	}
 }
@@ -149,6 +171,8 @@ void	init_forks(t_data *data)
 		pthread_mutex_init(&data->philos[i].meal_mutex, NULL);
 		pthread_mutex_init(&data->philos[i].dead_mutex, NULL);
 		pthread_mutex_init(&data->philos[i].dead_mutex2, NULL);
+		pthread_mutex_init(&data->philos[i].print_mutex, NULL);
+		pthread_mutex_init(&data->philos[i].print_mutex, NULL);
 	}
 
 	i = -1;

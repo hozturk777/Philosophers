@@ -4,7 +4,7 @@ SRC_DIR				= src/
 UTL_DIR				= utils/
 ERR_DIR				= error/
 CC					= @cc
-#CFLAGS				= -Wall -Werror -Wextra
+# CFLAGS				= -fsanitize=thread -g #-Wall -Werror -Wextra
 RM					= rm -rf
 
 PHILO_DIR			=	$(SRC_DIR)philo.c \
@@ -24,7 +24,7 @@ COLOR_END		=	\033[0m
 all: 				$(NAME)
 
 $(NAME): 			$(OBJ)
-					@$(CC) $(OBJ) -o $(NAME)
+					@$(CC) -fsanitize=thread -g $(OBJ) -o $(NAME)
 					@echo "\n\e[1m$(COLOR_YELLOW)$(NAME)	$(COLOR_GREEN)[is ready!]\e[0m\n$(COLOR_END)"
 
 clean:

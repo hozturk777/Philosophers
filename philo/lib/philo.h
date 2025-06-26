@@ -6,7 +6,7 @@
 /*   By: huozturk <huozturk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/17 17:46:30 by huozturk          #+#    #+#             */
-/*   Updated: 2025/06/25 13:21:57 by huozturk         ###   ########.fr       */
+/*   Updated: 2025/06/26 16:45:29 by huozturk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,7 @@ typedef struct s_philo
 	pthread_mutex_t meal_mutex;
 	pthread_mutex_t dead_mutex;
 	pthread_mutex_t dead_mutex2;
+	pthread_mutex_t	print_mutex;
 	t_data	*data;
 } t_philo;
 
