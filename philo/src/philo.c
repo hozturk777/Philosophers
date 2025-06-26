@@ -6,7 +6,7 @@
 /*   By: huozturk <huozturk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/17 17:46:28 by huozturk          #+#    #+#             */
-/*   Updated: 2025/06/19 17:17:57 by huozturk         ###   ########.fr       */
+/*   Updated: 2025/06/24 18:52:24 by huozturk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ int	main(int argc, char *argv[])
 			pthread_join(
 				data.philos[i].thread,
 				NULL);
-		}		
+		}
 		cleanup(data);
 		return (0);
 	}

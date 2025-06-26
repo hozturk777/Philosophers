@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   philo_utils.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hsyn <hsyn@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: huozturk <huozturk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/17 17:46:25 by huozturk          #+#    #+#             */
-/*   Updated: 2025/06/22 01:20:04 by hsyn             ###   ########.fr       */
+/*   Updated: 2025/06/25 13:26:14 by huozturk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,16 +21,16 @@ static void	*say_hello(void *argv) // Tek thread sayisinda olum senaryosunda pro
 	philo = (t_philo *)argv;
 	
 	// start flag 1 olunca patlat
-	while (1)
-	{
-		if (philo->data->start_flag)
-			break;
-	}
+	// while (1)
+	// {
+	// 	if (philo->data->start_flag)
+	// 		break;
+	// }
 	
 	if (philo->id % 2 != 0)
 		usleep(100);
 
-	while (!philo->data->is_dead) // Buraya mutex kontrollü koşul lazım
+	while (!check_dead(philo)) // Buraya mutex kontrollü koşul lazım
 	{
 		if (philo->id % 2 == 0)
 		{
@@ -42,7 +42,7 @@ static void	*say_hello(void *argv) // Tek thread sayisinda olum senaryosunda pro
 			pthread_mutex_lock(philo->left_fork);
 			pthread_mutex_lock(philo->right_fork);
 		}
-		printf("thread_id: %d - philo_count: %d - just EAT! ms: %lld philo_is_dead: %d", philo->id, philo->data->philo_count, get_time_in_ms() - philo->data->start_time, philo->data->is_dead);
+		// printf("thread_id: %d - philo_count: %d - just EAT! ms: %lld philo_is_dead: %d", philo->id, philo->data->philo_count, get_time_in_ms() - philo->data->start_time, philo->data->is_dead);
 
 		pthread_mutex_lock(&philo->meal_mutex);
 		philo->last_meal = get_time_in_ms(); // Mutex kullanılacak
@@ -53,7 +53,7 @@ static void	*say_hello(void *argv) // Tek thread sayisinda olum senaryosunda pro
 		{
 			pthread_exit(NULL);
 		} // Dead mutex eklenebilir.
-		printf(" - last_meal: %d \n", get_time_in_ms() - philo->last_meal);
+		// printf(" - last_meal: %d \n", get_time_in_ms() - philo->last_meal);
 		pthread_mutex_unlock(philo->left_fork);
 		pthread_mutex_unlock(philo->right_fork);
 
@@ -145,9 +145,10 @@ void	init_forks(t_data *data)
 
 	while (++i < data->philo_count)
 	{
-		pthread_mutex_init(&data->forks[i], NULL);
+		pthread_mutex_init(&data->forks[i], NULL); // AÇILDI MI AÇILMADI MI CHECK
 		pthread_mutex_init(&data->philos[i].meal_mutex, NULL);
 		pthread_mutex_init(&data->philos[i].dead_mutex, NULL);
+		pthread_mutex_init(&data->philos[i].dead_mutex2, NULL);
 	}
 
 	i = -1;
