@@ -6,7 +6,7 @@
 /*   By: huozturk <huozturk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/17 17:46:28 by huozturk          #+#    #+#             */
-/*   Updated: 2025/06/26 13:28:28 by huozturk         ###   ########.fr       */
+/*   Updated: 2025/06/26 17:08:28 by huozturk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,10 @@ int	main(int argc, char *argv[])
 		init_forks(&data);
 		monitor_philo(&data);
 		create_philo(&data);
+		pthread_mutex_lock(&data.philos[0].start_flag_mutex);
+		data.start_flag = 1;
+		pthread_mutex_unlock(&data.philos[0].start_flag_mutex);
+
 		pthread_join(
 			data.monitor_philo,
 			NULL);

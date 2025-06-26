@@ -6,7 +6,7 @@
 /*   By: huozturk <huozturk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/17 17:46:25 by huozturk          #+#    #+#             */
-/*   Updated: 2025/06/26 16:46:42 by huozturk         ###   ########.fr       */
+/*   Updated: 2025/06/26 18:05:43 by huozturk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,32 +21,24 @@ void	*say_hello(void *arg) // Tek thread sayisinda olum senaryosunda process kap
 	philo = (t_philo *)arg;
 	
 	// start flag 1 olunca patlat
-	while (1)
-	{
-		if (philo->data->start_flag)
-			break;
-	}
+	// while (1)
+	// {
+	// 	if (check_start_flag(philo))
+	// 		break;
+	// }
 	
 	if (philo->id % 2 != 0)
 		usleep(100);
 
-	pthread_mutex_t *first;
-	pthread_mutex_t *second;
-	
-	if (philo->left_fork < philo->right_fork)
-	{
-		first = philo->left_fork;
-		second = philo->right_fork;
-	}
-	else
-	{
-		first = philo->right_fork;
-		second = philo->left_fork;
-	}
 	while (!check_dead(philo)) // Buraya mutex kontrollü koşul lazım
 	{
-		pthread_mutex_lock(first);
-		pthread_mutex_lock(second);
+		pthread_mutex_lock(philo->right_fork);
+		pthread_mutex_lock(philo->left_fork);
+		
+		pthread_mutex_lock(&philo->print_mutex);
+		printf("ID: %d\n", philo->id);
+		pthread_mutex_unlock(&philo->print_mutex);
+		
 		// pthread_mutex_lock(philo->left_fork);
 		// pthread_mutex_lock(philo->right_fork);
 		// printf("thread_id: %d - philo_count: %d - just EAT! ms: %lld philo_is_dead: %d", philo->id, philo->data->philo_count, get_time_in_ms() - philo->data->start_time, philo->data->is_dead);
@@ -55,23 +47,33 @@ void	*say_hello(void *arg) // Tek thread sayisinda olum senaryosunda process kap
 		philo->last_meal = get_time_in_ms(); // Mutex kullanılacak
 		pthread_mutex_unlock(&philo->meal_mutex);
 		
+		
 		// pthread_mutex_lock(&philo->dead_mutex2);
 
 		usleep(philo->data->time_to_eat * 1000);
+
+		pthread_mutex_unlock(philo->left_fork);
+		pthread_mutex_unlock(philo->right_fork);
+		
+
+		
+		pthread_mutex_lock(&philo->print_mutex); 
+		printf(" thread_last_meal: %d \n", get_time_in_ms() - philo->last_meal);
+		pthread_mutex_unlock(&philo->print_mutex); 
 		// pthread_mutex_unlock(&philo->dead_mutex2);
+		
+		
 		
 		pthread_mutex_lock(&philo->dead_mutex);
 		if (philo->data->is_dead)
 		{
+			pthread_mutex_unlock(&philo->dead_mutex);
 			pthread_exit(NULL);
 		} // Dead mutex eklenebilir.
 		pthread_mutex_unlock(&philo->dead_mutex);
-		
-		// printf(" - last_meal: %d \n", get_time_in_ms() - philo->last_meal);
 		// pthread_mutex_unlock(philo->left_fork);
 		// pthread_mutex_unlock(philo->right_fork);
-		pthread_mutex_unlock(first);
-		pthread_mutex_unlock(second);
+		
 		
 		// pthread_mutex_lock(&philo->dead_mutex2);
 
@@ -129,8 +131,10 @@ void	*monitor_test(void *argv)
 		i = -1;
 		while (++i < datas->philo_count)
 		{
-			// pthread_mutex_lock(&datas->philos[i].meal_mutex);
+			pthread_mutex_lock(&datas->philos[i].meal_mutex);
 			long long last = datas->philos[i].last_meal;
+			pthread_mutex_unlock(&datas->philos[i].meal_mutex);
+
 			if (get_time_in_ms() - last > datas->time_to_die)
 			{
 				pthread_mutex_lock(&datas->philos[i].dead_mutex); // DENEMEK GEREK OLMADI
@@ -139,11 +143,10 @@ void	*monitor_test(void *argv)
 				pthread_mutex_unlock(&datas->philos[i].dead_mutex);
 
 				pthread_mutex_lock(&datas->philos[i].print_mutex);
-				printf("\n    DEAD_ID: %d LAST_MEAL: %d\n", datas->philos[i].id, get_time_in_ms() -  last);
+				printf("\n    DEAD_ID: %d LAST_MEAL: %lld\n", datas->philos[i].id, get_time_in_ms() -  last);
 				pthread_mutex_unlock(&datas->philos[i].print_mutex);
 				pthread_exit(NULL);
 			}
-			// pthread_mutex_unlock(&datas->philos[i].meal_mutex);
 		}
 	}
 }
@@ -172,7 +175,7 @@ void	init_forks(t_data *data)
 		pthread_mutex_init(&data->philos[i].dead_mutex, NULL);
 		pthread_mutex_init(&data->philos[i].dead_mutex2, NULL);
 		pthread_mutex_init(&data->philos[i].print_mutex, NULL);
-		pthread_mutex_init(&data->philos[i].print_mutex, NULL);
+		pthread_mutex_init(&data->philos[i].start_flag_mutex, NULL);
 	}
 
 	i = -1;

@@ -6,7 +6,7 @@
 /*   By: huozturk <huozturk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/17 17:46:30 by huozturk          #+#    #+#             */
-/*   Updated: 2025/06/26 16:45:29 by huozturk         ###   ########.fr       */
+/*   Updated: 2025/06/26 17:45:35 by huozturk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,7 @@ typedef struct s_philo
 	pthread_mutex_t dead_mutex;
 	pthread_mutex_t dead_mutex2;
 	pthread_mutex_t	print_mutex;
+	pthread_mutex_t	start_flag_mutex;
 	t_data	*data;
 } t_philo;
 
@@ -62,6 +63,7 @@ void	cleanup(t_data data);
 long long	get_time_in_ms(void);
 void	monitor_philo(t_data *data);
 int	check_dead(t_philo *philo);
+int	check_start_flag(t_philo *philo);
 
 
 #endif
