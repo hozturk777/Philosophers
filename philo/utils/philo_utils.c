@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   philo_utils.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: huozturk <huozturk@student.42.fr>          +#+  +:+       +#+        */
+/*   By: hsyn <hsyn@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/17 17:46:25 by huozturk          #+#    #+#             */
-/*   Updated: 2025/06/26 18:05:43 by huozturk         ###   ########.fr       */
+/*   Updated: 2025/06/27 20:53:04 by hsyn             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,19 +58,19 @@ void	*say_hello(void *arg) // Tek thread sayisinda olum senaryosunda process kap
 
 		
 		pthread_mutex_lock(&philo->print_mutex); 
-		printf(" thread_last_meal: %d \n", get_time_in_ms() - philo->last_meal);
+		printf(" thread_last_meal: %lld \n", get_time_in_ms() - philo->last_meal);
 		pthread_mutex_unlock(&philo->print_mutex); 
 		// pthread_mutex_unlock(&philo->dead_mutex2);
 		
 		
 		
-		pthread_mutex_lock(&philo->dead_mutex);
+		pthread_mutex_lock(&philo->data->death_mutex);
 		if (philo->data->is_dead)
 		{
-			pthread_mutex_unlock(&philo->dead_mutex);
+			pthread_mutex_unlock(&philo->data->death_mutex);
 			pthread_exit(NULL);
 		} // Dead mutex eklenebilir.
-		pthread_mutex_unlock(&philo->dead_mutex);
+		pthread_mutex_unlock(&philo->data->death_mutex);
 		// pthread_mutex_unlock(philo->left_fork);
 		// pthread_mutex_unlock(philo->right_fork);
 		
@@ -81,6 +81,7 @@ void	*say_hello(void *arg) // Tek thread sayisinda olum senaryosunda process kap
 		// pthread_mutex_unlock(&philo->dead_mutex2);
 		
 	}
+	return (NULL);
 }
 
 void	init_philo(t_data *data, char *argv[])
@@ -91,7 +92,7 @@ void	init_philo(t_data *data, char *argv[])
 	if (ft_atoi(argv[1], &data->philo_count)
 		|| ft_atoi(argv[2], &data->time_to_die)
 		|| ft_atoi(argv[3], &data->time_to_eat)
-		|| ft_atoi(argv[3], &data->time_to_sleep))
+		|| ft_atoi(argv[4], &data->time_to_sleep))
 		error_check(data, ERR_INVALID_ARG, NULL);
 	data->philos = malloc(sizeof(t_philo) * data->philo_count);
 	error_check(data, ERR_MALLOC_FAIL, data->philos);
@@ -125,7 +126,6 @@ void	*monitor_test(void *argv)
 	int	i;
 	
 	datas = (t_data *)argv;
-	datas->start_flag = 1;
 	while (1)
 	{
 		i = -1;
@@ -137,10 +137,9 @@ void	*monitor_test(void *argv)
 
 			if (get_time_in_ms() - last > datas->time_to_die)
 			{
-				pthread_mutex_lock(&datas->philos[i].dead_mutex); // DENEMEK GEREK OLMADI
-				datas->is_dead = 1; // Buraya da mutex lazım(sanırım)
-				// printf("\nlast_meal: %lld\n",get_time_in_ms() -  last);
-				pthread_mutex_unlock(&datas->philos[i].dead_mutex);
+				pthread_mutex_lock(&datas->death_mutex);
+				datas->is_dead = 1; // Now protected by mutex
+				pthread_mutex_unlock(&datas->death_mutex);
 
 				pthread_mutex_lock(&datas->philos[i].print_mutex);
 				printf("\n    DEAD_ID: %d LAST_MEAL: %lld\n", datas->philos[i].id, get_time_in_ms() -  last);
@@ -167,6 +166,10 @@ void	init_forks(t_data *data)
 	i = -1;
 	data->forks = malloc(data->philo_count * sizeof(pthread_mutex_t));
 	error_check(data, ERR_MALLOC_FAIL, data->forks);
+	
+	// Initialize global mutexes
+	pthread_mutex_init(&data->death_mutex, NULL);
+	pthread_mutex_init(&data->start_flag_mutex, NULL);
 
 	while (++i < data->philo_count)
 	{

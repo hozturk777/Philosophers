@@ -43,9 +43,9 @@ int	main(int argc, char *argv[])
 		init_forks(&data);
 		monitor_philo(&data);
 		create_philo(&data);
-		pthread_mutex_lock(&data.philos[0].start_flag_mutex);
+		pthread_mutex_lock(&data.start_flag_mutex);
 		data.start_flag = 1;
-		pthread_mutex_unlock(&data.philos[0].start_flag_mutex);
+		pthread_mutex_unlock(&data.start_flag_mutex);
 
 		pthread_join(
 			data.monitor_philo,

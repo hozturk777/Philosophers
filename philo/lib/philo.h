@@ -45,6 +45,8 @@ typedef struct s_data
 	//int				dead;
 	long long		start_time;
 	pthread_mutex_t	*forks;
+	pthread_mutex_t	death_mutex;  // Global death state protection
+	pthread_mutex_t	start_flag_mutex;  // Global start flag protection
 	//pthread_mutex_t	print_mutext;
 	t_philo			*philos;
 	pthread_t		monitor_philo;

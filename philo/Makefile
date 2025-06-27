@@ -4,7 +4,9 @@ SRC_DIR				= src/
 UTL_DIR				= utils/
 ERR_DIR				= error/
 CC					= @cc
-# CFLAGS				= -fsanitize=thread -g #-Wall -Werror -Wextra
+CFLAGS				= -Wall -Wextra -Werror -pthread
+# DEBUG_FLAGS		= -fsanitize=address -g  # Memory debugging
+# THREAD_FLAGS		= -fsanitize=thread -g   # Thread debugging (sistem sorunu var)
 RM					= rm -rf
 
 PHILO_DIR			=	$(SRC_DIR)philo.c \
@@ -24,8 +26,20 @@ COLOR_END		=	\033[0m
 all: 				$(NAME)
 
 $(NAME): 			$(OBJ)
-					@$(CC) -fsanitize=thread -g $(OBJ) -o $(NAME)
+					@$(CC) $(CFLAGS) $(OBJ) -o $(NAME)
 					@echo "\n\e[1m$(COLOR_YELLOW)$(NAME)	$(COLOR_GREEN)[is ready!]\e[0m\n$(COLOR_END)"
+
+debug:				CFLAGS += -fsanitize=address -g  # Memory leak detection & buffer overflow protection
+debug:				$(NAME)
+					@echo "\n\e[1m$(COLOR_YELLOW)Debug build with AddressSanitizer	$(COLOR_GREEN)[completed!]\e[0m\n$(COLOR_END)"
+
+# ThreadSanitizer sistem sorunu nedeniyle devre dışı
+# thread:			CFLAGS += -fsanitize=thread -g  
+# thread:			$(NAME)
+
+production:			CFLAGS += -O2  # Optimize for performance & reduce binary size
+production:			$(NAME)
+					@echo "\n\e[1m$(COLOR_YELLOW)Production build	$(COLOR_GREEN)[optimized!]\e[0m\n$(COLOR_END)"
 
 clean:
 					@$(RM) -r $(OBJ)
@@ -37,4 +51,8 @@ fclean: 			clean
 
 re: 				fclean all
 
-.PHONY: 			all clean fclean re
+valgrind:			$(NAME)  # Thread safety check with Helgrind tool
+					@echo "\n\e[1m$(COLOR_YELLOW)Running Valgrind Helgrind (Thread Safety Check)...\e[0m$(COLOR_END)"
+					@valgrind --tool=helgrind ./$(NAME) 5 800 200 200
+
+.PHONY: 			all clean fclean re debug production valgrind
