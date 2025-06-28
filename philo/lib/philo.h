@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   philo.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: huozturk <huozturk@student.42.fr>          +#+  +:+       +#+        */
+/*   By: hsyn <hsyn@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/17 17:46:30 by huozturk          #+#    #+#             */
-/*   Updated: 2025/06/26 17:45:35 by huozturk         ###   ########.fr       */
+/*   Updated: 2025/06/29 00:59:50 by hsyn             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,10 +28,7 @@ typedef struct s_philo
 	pthread_mutex_t *left_fork;
 	pthread_mutex_t *right_fork;
 	pthread_mutex_t meal_mutex;
-	pthread_mutex_t dead_mutex;
-	pthread_mutex_t dead_mutex2;
 	pthread_mutex_t	print_mutex;
-	pthread_mutex_t	start_flag_mutex;
 	t_data	*data;
 } t_philo;
 
