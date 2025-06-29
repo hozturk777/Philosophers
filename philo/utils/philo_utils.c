@@ -6,7 +6,7 @@
 /*   By: hsyn <hsyn@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/17 17:46:25 by huozturk          #+#    #+#             */
-/*   Updated: 2025/06/29 01:07:33 by hsyn             ###   ########.fr       */
+/*   Updated: 2025/06/29 21:10:52 by hsyn             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,16 +33,13 @@ void	*say_hello(void *arg) // Tek thread sayisinda olum senaryosunda process kap
 	{
 		pthread_mutex_lock(philo->right_fork);
 		pthread_mutex_lock(philo->left_fork);
-		
-		pthread_mutex_lock(&philo->print_mutex); // test
-		printf("ID: %d\n", philo->id);
-		pthread_mutex_unlock(&philo->print_mutex);
 
 		pthread_mutex_lock(&philo->meal_mutex);
 		philo->last_meal = get_time_in_ms();
 		pthread_mutex_unlock(&philo->meal_mutex);
 
-		usleep(philo->data->time_to_eat * 1000); // Func icerisinde yazdirma ve yeme islemi
+		philo_eat(philo); // eat
+		handle_dead(philo); // dead check
 
 		pthread_mutex_unlock(philo->left_fork);
 		pthread_mutex_unlock(philo->right_fork);
@@ -50,16 +47,8 @@ void	*say_hello(void *arg) // Tek thread sayisinda olum senaryosunda process kap
 		pthread_mutex_lock(&philo->print_mutex); // test
 		printf(" thread_last_meal: %lld \n", get_time_in_ms() - philo->last_meal);
 		pthread_mutex_unlock(&philo->print_mutex); 
-		
-		pthread_mutex_lock(&philo->data->death_mutex);
-		if (philo->data->is_dead) // Func icerisinde yazdirma ve olme islemi
-		{
-			pthread_mutex_unlock(&philo->data->death_mutex);
-			pthread_exit(NULL);
-		}
-		pthread_mutex_unlock(&philo->data->death_mutex);
 
-		usleep(philo->data->time_to_sleep * 1000); // Func icerisinde yazdirma ve uyuma islemi
+		philo_sleep(philo);
 	}
 	return (NULL);
 }

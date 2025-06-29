@@ -6,7 +6,7 @@
 /*   By: hsyn <hsyn@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/17 17:46:30 by huozturk          #+#    #+#             */
-/*   Updated: 2025/06/29 00:59:50 by hsyn             ###   ########.fr       */
+/*   Updated: 2025/06/29 21:04:35 by hsyn             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,16 +53,18 @@ typedef struct s_data
 
 }	t_data;
 
-int ft_atoi(char *str, int *res);
-void	init_philo(t_data *data, char *argv[]);
-void	init_forks(t_data *data);
-void	create_philo(t_data *data);
-void	error_check(t_data *data, int err_code, void *ptr);
-void	cleanup(t_data data);
+int 		ft_atoi(char *str, int *res);
+void		init_philo(t_data *data, char *argv[]);
+void		init_forks(t_data *data);
+void		create_philo(t_data *data);
+void		error_check(t_data *data, int err_code, void *ptr);
+void		cleanup(t_data data);
 long long	get_time_in_ms(void);
-void	monitor_philo(t_data *data);
-int	check_dead(t_philo *philo);
-int	check_start_flag(t_philo *philo);
-
+void		monitor_philo(t_data *data);
+int			check_dead(t_philo *philo);
+int			check_start_flag(t_philo *philo);
+void		handle_dead(t_philo *philo);
+void		philo_eat(t_philo *philo);
+void		philo_sleep(t_philo *philo);
 
 #endif

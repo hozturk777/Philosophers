@@ -13,6 +13,7 @@ PHILO_DIR			=	$(SRC_DIR)philo.c \
 							$(UTL_DIR)utils.c \
 							$(UTL_DIR)philo_utils.c \
 							$(UTL_DIR)mutex_utils.c \
+							$(UTL_DIR)philo_routine.c \
 							$(ERR_DIR)error_handle.c \
 
 SRCS 				= $(PHILO_DIR)
