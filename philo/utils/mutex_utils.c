@@ -39,3 +39,10 @@ void handle_dead(t_philo *philo)
 	}
 	pthread_mutex_unlock(&philo->data->death_mutex);
 }
+
+void	last_meal_added(t_philo *philo)
+{
+	pthread_mutex_lock(&philo->meal_mutex);
+	philo->last_meal = get_time_in_ms();
+	pthread_mutex_unlock(&philo->meal_mutex);
+}
