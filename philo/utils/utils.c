@@ -27,3 +27,15 @@ int ft_atoi(char *str, int *res)
 		return (1);	// Buralara check error'a gönderip error message dönülmeli
 	return (0);
 }
+
+void	sync_philo_start(t_philo *philo)
+{
+	while (1)
+	{
+		if (check_start_flag(philo))
+			break;
+	}
+	
+	if (philo->id % 2 != 0)
+		usleep(100);
+}

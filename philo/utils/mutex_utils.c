@@ -27,7 +27,7 @@ int	check_start_flag(t_philo *philo)
 	return (0);
 }
 
-void handle_dead(t_philo *philo)
+void	handle_dead(t_philo *philo)
 {
 	pthread_mutex_lock(&philo->data->death_mutex); // Func icerisinde yazdirma ve olme islemi
 	if (philo->data->is_dead)

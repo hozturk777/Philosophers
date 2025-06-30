@@ -2,6 +2,9 @@
 
 void	philo_eat(t_philo *philo) // yazdirma islemi eklenecek
 {
+	handle_dead(philo); // dead check
+	last_meal_added(philo); // last meal update
+	
 	pthread_mutex_lock(&philo->print_mutex);
 	fprintf(stdout, "eating id:   %d\n", philo->id);
 	pthread_mutex_unlock(&philo->print_mutex);
@@ -10,6 +13,8 @@ void	philo_eat(t_philo *philo) // yazdirma islemi eklenecek
 
 void	philo_sleep(t_philo *philo) // yazdirma islemi eklenecek
 {
+	handle_dead(philo); // dead check
+
 	pthread_mutex_lock(&philo->print_mutex);
 	fprintf(stdout, "sleeping id: %d\n", philo->id);
 	pthread_mutex_unlock(&philo->print_mutex);
@@ -19,7 +24,16 @@ void	philo_sleep(t_philo *philo) // yazdirma islemi eklenecek
 // thinking state will be added
 void	philo_thinking(t_philo *philo)
 {
+	handle_dead(philo); // dead check
+
 	pthread_mutex_lock(&philo->print_mutex);
 	fprintf(stdout, "thinking id: %d\n", philo->id);
+	pthread_mutex_unlock(&philo->print_mutex);
+}
+
+void	philo_dead(t_philo *philo)
+{
+	pthread_mutex_lock(&philo->print_mutex);
+	fprintf(stdout ,"dead id: %d\n", philo->id);
 	pthread_mutex_unlock(&philo->print_mutex);
 }

@@ -6,7 +6,7 @@
 /*   By: hsyn <hsyn@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/17 17:46:25 by huozturk          #+#    #+#             */
-/*   Updated: 2025/06/30 17:48:09 by hsyn             ###   ########.fr       */
+/*   Updated: 2025/06/30 21:50:13 by hsyn             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,28 +14,18 @@
 #include "../lib/error.h"
 #include <stdlib.h>
 
-void	*say_hello(void *arg) // Tek thread sayisinda olum senaryosunda process kapanmiyor cift sayilarda kapaniyor problem left | right forklarda buyuk ihtimalle
+void	*say_hello(void *arg)
 {
 	t_philo *philo;
 
 	philo = (t_philo *)arg;
 	
-	while (1)
-	{
-		if (check_start_flag(philo))
-			break;
-	}
-	
-	if (philo->id % 2 != 0)
-		usleep(100);
-
+	sync_philo_start(philo);
 	while (!check_dead(philo))
 	{
 		pthread_mutex_lock(philo->right_fork);
 		pthread_mutex_lock(philo->left_fork);
-		last_meal_added(philo); // last meal update
 		philo_eat(philo); // eat
-		handle_dead(philo); // dead check
 		pthread_mutex_unlock(philo->left_fork);
 		pthread_mutex_unlock(philo->right_fork);
 		philo_sleep(philo);
@@ -43,6 +33,7 @@ void	*say_hello(void *arg) // Tek thread sayisinda olum senaryosunda process kap
 	}
 	return (NULL);
 }
+
 
 void	init_philo(t_data *data, char *argv[])
 {
@@ -62,6 +53,11 @@ void	init_philo(t_data *data, char *argv[])
 		data->philos[i].data = data;
 		data->philos[i].last_meal = get_time_in_ms();
 		i++;
+	}
+	if (data->philo_count != data->philos[i - 1].id) // Philo eksik olustuysa hata
+	{
+		printf("LAST_ID: %d\n", data->philos[i - 1].id);
+		exit(1);
 	}
 }
 
@@ -100,10 +96,7 @@ void	*monitor_test(void *argv)
 				pthread_mutex_lock(&datas->death_mutex);
 				datas->is_dead = 1; // Now protected by mutex
 				pthread_mutex_unlock(&datas->death_mutex);
-
-				pthread_mutex_lock(&datas->philos[i].print_mutex); // test | oldugunde yazdirma func
-				printf("\n    DEAD_ID: %d LAST_MEAL: %lld\n", datas->philos[i].id, get_time_in_ms() -  last);
-				pthread_mutex_unlock(&datas->philos[i].print_mutex);
+				philo_dead(datas->philos);
 				pthread_exit(NULL);
 			}
 		}
