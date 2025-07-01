@@ -90,7 +90,8 @@ void	print(t_philo *philo, char *str)
 	check_meal_goal(philo);
 
 	pthread_mutex_lock(&philo->data->print_mutex);
-	printf("%lld %d %s\n", get_time_in_ms() - philo->data->start_time, philo->id, str);
+	printf("%lld 	", get_time_in_ms() - philo->data->start_time);
+	printf("%d %s\n", philo->id, str);
 	pthread_mutex_unlock(&philo->data->print_mutex);
 
 }

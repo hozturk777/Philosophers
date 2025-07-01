@@ -22,7 +22,7 @@ void	philo_thinking(t_philo *philo)
 void	philo_dead(t_philo philo)
 {
 	pthread_mutex_lock(&philo.data->print_mutex);
-	printf("%lld %d died\n", get_time_in_ms() - philo.data->start_time, philo.id);
+	printf("%lld 	%d died\n", get_time_in_ms() - philo.data->start_time, philo.id);
 	pthread_mutex_unlock(&philo.data->print_mutex);
 	
 	// print(philo, "died");
