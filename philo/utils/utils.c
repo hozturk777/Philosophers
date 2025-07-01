@@ -1,6 +1,18 @@
 #include "../lib/philo.h"
 #include "../lib/error.h"
 
+static int	check_long(char *str)
+{
+	int	i;
+
+	i = 0;
+	while (*(str + i))
+		i++;
+	if (i <= 11)
+		return (1);
+	return (0);
+}
+
 int ft_atoi(char *str, int *res)
 {
 	int	i;
@@ -9,6 +21,8 @@ int ft_atoi(char *str, int *res)
 	*res = 0;
 	i = 0;
 	sign = 1;
+	if (check_long(str))
+		return (1);
 	while (*(str + i) == '+' || *(str + i) == '-')
 	{
 		if (*(str + i) == '-')
@@ -66,7 +80,7 @@ void	parse_args(char *argv[], t_data *data, int argc)
 			|| ft_atoi(argv[3], &data->time_to_eat)
 			|| ft_atoi(argv[4], &data->time_to_sleep)
 			|| ft_atoi(argv[5], &data->must_eat))
-				error_check(data, ERR_INVALID_ARG, NULL);  // ./philo 400 200 200 3'de fork yazdırıyo // atoi'de max int limit eklenecek // yeme işlemi bittikten sonra fork almaya devam ediyo
+				error_check(data, ERR_INVALID_ARG, NULL);
 	}	
 }
 
