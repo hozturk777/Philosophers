@@ -219,5 +219,5 @@ if (*res <= 0)
 **🎯 Durum:** PDF compliance %100
 
 
-# Tek philo geldiğinde ölecek mi çıktı verecek mi ?
+# Tek philo geldiğinde ölecek mi çıktı verecek mi ? çatal alacak ölecek
 # Must eat goal olduğunda çıktı verecek mi ?

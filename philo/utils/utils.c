@@ -8,7 +8,7 @@ static int	check_long(char *str)
 	i = 0;
 	while (*(str + i))
 		i++;
-	if (i <= 11)
+	if (i >= 11)
 		return (1);
 	return (0);
 }
