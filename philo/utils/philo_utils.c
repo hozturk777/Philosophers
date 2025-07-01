@@ -6,7 +6,7 @@
 /*   By: huozturk <huozturk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/17 17:46:25 by huozturk          #+#    #+#             */
-/*   Updated: 2025/07/01 15:19:45 by huozturk         ###   ########.fr       */
+/*   Updated: 2025/07/01 15:41:12 by huozturk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -135,12 +135,12 @@ void	init_forks(t_data *data)
 	pthread_mutex_init(&data->death_mutex, NULL);
 	pthread_mutex_init(&data->start_flag_mutex, NULL);
 	pthread_mutex_init(&data->check_meal_mutex, NULL);
-
+	pthread_mutex_init(&data->print_mutex, NULL);
 	while (++i < data->philo_count)
 	{
 		pthread_mutex_init(&data->forks[i], NULL); // AÇILDI MI AÇILMADI MI CHECK
 		pthread_mutex_init(&data->philos[i].meal_mutex, NULL);
-		pthread_mutex_init(&data->philos[i].print_mutex, NULL);
+		
 	}
 
 	i = -1;

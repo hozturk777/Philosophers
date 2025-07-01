@@ -6,7 +6,7 @@
 /*   By: huozturk <huozturk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/17 17:46:30 by huozturk          #+#    #+#             */
-/*   Updated: 2025/07/01 14:50:26 by huozturk         ###   ########.fr       */
+/*   Updated: 2025/07/01 15:40:44 by huozturk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,6 @@ typedef struct s_philo
 	pthread_mutex_t *left_fork;
 	pthread_mutex_t *right_fork;
 	pthread_mutex_t meal_mutex;
-	pthread_mutex_t	print_mutex;
 	t_data	*data;
 } t_philo;
 
@@ -46,6 +45,7 @@ typedef struct s_data
 	pthread_mutex_t	death_mutex;  // Global death state protection
 	pthread_mutex_t	check_meal_mutex;  // Global death state protection
 	pthread_mutex_t	start_flag_mutex;  // Global start flag protection
+	pthread_mutex_t	print_mutex;
 	t_philo			*philos;
 	pthread_t		monitor_philo;
 

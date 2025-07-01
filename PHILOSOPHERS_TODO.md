@@ -221,3 +221,4 @@ if (*res <= 0)
 
 # Tek philo geldiğinde ölecek mi çıktı verecek mi ? çatal alacak ölecek
 # Must eat goal olduğunda çıktı verecek mi ?
+# 3 410 2000 300 argüman ölmüyo ölecek
