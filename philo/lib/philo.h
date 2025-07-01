@@ -6,7 +6,7 @@
 /*   By: hsyn <hsyn@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/17 17:46:30 by huozturk          #+#    #+#             */
-/*   Updated: 2025/06/30 21:58:41 by hsyn             ###   ########.fr       */
+/*   Updated: 2025/07/01 05:53:32 by hsyn             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@ typedef struct s_data t_data;
 typedef struct s_philo
 {
 	int	id;
+	int	eat_count;
 	pthread_t thread;
 	long long last_meal;
 	pthread_mutex_t *left_fork;
@@ -35,16 +36,15 @@ typedef struct s_philo
 typedef struct s_data
 {
 	int				philo_count;
+	int				must_eat;
 	int				is_dead;
 	int				time_to_die;
 	int				time_to_eat;
 	int				time_to_sleep;
-	//int				dead;
 	long long		start_time;
 	pthread_mutex_t	*forks;
 	pthread_mutex_t	death_mutex;  // Global death state protection
 	pthread_mutex_t	start_flag_mutex;  // Global start flag protection
-	//pthread_mutex_t	print_mutext;
 	t_philo			*philos;
 	pthread_t		monitor_philo;
 
@@ -54,7 +54,7 @@ typedef struct s_data
 }	t_data;
 
 int 		ft_atoi(char *str, int *res);
-void		init_philo(t_data *data, char *argv[]);
+void		init_philo(t_data *data, char *argv[], int argc);
 void		init_forks(t_data *data);
 void		create_philo(t_data *data);
 void		error_check(t_data *data, int err_code, void *ptr);
@@ -70,7 +70,7 @@ void		last_meal_added(t_philo *philo);
 void		philo_thinking(t_philo *philo);
 void		philo_dead(t_philo *philo);
 void		sync_philo_start(t_philo *philo);
-void		parse_args(char *argv[], t_data *data);
+void		parse_args(char *argv[], t_data *data, int argc);
 
 
 

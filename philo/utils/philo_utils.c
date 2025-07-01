@@ -6,7 +6,7 @@
 /*   By: hsyn <hsyn@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/17 17:46:25 by huozturk          #+#    #+#             */
-/*   Updated: 2025/07/01 04:44:25 by hsyn             ###   ########.fr       */
+/*   Updated: 2025/07/01 06:13:34 by hsyn             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,12 +37,12 @@ void	*say_hello(void *arg)
 }
 
 
-void	init_philo(t_data *data, char *argv[])
+void	init_philo(t_data *data, char *argv[], int argc)
 {
 	int	i;
-
+	
 	i = 0;
-	parse_args(argv, data);
+	parse_args(argv, data, argc);
 	data->philos = malloc(sizeof(t_philo) * data->philo_count);
 	error_check(data, ERR_MALLOC_FAIL, data->philos);
 	while (i < data->philo_count)
@@ -50,6 +50,7 @@ void	init_philo(t_data *data, char *argv[])
 		data->philos[i].id = i + 1;
 		data->philos[i].data = data;
 		data->philos[i].last_meal = get_time_in_ms();
+		data->philos[i].eat_count = 0;
 		i++;
 	}
 	if (data->philo_count != data->philos[i - 1].id) // Philo eksik olustuysa hata ya da 1 philo count varsa ele alınacak
@@ -97,7 +98,16 @@ void	*monitor_test(void *argv)
 				philo_dead(datas->philos);
 				pthread_exit(NULL);
 			}
+			else
+			{
+				if (datas->must_eat == datas->philos[i].eat_count)
+				{
+					pthread_exit(NULL);
+				}
+			}
 		}
+		// Reduce sleep time for faster death detection (10ms compliance)
+		usleep(1000); // 1ms polling instead of default scheduling
 	}
 }
 

@@ -6,7 +6,7 @@
 /*   By: hsyn <hsyn@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/17 17:46:28 by huozturk          #+#    #+#             */
-/*   Updated: 2025/06/27 21:22:41 by hsyn             ###   ########.fr       */
+/*   Updated: 2025/07/01 05:50:19 by hsyn             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,9 +37,9 @@ int	main(int argc, char *argv[])
 
 	data.is_dead = 0;
 	set_time(&data);
-	if (argc == 5)
+	if (argc == 5 || argc == 6)
 	{
-		init_philo(&data, argv);
+		init_philo(&data, argv, argc);
 		init_forks(&data);
 		monitor_philo(&data);
 		create_philo(&data);

@@ -41,11 +41,26 @@ void	sync_philo_start(t_philo *philo)
 		usleep(100);
 }
 
-void	parse_args(char *argv[], t_data *data)
+void	parse_args(char *argv[], t_data *data, int argc)
 {
-	if (ft_atoi(argv[1], &data->philo_count)
-		|| ft_atoi(argv[2], &data->time_to_die)
-		|| ft_atoi(argv[3], &data->time_to_eat)
-		|| ft_atoi(argv[4], &data->time_to_sleep))
-		error_check(data, ERR_INVALID_ARG, NULL);
+	if (argc == 5)
+	{
+		if (ft_atoi(argv[1], &data->philo_count)
+			|| ft_atoi(argv[2], &data->time_to_die)
+			|| ft_atoi(argv[3], &data->time_to_eat)
+			|| ft_atoi(argv[4], &data->time_to_sleep))
+				error_check(data, ERR_INVALID_ARG, NULL);
+		data->must_eat = -1;
+	}
+	else
+	{
+		if (ft_atoi(argv[1], &data->philo_count)
+			|| ft_atoi(argv[2], &data->time_to_die)
+			|| ft_atoi(argv[3], &data->time_to_eat)
+			|| ft_atoi(argv[4], &data->time_to_sleep)
+			|| ft_atoi(argv[5], &data->must_eat))
+				error_check(data, ERR_INVALID_ARG, NULL);
+	}
+	
+	
 }
