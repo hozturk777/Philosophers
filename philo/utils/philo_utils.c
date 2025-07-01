@@ -6,7 +6,7 @@
 /*   By: hsyn <hsyn@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/17 17:46:25 by huozturk          #+#    #+#             */
-/*   Updated: 2025/07/01 06:36:26 by hsyn             ###   ########.fr       */
+/*   Updated: 2025/07/01 06:52:12 by hsyn             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,8 +53,13 @@ void	init_philo(t_data *data, char *argv[], int argc)
 		data->philos[i].eat_count = 0;
 		i++;
 	}
-	if (data->philo_count != data->philos[i - 1].id) // Philo eksik olustuysa hata ya da 1 philo count varsa ele alınacak
+	if ((data->philo_count != data->philos[i - 1].id) || data->philo_count == 1) // Philo eksik olustuysa hata ya da 1 philo count varsa ele alınacak
 	{
+		if (data->philo_count == 1)
+		{
+			data->is_dead = 1;
+			return ;
+		}
 		printf("LAST_ID: %d\n", data->philos[i - 1].id);
 		exit(1);
 	}

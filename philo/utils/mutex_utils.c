@@ -30,7 +30,7 @@ int	check_start_flag(t_philo *philo)
 void	handle_dead(t_philo *philo)
 {
 	pthread_mutex_lock(&philo->data->death_mutex); // Func icerisinde yazdirma ve olme islemi
-	if (philo->data->is_dead || (philo->eat_count == philo->data->must_eat)) // must eat icin ayri func olusturulacak
+	if (philo->data->is_dead)
 	{
 		pthread_mutex_unlock(&philo->data->death_mutex);			
 		pthread_mutex_unlock(philo->left_fork);
@@ -45,7 +45,6 @@ void	check_meal_goal(t_philo *philo)
 	pthread_mutex_lock(&philo->data->death_mutex); // Func icerisinde yazdirma ve olme islemi
 	if (philo->eat_count == philo->data->must_eat)
 	{
-		printf("FINISHSHSHSHS\n");
 		pthread_mutex_unlock(&philo->data->death_mutex);			
 		pthread_mutex_unlock(philo->left_fork);
 		pthread_mutex_unlock(philo->right_fork);
