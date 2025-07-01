@@ -54,10 +54,10 @@ void	sync_philo_start(t_philo *philo)
 	if (philo->id % 2 != 0)
 	{
 
+		usleep(2000);
 		pthread_mutex_lock(&philo->meal_mutex);
 		philo->last_meal= get_time_in_ms();
 		pthread_mutex_unlock(&philo->meal_mutex);
-		usleep(2000);
 	}
 	
 }

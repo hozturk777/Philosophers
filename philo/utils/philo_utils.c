@@ -6,7 +6,7 @@
 /*   By: huozturk <huozturk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/17 17:46:25 by huozturk          #+#    #+#             */
-/*   Updated: 2025/07/01 15:41:12 by huozturk         ###   ########.fr       */
+/*   Updated: 2025/07/01 16:40:20 by huozturk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,12 +95,12 @@ void	*monitor_test(void *argv)
 			long long last = datas->philos[i].last_meal;
 			pthread_mutex_unlock(&datas->philos[i].meal_mutex);
 
-			if (get_time_in_ms() - last > datas->time_to_die)
+			if (get_time_in_ms() - last >= datas->time_to_die)
 			{
 				pthread_mutex_lock(&datas->death_mutex);
 				datas->is_dead = 1; // Now protected by mutex
 				pthread_mutex_unlock(&datas->death_mutex);
-				philo_dead(datas->philos);
+				philo_dead(datas->philos[i]);
 				pthread_exit(NULL);
 			}
 			else

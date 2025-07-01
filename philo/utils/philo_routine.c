@@ -19,18 +19,18 @@ void	philo_thinking(t_philo *philo)
 	print(philo, "is thinking");
 }
 
-void	philo_dead(t_philo *philo)
+void	philo_dead(t_philo philo)
 {
-	pthread_mutex_lock(&philo->data->print_mutex);
-	printf("%lld %d died\n", get_time_in_ms() - philo->data->start_time, philo->id);
-	pthread_mutex_unlock(&philo->data->print_mutex);
+	pthread_mutex_lock(&philo.data->print_mutex);
+	printf("%lld %d died\n", get_time_in_ms() - philo.data->start_time, philo.id);
+	pthread_mutex_unlock(&philo.data->print_mutex);
 	
 	// print(philo, "died");
 }
 
 void	philo_take_fork(t_philo *philo)
 {
-	// handle_dead(philo);
+	handle_dead(philo);
 	// check_meal_goal(philo); // Check if meal goal reached
 
 
