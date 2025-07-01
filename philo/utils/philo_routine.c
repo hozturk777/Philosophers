@@ -1,6 +1,6 @@
 #include "../lib/philo.h"
 
-void	philo_eat(t_philo *philo) // must eat oldugunda program sonlanacak
+void	philo_eat(t_philo *philo) // must eat oldugunda program sonlaniyor ama handle_dead sayesinde
 {
 	handle_dead(philo); // dead check
 	last_meal_added(philo); // last meal update
