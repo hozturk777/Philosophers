@@ -3,6 +3,7 @@
 void	philo_eat(t_philo *philo) // must eat oldugunda program sonlaniyor ama handle_dead sayesinde
 {
 	handle_dead(philo); // dead check
+	check_meal_goal(philo);
 	last_meal_added(philo); // last meal update
 
 	pthread_mutex_lock(&philo->print_mutex);

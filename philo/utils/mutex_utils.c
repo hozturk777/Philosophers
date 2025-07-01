@@ -40,6 +40,20 @@ void	handle_dead(t_philo *philo)
 	pthread_mutex_unlock(&philo->data->death_mutex);
 }
 
+void	check_meal_goal(t_philo *philo)
+{
+	pthread_mutex_lock(&philo->data->death_mutex); // Func icerisinde yazdirma ve olme islemi
+	if (philo->eat_count == philo->data->must_eat)
+	{
+		printf("FINISHSHSHSHS\n");
+		pthread_mutex_unlock(&philo->data->death_mutex);			
+		pthread_mutex_unlock(philo->left_fork);
+		pthread_mutex_unlock(philo->right_fork);
+		pthread_exit(NULL);
+	}
+	pthread_mutex_unlock(&philo->data->death_mutex);
+}
+
 void	last_meal_added(t_philo *philo)
 {
 	pthread_mutex_lock(&philo->meal_mutex);
