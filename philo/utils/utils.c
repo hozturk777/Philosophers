@@ -59,8 +59,16 @@ void	parse_args(char *argv[], t_data *data, int argc)
 			|| ft_atoi(argv[3], &data->time_to_eat)
 			|| ft_atoi(argv[4], &data->time_to_sleep)
 			|| ft_atoi(argv[5], &data->must_eat))
-				error_check(data, ERR_INVALID_ARG, NULL);
-	}
+				error_check(data, ERR_INVALID_ARG, NULL);  // ./philo 400 200 200 3'de fork yazdırıyo // atoi'de max int limit eklenecek // yeme işlemi bittikten sonra fork almaya devam ediyo
+	}	
+}
+
+void	print(t_philo *philo, char *str)
+{
+	handle_dead(philo);
 	
-	
+	pthread_mutex_lock(&philo->print_mutex);
+	printf("%lld %d %s\n", get_time_in_ms() - philo->data->start_time, philo->id, str);
+	pthread_mutex_unlock(&philo->print_mutex);
+
 }

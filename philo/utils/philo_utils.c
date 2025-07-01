@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   philo_utils.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hsyn <hsyn@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: huozturk <huozturk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/17 17:46:25 by huozturk          #+#    #+#             */
-/*   Updated: 2025/07/01 06:52:12 by hsyn             ###   ########.fr       */
+/*   Updated: 2025/07/01 13:15:10 by huozturk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,10 +23,7 @@ void	*say_hello(void *arg)
 	sync_philo_start(philo);
 	while (!check_dead(philo))
 	{
-		pthread_mutex_lock(philo->right_fork);
-		fprintf(stdout, "%lld %d has taken a fork\n",get_time_in_ms() - philo->data->start_time, philo->id);
-		pthread_mutex_lock(philo->left_fork);
-		fprintf(stdout, "%lld %d has taken a fork\n",get_time_in_ms() - philo->data->start_time, philo->id);
+		philo_take_fork(philo);
 		philo_eat(philo); // eat
 		pthread_mutex_unlock(philo->left_fork);
 		pthread_mutex_unlock(philo->right_fork);
@@ -43,7 +40,7 @@ void	init_philo(t_data *data, char *argv[], int argc)
 	
 	i = 0;
 	parse_args(argv, data, argc);
-	data->philos = malloc(sizeof(t_philo) * data->philo_count);
+	data->philos = calloc(sizeof(t_philo), data->philo_count);
 	error_check(data, ERR_MALLOC_FAIL, data->philos);
 	while (i < data->philo_count)
 	{

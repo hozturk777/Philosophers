@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   philo.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hsyn <hsyn@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: huozturk <huozturk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/17 17:46:30 by huozturk          #+#    #+#             */
-/*   Updated: 2025/07/01 06:41:21 by hsyn             ###   ########.fr       */
+/*   Updated: 2025/07/01 13:25:42 by huozturk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ void		init_philo(t_data *data, char *argv[], int argc);
 void		init_forks(t_data *data);
 void		create_philo(t_data *data);
 void		error_check(t_data *data, int err_code, void *ptr);
-void		cleanup(t_data data);
+void		cleanup(t_data *data);
 long long	get_time_in_ms(void);
 void		monitor_philo(t_data *data);
 int			check_dead(t_philo *philo);
@@ -72,7 +72,8 @@ void		philo_dead(t_philo *philo);
 void		sync_philo_start(t_philo *philo);
 void		parse_args(char *argv[], t_data *data, int argc);
 void		check_meal_goal(t_philo *philo);
-
+void		philo_take_fork(t_philo *philo);
+void		print(t_philo *philo, char *str);
 
 
 

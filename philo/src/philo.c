@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   philo.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hsyn <hsyn@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: huozturk <huozturk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/17 17:46:28 by huozturk          #+#    #+#             */
-/*   Updated: 2025/07/01 05:50:19 by hsyn             ###   ########.fr       */
+/*   Updated: 2025/07/01 13:19:42 by huozturk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../lib/philo.h"
+#include "../lib/philo.h" 
 #include <stdio.h>
 
 long long	get_time_in_ms(void) // ARAŞTIRILACAK
@@ -36,6 +36,8 @@ int	main(int argc, char *argv[])
 	int i = -1;
 
 	data.is_dead = 0;
+	data.forks = NULL;
+	data.philos = NULL;
 	set_time(&data);
 	if (argc == 5 || argc == 6)
 	{
@@ -56,7 +58,7 @@ int	main(int argc, char *argv[])
 				data.philos[i].thread,
 				NULL);
 		}
-		cleanup(data);
+		cleanup(&data);
 		return (0);
 	}
 	else
