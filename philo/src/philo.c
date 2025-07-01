@@ -6,7 +6,7 @@
 /*   By: huozturk <huozturk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/17 17:46:28 by huozturk          #+#    #+#             */
-/*   Updated: 2025/07/01 13:19:42 by huozturk         ###   ########.fr       */
+/*   Updated: 2025/07/01 17:05:03 by huozturk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,10 +18,6 @@ long long	get_time_in_ms(void) // ARAŞTIRILACAK
 	struct timeval	tv;
 	gettimeofday(&tv, NULL);
 	return ((tv.tv_sec * 1000LL) + (tv.tv_usec / 1000));
-
-	//struct timespec ts;
-    //clock_gettime(CLOCK_MONOTONIC, &ts);
-    //return (long long)(ts.tv_sec * 1000LL + ts.tv_nsec / 1000000LL);
 }
 
 void	set_time(t_data *data)

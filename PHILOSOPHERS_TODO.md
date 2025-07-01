@@ -222,3 +222,4 @@ if (*res <= 0)
 # Tek philo geldiğinde ölecek mi çıktı verecek mi ? çatal alacak ölecek
 # 3 410 2000 300 argüman ölmüyo ölecek
 # 5 400 200 200 2 ' de ölmesi gerek ölmüyor 2 harici değerlerde ölüyor dopru
+# mutex init oluştu mu check & thread oluştu mu check
