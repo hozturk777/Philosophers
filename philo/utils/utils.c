@@ -38,7 +38,14 @@ void	sync_philo_start(t_philo *philo)
 	}
 	
 	if (philo->id % 2 != 0)
-		usleep(100);
+	{
+
+		pthread_mutex_lock(&philo->meal_mutex);
+		philo->last_meal= get_time_in_ms();
+		pthread_mutex_unlock(&philo->meal_mutex);
+		usleep(2000);
+	}
+	
 }
 
 void	parse_args(char *argv[], t_data *data, int argc)
@@ -66,7 +73,8 @@ void	parse_args(char *argv[], t_data *data, int argc)
 void	print(t_philo *philo, char *str)
 {
 	handle_dead(philo);
-	
+	check_meal_goal(philo);
+
 	pthread_mutex_lock(&philo->print_mutex);
 	printf("%lld %d %s\n", get_time_in_ms() - philo->data->start_time, philo->id, str);
 	pthread_mutex_unlock(&philo->print_mutex);

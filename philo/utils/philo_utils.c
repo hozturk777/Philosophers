@@ -6,7 +6,7 @@
 /*   By: huozturk <huozturk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/17 17:46:25 by huozturk          #+#    #+#             */
-/*   Updated: 2025/07/01 13:15:10 by huozturk         ###   ########.fr       */
+/*   Updated: 2025/07/01 15:19:45 by huozturk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,10 @@ void	*say_hello(void *arg)
 	t_philo *philo;
 
 	philo = (t_philo *)arg;
-	
+
+	pthread_mutex_lock(&philo->meal_mutex);
+	philo->last_meal= get_time_in_ms();
+	pthread_mutex_unlock(&philo->meal_mutex);
 	sync_philo_start(philo);
 	while (!check_dead(philo))
 	{
@@ -107,7 +110,7 @@ void	*monitor_test(void *argv)
 			}
 		}
 		// Reduce sleep time for faster death detection (10ms compliance)
-		usleep(1000); // 1ms polling instead of default scheduling
+		// usleep(1000); // 1ms polling instead of default scheduling
 	}
 }
 
@@ -131,6 +134,7 @@ void	init_forks(t_data *data)
 	// Initialize global mutexes
 	pthread_mutex_init(&data->death_mutex, NULL);
 	pthread_mutex_init(&data->start_flag_mutex, NULL);
+	pthread_mutex_init(&data->check_meal_mutex, NULL);
 
 	while (++i < data->philo_count)
 	{

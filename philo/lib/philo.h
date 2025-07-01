@@ -6,7 +6,7 @@
 /*   By: huozturk <huozturk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/17 17:46:30 by huozturk          #+#    #+#             */
-/*   Updated: 2025/07/01 13:25:42 by huozturk         ###   ########.fr       */
+/*   Updated: 2025/07/01 14:50:26 by huozturk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,7 @@ typedef struct s_data
 	long long		start_time;
 	pthread_mutex_t	*forks;
 	pthread_mutex_t	death_mutex;  // Global death state protection
+	pthread_mutex_t	check_meal_mutex;  // Global death state protection
 	pthread_mutex_t	start_flag_mutex;  // Global start flag protection
 	t_philo			*philos;
 	pthread_t		monitor_philo;
