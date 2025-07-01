@@ -6,7 +6,7 @@
 /*   By: hsyn <hsyn@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/17 17:46:25 by huozturk          #+#    #+#             */
-/*   Updated: 2025/06/30 21:50:13 by hsyn             ###   ########.fr       */
+/*   Updated: 2025/07/01 04:44:25 by hsyn             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,9 @@ void	*say_hello(void *arg)
 	while (!check_dead(philo))
 	{
 		pthread_mutex_lock(philo->right_fork);
+		fprintf(stdout, "timestamp_in_ms %d has taken a fork\n", philo->id);
 		pthread_mutex_lock(philo->left_fork);
+		fprintf(stdout, "timestamp_in_ms %d has taken a fork\n", philo->id);
 		philo_eat(philo); // eat
 		pthread_mutex_unlock(philo->left_fork);
 		pthread_mutex_unlock(philo->right_fork);
@@ -40,11 +42,7 @@ void	init_philo(t_data *data, char *argv[])
 	int	i;
 
 	i = 0;
-	if (ft_atoi(argv[1], &data->philo_count)
-		|| ft_atoi(argv[2], &data->time_to_die)
-		|| ft_atoi(argv[3], &data->time_to_eat)
-		|| ft_atoi(argv[4], &data->time_to_sleep))
-		error_check(data, ERR_INVALID_ARG, NULL);
+	parse_args(argv, data);
 	data->philos = malloc(sizeof(t_philo) * data->philo_count);
 	error_check(data, ERR_MALLOC_FAIL, data->philos);
 	while (i < data->philo_count)
@@ -54,7 +52,7 @@ void	init_philo(t_data *data, char *argv[])
 		data->philos[i].last_meal = get_time_in_ms();
 		i++;
 	}
-	if (data->philo_count != data->philos[i - 1].id) // Philo eksik olustuysa hata
+	if (data->philo_count != data->philos[i - 1].id) // Philo eksik olustuysa hata ya da 1 philo count varsa ele alınacak
 	{
 		printf("LAST_ID: %d\n", data->philos[i - 1].id);
 		exit(1);

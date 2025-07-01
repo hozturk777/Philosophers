@@ -1,4 +1,5 @@
 #include "../lib/philo.h"
+#include "../lib/error.h"
 
 int ft_atoi(char *str, int *res)
 {
@@ -38,4 +39,13 @@ void	sync_philo_start(t_philo *philo)
 	
 	if (philo->id % 2 != 0)
 		usleep(100);
+}
+
+void	parse_args(char *argv[], t_data *data)
+{
+	if (ft_atoi(argv[1], &data->philo_count)
+		|| ft_atoi(argv[2], &data->time_to_die)
+		|| ft_atoi(argv[3], &data->time_to_eat)
+		|| ft_atoi(argv[4], &data->time_to_sleep))
+		error_check(data, ERR_INVALID_ARG, NULL);
 }

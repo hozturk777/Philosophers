@@ -6,7 +6,7 @@
 /*   By: hsyn <hsyn@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/17 17:46:30 by huozturk          #+#    #+#             */
-/*   Updated: 2025/06/30 21:43:32 by hsyn             ###   ########.fr       */
+/*   Updated: 2025/06/30 21:58:41 by hsyn             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,6 +70,8 @@ void		last_meal_added(t_philo *philo);
 void		philo_thinking(t_philo *philo);
 void		philo_dead(t_philo *philo);
 void		sync_philo_start(t_philo *philo);
+void		parse_args(char *argv[], t_data *data);
+
 
 
 
