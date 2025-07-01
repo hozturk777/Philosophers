@@ -6,7 +6,7 @@
 /*   By: hsyn <hsyn@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/17 17:46:25 by huozturk          #+#    #+#             */
-/*   Updated: 2025/07/01 06:28:01 by hsyn             ###   ########.fr       */
+/*   Updated: 2025/07/01 06:36:26 by hsyn             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,9 +24,9 @@ void	*say_hello(void *arg)
 	while (!check_dead(philo))
 	{
 		pthread_mutex_lock(philo->right_fork);
-		fprintf(stdout, "timestamp_in_ms %d has taken a fork\n", philo->id);
+		fprintf(stdout, "%lld %d has taken a fork\n",get_time_in_ms() - philo->data->start_time, philo->id);
 		pthread_mutex_lock(philo->left_fork);
-		fprintf(stdout, "timestamp_in_ms %d has taken a fork\n", philo->id);
+		fprintf(stdout, "%lld %d has taken a fork\n",get_time_in_ms() - philo->data->start_time, philo->id);
 		philo_eat(philo); // eat
 		pthread_mutex_unlock(philo->left_fork);
 		pthread_mutex_unlock(philo->right_fork);
@@ -101,9 +101,7 @@ void	*monitor_test(void *argv)
 			else
 			{
 				if (datas->must_eat == datas->philos[i].eat_count)
-				{
 					pthread_exit(NULL);
-				}
 			}
 		}
 		// Reduce sleep time for faster death detection (10ms compliance)
