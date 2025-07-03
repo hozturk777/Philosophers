@@ -3,6 +3,8 @@
 void	philo_eat(t_philo *philo)
 {
 	last_meal_added(philo); // last meal update
+	handle_dead(philo); // Tek philo için yazıldı
+
 	print(philo, "is eating");
 	philo->eat_count++;
 	usleep(philo->data->time_to_eat * 1000);
@@ -31,9 +33,15 @@ void	philo_dead(t_philo philo)
 void	philo_take_fork(t_philo *philo)
 {
 	handle_dead(philo);
-	// check_meal_goal(philo); // Check if meal goal reached
 
-
+	if (philo->data->philo_count == 1) // Tek philo için yazıldı
+	{
+		pthread_mutex_lock(philo->left_fork);
+		print(philo, "has taken a fork");
+		philo->data->is_dead = 1;
+		return ;
+	}
+	
 	pthread_mutex_lock(philo->left_fork);
 	print(philo, "has taken a fork");
 	pthread_mutex_lock(philo->right_fork);
