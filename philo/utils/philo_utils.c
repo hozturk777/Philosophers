@@ -6,7 +6,7 @@
 /*   By: huozturk <huozturk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/17 17:46:25 by huozturk          #+#    #+#             */
-/*   Updated: 2025/07/03 17:31:42 by huozturk         ###   ########.fr       */
+/*   Updated: 2025/07/03 18:10:14 by huozturk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,13 +53,8 @@ void	init_philo(t_data *data, char *argv[], int argc)
 		data->philos[i].eat_count = 0;
 		i++;
 	}
-	if ((data->philo_count != data->philos[i - 1].id)) // Philo eksik olustuysa hata ya da 1 philo count varsa ele alınacak
+	if ((data->philo_count != data->philos[i - 1].id))
 	{
-		// if (data->philo_count == 1)
-		// {
-		// 	data->is_dead = 1;
-		// 	return ;
-		// }
 		printf("LAST_ID: %d\n", data->philos[i - 1].id);
 		exit(1);
 	}
@@ -95,7 +90,7 @@ void	*monitor_test(void *argv)
 			long long last = datas->philos[i].last_meal;
 			pthread_mutex_unlock(&datas->philos[i].meal_mutex);
 
-			if (get_time_in_ms() - last >= datas->time_to_die)
+			if (get_time_in_ms() - last > datas->time_to_die)
 			{
 				pthread_mutex_lock(&datas->death_mutex);
 				datas->is_dead = 1; // Now protected by mutex
