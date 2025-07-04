@@ -6,7 +6,7 @@
 /*   By: huozturk <huozturk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/17 17:46:25 by huozturk          #+#    #+#             */
-/*   Updated: 2025/07/03 18:10:14 by huozturk         ###   ########.fr       */
+/*   Updated: 2025/07/04 13:40:49 by huozturk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ void	init_philo(t_data *data, char *argv[], int argc)
 		data->philos[i].eat_count = 0;
 		i++;
 	}
-	if ((data->philo_count != data->philos[i - 1].id))
+	if ((data->philo_count != data->philos[i - 1].id)) // DÜZELECEK
 	{
 		printf("LAST_ID: %d\n", data->philos[i - 1].id);
 		exit(1);
@@ -65,7 +65,7 @@ void	create_philo(t_data *data)
 	int	i;
 
 	i = -1;
-	while (++i < data->philo_count) // Philo oluşup oluşmadı mı kontrol id ile yapılabilir
+	while (++i < data->philo_count)
 	{
 		pthread_create(
 			&data->philos[i].thread,
@@ -73,49 +73,6 @@ void	create_philo(t_data *data)
 			say_hello,
 			&data->philos[i]);
 	}
-}
-
-void	*monitor_test(void *argv)
-{
-	t_data	*datas;
-	int	i;
-	
-	datas = (t_data *)argv;
-	while (1)
-	{
-		i = -1;
-		while (++i < datas->philo_count)
-		{
-			pthread_mutex_lock(&datas->philos[i].meal_mutex);
-			long long last = datas->philos[i].last_meal;
-			pthread_mutex_unlock(&datas->philos[i].meal_mutex);
-
-			if (get_time_in_ms() - last > datas->time_to_die)
-			{
-				pthread_mutex_lock(&datas->death_mutex);
-				datas->is_dead = 1; // Now protected by mutex
-				pthread_mutex_unlock(&datas->death_mutex);
-				philo_dead(datas->philos[i]);
-				pthread_exit(NULL);
-			}
-			else
-			{
-				if (datas->must_eat == datas->philos[i].eat_count)
-					pthread_exit(NULL);
-			}
-		}
-		// Reduce sleep time for faster death detection (10ms compliance)
-		// usleep(1000); // 1ms polling instead of default scheduling
-	}
-}
-
-void	monitor_philo(t_data *data)
-{
-	pthread_create(
-		&data->monitor_philo,
-		NULL,
-		monitor_test,
-		&*data);
 }
 
 void	init_forks(t_data *data)

@@ -224,3 +224,4 @@ if (*res <= 0)
 # 5 400 200 200 2 ' de ölmesi gerek ölmüyor 2 harici değerlerde ölüyor dopru
 # mutex init oluştu mu check & thread oluştu mu check
 # ./philo 1 200 200   INVALID dönüyor düzeltilecek ./philo 1 200 200  2 sadece ölüypr çatal alması gerekiyor mu ?
+# ./philo 144 401 200 200  öldükten sonra uyuyo MAL düşünüyo da

@@ -6,7 +6,7 @@
 /*   By: huozturk <huozturk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/17 17:46:28 by huozturk          #+#    #+#             */
-/*   Updated: 2025/07/01 17:05:03 by huozturk         ###   ########.fr       */
+/*   Updated: 2025/07/04 13:32:52 by huozturk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,6 @@ void	set_time(t_data *data)
 int	main(int argc, char *argv[])
 {
 	t_data	data;
-	int i = -1;
 
 	data.is_dead = 0;
 	data.forks = NULL;
@@ -44,16 +43,7 @@ int	main(int argc, char *argv[])
 		pthread_mutex_lock(&data.start_flag_mutex);
 		data.start_flag = 1;
 		pthread_mutex_unlock(&data.start_flag_mutex);
-
-		pthread_join(
-			data.monitor_philo,
-			NULL);
-		while (++i < data.philo_count)  // Bekleme fonksiyonu olusturulacak
-		{
-			pthread_join(
-				data.philos[i].thread,
-				NULL);
-		}
+		philo_join(&data);
 		cleanup(&data);
 		return (0);
 	}

@@ -6,7 +6,7 @@
 /*   By: huozturk <huozturk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/17 17:46:30 by huozturk          #+#    #+#             */
-/*   Updated: 2025/07/01 16:37:46 by huozturk         ###   ########.fr       */
+/*   Updated: 2025/07/04 14:42:07 by huozturk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,6 +75,7 @@ void		parse_args(char *argv[], t_data *data, int argc);
 void		check_meal_goal(t_philo *philo);
 void		philo_take_fork(t_philo *philo);
 void		print(t_philo *philo, char *str);
+void		philo_join(t_data *data);
 
 
 

@@ -10,7 +10,9 @@ CFLAGS				= -Wall -Wextra -Werror -pthread
 RM					= rm -rf
 
 PHILO_DIR			=	$(SRC_DIR)philo.c \
+							$(UTL_DIR)monitor.c \
 							$(UTL_DIR)utils.c \
+							$(UTL_DIR)helpers.c \
 							$(UTL_DIR)philo_utils.c \
 							$(UTL_DIR)mutex_utils.c \
 							$(UTL_DIR)philo_routine.c \
