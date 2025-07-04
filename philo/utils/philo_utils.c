@@ -6,7 +6,7 @@
 /*   By: huozturk <huozturk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/17 17:46:25 by huozturk          #+#    #+#             */
-/*   Updated: 2025/07/04 13:40:49 by huozturk         ###   ########.fr       */
+/*   Updated: 2025/07/04 17:38:26 by huozturk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,12 +20,20 @@ void	*say_hello(void *arg)
 
 	philo = (t_philo *)arg;
 
+	while (1)
+	{
+		if (check_start_flag(philo))
+			break;
+	}
+	
 	pthread_mutex_lock(&philo->meal_mutex);
 	philo->last_meal= get_time_in_ms();
 	pthread_mutex_unlock(&philo->meal_mutex);
 	sync_philo_start(philo);
+	
 	while (!check_dead(philo))
 	{
+		// printf("philo -> %d\n", philo->id);
 		philo_take_fork(philo);
 		philo_eat(philo); // eat
 		pthread_mutex_unlock(philo->left_fork);

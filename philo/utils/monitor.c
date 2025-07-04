@@ -19,8 +19,9 @@ void	*monitor_test(void *argv)
 			{
 				pthread_mutex_lock(&datas->death_mutex);
 				datas->is_dead = 1; // Now protected by mutex
+				datas->dead_index = i;
 				pthread_mutex_unlock(&datas->death_mutex);
-				philo_dead(datas->philos[i]);
+				// philo_dead(datas->philos[i]);
 				pthread_exit(NULL);
 			}
 			else

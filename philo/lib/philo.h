@@ -6,7 +6,7 @@
 /*   By: huozturk <huozturk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/17 17:46:30 by huozturk          #+#    #+#             */
-/*   Updated: 2025/07/04 14:42:07 by huozturk         ###   ########.fr       */
+/*   Updated: 2025/07/04 17:12:13 by huozturk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,7 @@ typedef struct s_philo
 typedef struct s_data
 {
 	int				philo_count;
+	int				dead_index;
 	int				must_eat;
 	int				is_dead;
 	int				time_to_die;

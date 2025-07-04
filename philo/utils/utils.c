@@ -45,19 +45,13 @@ int ft_atoi(char *str, int *res)
 
 void	sync_philo_start(t_philo *philo)
 {
-	while (1)
-	{
-		if (check_start_flag(philo))
-			break;
-	}
 	
 	if (philo->id % 2 != 0)
 	{
-
 		usleep(200);
-		pthread_mutex_lock(&philo->meal_mutex);
-		philo->last_meal= get_time_in_ms();
-		pthread_mutex_unlock(&philo->meal_mutex);
+		// pthread_mutex_lock(&philo->meal_mutex);
+		// philo->last_meal= get_time_in_ms();
+		// pthread_mutex_unlock(&philo->meal_mutex);
 	}
 	
 }
