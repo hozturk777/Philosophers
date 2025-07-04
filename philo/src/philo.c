@@ -6,7 +6,7 @@
 /*   By: huozturk <huozturk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/17 17:46:28 by huozturk          #+#    #+#             */
-/*   Updated: 2025/07/04 17:18:57 by huozturk         ###   ########.fr       */
+/*   Updated: 2025/07/04 17:55:14 by huozturk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,7 @@ int	main(int argc, char *argv[])
 	t_data	data;
 
 	data.is_dead = 0;
+	data.dead_index = -1;
 	data.forks = NULL;
 	data.philos = NULL;
 	set_time(&data);
