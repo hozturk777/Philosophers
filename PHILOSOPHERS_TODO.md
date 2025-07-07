@@ -219,10 +219,9 @@ if (*res <= 0)
 **🎯 Durum:** PDF compliance %100
 
 
-# Tek philo geldiğinde ölecek mi çıktı verecek mi ? çatal alacak ölecek
-# 3 410 2000 300 argüman ölmüyo ölecek
-# 5 400 200 200 2 ' de ölmesi gerek ölmüyor 2 harici değerlerde ölüyor dopru
 # mutex init oluştu mu check & thread oluştu mu check
 # ./philo 1 200 200   INVALID dönüyor düzeltilecek ./philo 1 200 200  2 sadece ölüypr çatal alması gerekiyor mu ?
-# ./philo 144 401 200 200  öldükten sonra uyuyo MAL düşünüyo da 4 6 3 3 ' de oluyor
 # Philo ölüm yazdırmayı monitor içinden alınacak joinlerden sonra ya da philoların fonksiyonun da yazdırılacak
+# Invalid arg çıktısı ERR_INVALID çevrilecek
+# ./philo 200 800 200 200    Ölmemesi gerek ölüyor
+# $ ./philo 200 401 200 200     çok geç ölüm mesajı yazıyor

@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   utils.c                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: huozturk <huozturk@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/07/07 12:08:03 by huozturk          #+#    #+#             */
+/*   Updated: 2025/07/07 13:12:04 by huozturk         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../lib/philo.h"
 #include "../lib/error.h"
 
@@ -45,15 +57,12 @@ int ft_atoi(char *str, int *res)
 
 void	sync_philo_start(t_philo *philo)
 {
-	
+	pthread_mutex_lock(&philo->meal_mutex);
+	philo->last_meal= get_time_in_ms();
+	pthread_mutex_unlock(&philo->meal_mutex);
+
 	if (philo->id % 2 != 0)
-	{
 		usleep(200);
-		// pthread_mutex_lock(&philo->meal_mutex);
-		// philo->last_meal= get_time_in_ms();
-		// pthread_mutex_unlock(&philo->meal_mutex);
-	}
-	
 }
 
 void	parse_args(char *argv[], t_data *data, int argc)
@@ -84,8 +93,7 @@ void	print(t_philo *philo, char *str)
 	check_meal_goal(philo);
 
 	pthread_mutex_lock(&philo->data->print_mutex);
-	printf("%lld 	", get_time_in_ms() - philo->data->start_time);
-	printf("%d %s\n", philo->id, str);
+	printf("%lld 	%d %s\n", get_time_in_ms() - philo->data->start_time, philo->id, str);
 	pthread_mutex_unlock(&philo->data->print_mutex);
 
 }

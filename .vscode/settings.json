@@ -1,13 +1,6 @@
 {
 	"files.associations": {
 		"pthread.h": "c",
-		"philo.h": "c",
-		"error.h": "c"
-	},
-	"github.copilot.enable": {
-		"*": false,
-		"c": false
-	},
-	"github.copilot.chat.enabled": true,
-	"editor.inlineSuggest.enabled": false
+		"philo.h": "c"
+	}
 }

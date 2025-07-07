@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   philo_routine.c                                    :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: huozturk <huozturk@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/07/07 12:07:58 by huozturk          #+#    #+#             */
+/*   Updated: 2025/07/07 13:01:03 by huozturk         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../lib/philo.h"
 
 void	philo_eat(t_philo *philo)
@@ -39,6 +51,7 @@ void	philo_take_fork(t_philo *philo)
 	{
 		pthread_mutex_lock(philo->left_fork);
 		print(philo, "has taken a fork");
+		pthread_mutex_unlock(philo->left_fork);
 		philo->data->is_dead = 1;
 		return ;
 	}
