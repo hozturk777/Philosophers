@@ -6,7 +6,7 @@
 /*   By: huozturk <huozturk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/17 17:46:25 by huozturk          #+#    #+#             */
-/*   Updated: 2025/07/07 13:12:54 by huozturk         ###   ########.fr       */
+/*   Updated: 2025/07/07 17:43:30 by huozturk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ void	init_philo(t_data *data, char *argv[], int argc)
 	
 	i = 0;
 	parse_args(argv, data, argc);
-	data->philos = calloc(sizeof(t_philo), data->philo_count);
+	data->philos = calloc(sizeof(t_philo), data->philo_count); //ft_calloc eklenecek
 	error_check(data, ERR_MALLOC_FAIL, data->philos);
 	while (i < data->philo_count)
 	{
@@ -82,10 +82,11 @@ void	init_forks(t_data *data)
 	int	i;
 
 	i = -1;
-	data->forks = malloc(data->philo_count * sizeof(pthread_mutex_t));
+	data->forks = malloc(data->philo_count * sizeof(pthread_mutex_t)); //ft_calloc eklenecek
 	error_check(data, ERR_MALLOC_FAIL, data->forks);
 	
 	// Initialize global mutexes
+	// checkler eklenicek
 	pthread_mutex_init(&data->death_mutex, NULL);
 	pthread_mutex_init(&data->start_flag_mutex, NULL);
 	pthread_mutex_init(&data->check_meal_mutex, NULL);

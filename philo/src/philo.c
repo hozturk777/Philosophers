@@ -6,7 +6,7 @@
 /*   By: huozturk <huozturk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/17 17:46:28 by huozturk          #+#    #+#             */
-/*   Updated: 2025/07/04 17:55:14 by huozturk         ###   ########.fr       */
+/*   Updated: 2025/07/07 17:47:35 by huozturk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,12 +34,13 @@ int	main(int argc, char *argv[])
 	data.dead_index = -1;
 	data.forks = NULL;
 	data.philos = NULL;
-	set_time(&data);
+	// ft_memset(&data, 0, sizeof(t_data)); // This line is not needed as we initialize all members explicitly
 	if (argc == 5 || argc == 6)
 	{
 		init_philo(&data, argv, argc);
 		init_forks(&data);
 		monitor_philo(&data);
+		set_time(&data);
 		create_philo(&data);
 		pthread_mutex_lock(&data.start_flag_mutex);
 		data.start_flag = 1;
@@ -50,7 +51,7 @@ int	main(int argc, char *argv[])
 	}
 	else
 	{
-		fprintf(stderr, "Invalid Argument\n");
+		fprintf(stderr, "ERR_INVALID_ARG\n");
 		return (1);
 	}
 }
