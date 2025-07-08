@@ -33,6 +33,12 @@ void	*monitor_test(void *argv)
 				datas->is_dead = 1; // Now protected by mutex
 				datas->dead_index = i;
 				pthread_mutex_unlock(&datas->death_mutex);
+				
+				// ✅ CRITICAL: Print death message
+				pthread_mutex_lock(&datas->print_mutex);
+				printf("%lld %d died\n", get_time_in_ms() - datas->start_time, datas->philos[i].id);
+				pthread_mutex_unlock(&datas->print_mutex);
+				
 				pthread_exit(NULL);
 			}
 			else
@@ -41,6 +47,8 @@ void	*monitor_test(void *argv)
 					pthread_exit(NULL);
 			}
 		}
+		// ✅ PERFORMANCE: Add sleep to prevent CPU spinning with 200 philosophers
+		usleep(1000); // 1ms polling - sufficient for death detection
 	}
 }
 

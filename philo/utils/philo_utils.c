@@ -6,7 +6,7 @@
 /*   By: huozturk <huozturk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/17 17:46:25 by huozturk          #+#    #+#             */
-/*   Updated: 2025/07/07 17:43:30 by huozturk         ###   ########.fr       */
+/*   Updated: 2025/07/08 15:05:07 by huozturk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,14 +24,16 @@ void	*say_hello(void *arg)
 	{
 		if (check_start_flag(philo))
 			break;
+		usleep(100); // ✅ CRITICAL: Prevent CPU spinning!
 	}
 	sync_philo_start(philo);
 	while (!check_dead(philo))
 	{
 		philo_take_fork(philo);
 		philo_eat(philo);
-		pthread_mutex_unlock(philo->left_fork);
+		// ✅ IMPORTANT: Unlock in reverse order for consistency
 		pthread_mutex_unlock(philo->right_fork);
+		pthread_mutex_unlock(philo->left_fork);
 		philo_sleep(philo);
 		philo_thinking(philo);
 	}

@@ -6,7 +6,7 @@
 /*   By: huozturk <huozturk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/07 12:07:58 by huozturk          #+#    #+#             */
-/*   Updated: 2025/07/07 13:01:03 by huozturk         ###   ########.fr       */
+/*   Updated: 2025/07/08 15:09:03 by huozturk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,16 +31,24 @@ void	philo_sleep(t_philo *philo)
 void	philo_thinking(t_philo *philo)
 {
 	print(philo, "is thinking");
+	
+	// ✅ CRITICAL: For odd number of philosophers, add thinking time to prevent starvation
+	if (philo->data->philo_count % 2 == 1 && philo->data->philo_count > 1)
+	{
+		// Calculate thinking time to ensure all philosophers get a chance
+		int think_time = (philo->data->time_to_eat * 2) - philo->data->time_to_sleep;
+		if (think_time > 0)
+			usleep(think_time * 1000);
+		else
+			usleep(1000); // Minimum 1ms thinking time
+	}
 }
 
 void	philo_dead(t_philo philo)
 {
-	// usleep(100); // bu kaldıralacak
-	pthread_mutex_lock(&philo.data->print_mutex);
-	printf("%lld 	%d died\n", get_time_in_ms() - philo.data->start_time, philo.id);
-	pthread_mutex_unlock(&philo.data->print_mutex);
-	
-	// print(philo, "died");
+	(void)philo; // Suppress unused parameter warning
+	// ✅ REMOVED: Only monitor should print death message to prevent double output
+	// Death message is now only printed by monitor thread
 }
 
 void	philo_take_fork(t_philo *philo)
@@ -56,8 +64,43 @@ void	philo_take_fork(t_philo *philo)
 		return ;
 	}
 	
-	pthread_mutex_lock(philo->left_fork);
-	print(philo, "has taken a fork");
-	pthread_mutex_lock(philo->right_fork);
-	print(philo, "has taken a fork");
+	// ✅ SPECIAL CASE: For 3 philosophers, use different strategy
+	if (philo->data->philo_count == 3)
+	{
+		if (philo->id == 3) // Last philosopher in 3-philo case
+		{
+			pthread_mutex_lock(philo->right_fork); // Take right first
+			print(philo, "has taken a fork");
+			pthread_mutex_lock(philo->left_fork);
+			print(philo, "has taken a fork");
+		}
+		else // Philosophers 1 and 2
+		{
+			pthread_mutex_lock(philo->left_fork);
+			print(philo, "has taken a fork");
+			pthread_mutex_lock(philo->right_fork);
+			print(philo, "has taken a fork");
+		}
+	}
+	else
+	{
+		// ✅ DEADLOCK PREVENTION: Use address-based ordering for other counts
+		pthread_mutex_t *first_fork, *second_fork;
+		
+		if (philo->left_fork < philo->right_fork)
+		{
+			first_fork = philo->left_fork;
+			second_fork = philo->right_fork;
+		}
+		else
+		{
+			first_fork = philo->right_fork;
+			second_fork = philo->left_fork;
+		}
+		
+		pthread_mutex_lock(first_fork);
+		print(philo, "has taken a fork");
+		pthread_mutex_lock(second_fork);
+		print(philo, "has taken a fork");
+	}
 }

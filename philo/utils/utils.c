@@ -6,7 +6,7 @@
 /*   By: huozturk <huozturk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/07 12:08:03 by huozturk          #+#    #+#             */
-/*   Updated: 2025/07/07 13:12:04 by huozturk         ###   ########.fr       */
+/*   Updated: 2025/07/08 15:09:22 by huozturk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,8 +61,25 @@ void	sync_philo_start(t_philo *philo)
 	philo->last_meal= get_time_in_ms();
 	pthread_mutex_unlock(&philo->meal_mutex);
 
-	if (philo->id % 2 != 0)
-		usleep(200);
+	// ✅ CRITICAL FIX: Proper staggering for small philosopher counts
+	if (philo->data->philo_count == 3)
+	{
+		// For 3 philosophers: stagger by eating time to ensure fairness
+		if (philo->id == 1)
+			usleep(0);  // Philosopher 1 starts immediately
+		else if (philo->id == 2)
+			usleep(0);  // Philosopher 2 starts immediately  
+		else if (philo->id == 3)
+			usleep(philo->data->time_to_eat * 1000); // Philosopher 3 waits
+	}
+	else if (philo->id % 2 != 0)
+	{
+		// For other counts: odd philosophers wait
+		if (philo->data->philo_count <= 5)
+			usleep(philo->data->time_to_eat * 500); // Wait half eating time
+		else
+			usleep(15000); // 15ms for larger groups
+	}
 }
 
 void	parse_args(char *argv[], t_data *data, int argc)
@@ -89,11 +106,16 @@ void	parse_args(char *argv[], t_data *data, int argc)
 
 void	print(t_philo *philo, char *str)
 {
-	handle_dead(philo);
-	check_meal_goal(philo);
+	// ✅ Check if someone died before printing
+	pthread_mutex_lock(&philo->data->death_mutex);
+	if (philo->data->is_dead)
+	{
+		pthread_mutex_unlock(&philo->data->death_mutex);
+		return; // Don't print after death
+	}
+	pthread_mutex_unlock(&philo->data->death_mutex);
 
 	pthread_mutex_lock(&philo->data->print_mutex);
-	printf("%lld 	%d %s\n", get_time_in_ms() - philo->data->start_time, philo->id, str);
+	printf("%lld %d %s\n", get_time_in_ms() - philo->data->start_time, philo->id, str);
 	pthread_mutex_unlock(&philo->data->print_mutex);
-
 }
