@@ -64,43 +64,22 @@ void	philo_take_fork(t_philo *philo)
 		return ;
 	}
 	
-	// ✅ SPECIAL CASE: For 3 philosophers, use different strategy
-	if (philo->data->philo_count == 3)
+	// ✅ DEADLOCK PREVENTION: Use address-based ordering for ALL counts > 1
+	pthread_mutex_t *first_fork, *second_fork;
+	
+	if (philo->left_fork < philo->right_fork)
 	{
-		if (philo->id == 3) // Last philosopher in 3-philo case
-		{
-			pthread_mutex_lock(philo->right_fork); // Take right first
-			print(philo, "has taken a fork");
-			pthread_mutex_lock(philo->left_fork);
-			print(philo, "has taken a fork");
-		}
-		else // Philosophers 1 and 2
-		{
-			pthread_mutex_lock(philo->left_fork);
-			print(philo, "has taken a fork");
-			pthread_mutex_lock(philo->right_fork);
-			print(philo, "has taken a fork");
-		}
+		first_fork = philo->left_fork;
+		second_fork = philo->right_fork;
 	}
 	else
 	{
-		// ✅ DEADLOCK PREVENTION: Use address-based ordering for other counts
-		pthread_mutex_t *first_fork, *second_fork;
-		
-		if (philo->left_fork < philo->right_fork)
-		{
-			first_fork = philo->left_fork;
-			second_fork = philo->right_fork;
-		}
-		else
-		{
-			first_fork = philo->right_fork;
-			second_fork = philo->left_fork;
-		}
-		
-		pthread_mutex_lock(first_fork);
-		print(philo, "has taken a fork");
-		pthread_mutex_lock(second_fork);
-		print(philo, "has taken a fork");
+		first_fork = philo->right_fork;
+		second_fork = philo->left_fork;
 	}
+	
+	pthread_mutex_lock(first_fork);
+	print(philo, "has taken a fork");
+	pthread_mutex_lock(second_fork);
+	print(philo, "has taken a fork");
 }

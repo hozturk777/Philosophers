@@ -61,25 +61,9 @@ void	sync_philo_start(t_philo *philo)
 	philo->last_meal= get_time_in_ms();
 	pthread_mutex_unlock(&philo->meal_mutex);
 
-	// ✅ CRITICAL FIX: Proper staggering for small philosopher counts
-	if (philo->data->philo_count == 3)
-	{
-		// For 3 philosophers: stagger by eating time to ensure fairness
-		if (philo->id == 1)
-			usleep(0);  // Philosopher 1 starts immediately
-		else if (philo->id == 2)
-			usleep(0);  // Philosopher 2 starts immediately  
-		else if (philo->id == 3)
-			usleep(philo->data->time_to_eat * 1000); // Philosopher 3 waits
-	}
-	else if (philo->id % 2 != 0)
-	{
-		// For other counts: odd philosophers wait
-		if (philo->data->philo_count <= 5)
-			usleep(philo->data->time_to_eat * 500); // Wait half eating time
-		else
-			usleep(15000); // 15ms for larger groups
-	}
+	// ✅ SIMPLE: Basic staggering for all philosopher counts
+	if (philo->id % 2 != 0)
+		usleep(15000); // 15ms delay for odd philosophers
 }
 
 void	parse_args(char *argv[], t_data *data, int argc)
