@@ -6,7 +6,7 @@
 /*   By: huozturk <huozturk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/07 12:07:58 by huozturk          #+#    #+#             */
-/*   Updated: 2025/07/08 15:09:03 by huozturk         ###   ########.fr       */
+/*   Updated: 2025/07/09 13:24:29 by huozturk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,14 +46,13 @@ void	philo_thinking(t_philo *philo)
 
 void	philo_dead(t_philo philo)
 {
-	(void)philo; // Suppress unused parameter warning
-	// ✅ REMOVED: Only monitor should print death message to prevent double output
-	// Death message is now only printed by monitor thread
+	(void)philo;
 }
 
 void	philo_take_fork(t_philo *philo)
 {
 	handle_dead(philo);
+	check_meal_goal(philo); // BURAYA EKLEDİM AMA THİNKİNG VE SLEEP DE YAZIYOR BAKILMASI GEREK
 
 	if (philo->data->philo_count == 1) // Tek philo için yazıldı
 	{
