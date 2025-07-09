@@ -6,7 +6,7 @@
 /*   By: huozturk <huozturk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/07 12:08:03 by huozturk          #+#    #+#             */
-/*   Updated: 2025/07/08 15:09:22 by huozturk         ###   ########.fr       */
+/*   Updated: 2025/07/09 13:17:30 by huozturk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,7 @@ void	sync_philo_start(t_philo *philo)
 
 	// ✅ SIMPLE: Basic staggering for all philosopher counts
 	if (philo->id % 2 != 0)
-		usleep(15000); // 15ms delay for odd philosophers
+		usleep(500); // 15ms delay for odd philosophers
 }
 
 void	parse_args(char *argv[], t_data *data, int argc)

@@ -6,7 +6,7 @@
 /*   By: huozturk <huozturk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/07 12:07:47 by huozturk          #+#    #+#             */
-/*   Updated: 2025/07/07 13:01:00 by huozturk         ###   ########.fr       */
+/*   Updated: 2025/07/09 13:16:51 by huozturk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,8 @@ void	*monitor_test(void *argv)
 	int	i;
 	
 	datas = (t_data *)argv;
+	datas->start_flag = 1;
+
 	while (1)
 	{
 		i = -1;
