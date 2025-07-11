@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   monitor.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hsyn <hsyn@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: huozturk <huozturk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/07 12:07:47 by huozturk          #+#    #+#             */
-/*   Updated: 2025/07/11 03:30:16 by hsyn             ###   ########.fr       */
+/*   Updated: 2025/07/11 17:00:16 by huozturk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,12 +35,7 @@ void	*monitor_test(void *argv)
 				datas->is_dead = 1; // Now protected by mutex
 				datas->dead_index = i;
 				pthread_mutex_unlock(&datas->death_mutex);
-				
-				//// ✅ CRITICAL: Print death message
-				//pthread_mutex_lock(&datas->print_mutex);
-				//printf("%lld %d died\n", get_time_in_ms() - datas->start_time, datas->philos[i].id);
-				//pthread_mutex_unlock(&datas->print_mutex);
-				
+				handle_dead(datas->philos);
 				pthread_exit(NULL);
 			}
 			else
