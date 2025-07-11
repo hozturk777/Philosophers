@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   philo.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: huozturk <huozturk@student.42.fr>          +#+  +:+       +#+        */
+/*   By: hsyn <hsyn@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/17 17:46:28 by huozturk          #+#    #+#             */
-/*   Updated: 2025/07/09 13:16:55 by huozturk         ###   ########.fr       */
+/*   Updated: 2025/07/11 03:34:39 by hsyn             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,9 +42,6 @@ int	main(int argc, char *argv[])
 		monitor_philo(&data);
 		set_time(&data);
 		create_philo(&data);
-		pthread_mutex_lock(&data.start_flag_mutex);
-		// data.start_flag = 1;
-		pthread_mutex_unlock(&data.start_flag_mutex);
 		philo_join(&data);
 		cleanup(&data);
 		return (0);

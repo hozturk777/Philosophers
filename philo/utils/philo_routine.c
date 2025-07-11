@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   philo_routine.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: huozturk <huozturk@student.42.fr>          +#+  +:+       +#+        */
+/*   By: hsyn <hsyn@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/07 12:07:58 by huozturk          #+#    #+#             */
-/*   Updated: 2025/07/09 13:24:29 by huozturk         ###   ########.fr       */
+/*   Updated: 2025/07/11 03:36:06 by hsyn             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,9 @@ void	philo_thinking(t_philo *philo)
 
 void	philo_dead(t_philo philo)
 {
-	(void)philo;
+	pthread_mutex_lock(&philo.data->print_mutex);
+	printf("%lld %d died\n", get_time_in_ms() - philo.data->start_time, philo.id);
+	pthread_mutex_unlock(&philo.data->print_mutex);
 }
 
 void	philo_take_fork(t_philo *philo)

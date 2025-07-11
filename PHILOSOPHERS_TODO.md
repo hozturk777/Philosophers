@@ -220,8 +220,6 @@ if (*res <= 0)
 
 
 # mutex init oluştu mu check & thread oluştu mu check
-# ./philo 1 200 200   INVALID dönüyor düzeltilecek ./philo 1 200 200  2 sadece ölüypr çatal alması gerekiyor mu ?
-# Philo ölüm yazdırmayı monitor içinden alınacak joinlerden sonra ya da philoların fonksiyonun da yazdırılacak
-# Invalid arg çıktısı ERR_INVALID çevrilecek
+# Philo ölüm yazdırmayı monitor içinden alınacak joinlerden sonra ya da philoların fonksiyonun da yazdırılacak (Oldu gibi ama bi kontrol edilecek)
 # ./philo 200 800 200 200    Ölmemesi gerek ölüyor
 # $ ./philo 200 401 200 200     çok geç ölüm mesajı yazıyor
