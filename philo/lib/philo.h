@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   philo.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: huozturk <huozturk@student.42.fr>          +#+  +:+       +#+        */
+/*   By: hsyn <hsyn@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/17 17:46:30 by huozturk          #+#    #+#             */
-/*   Updated: 2025/07/11 16:58:18 by huozturk         ###   ########.fr       */
+/*   Updated: 2025/07/12 16:02:00 by hsyn             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,6 +77,7 @@ void		check_meal_goal(t_philo *philo);
 void		philo_take_fork(t_philo *philo);
 void		print(t_philo *philo, char *str);
 void		philo_join(t_data *data);
+void		*ft_calloc(size_t count, size_t size);
 
 
 

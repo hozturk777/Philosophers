@@ -6,7 +6,7 @@
 /*   By: hsyn <hsyn@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/17 17:46:28 by huozturk          #+#    #+#             */
-/*   Updated: 2025/07/11 03:34:39 by hsyn             ###   ########.fr       */
+/*   Updated: 2025/07/12 15:58:07 by hsyn             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,10 +30,10 @@ int	main(int argc, char *argv[])
 {
 	t_data	data;
 
-	data.is_dead = 0;
-	data.dead_index = -1;
-	data.forks = NULL;
-	data.philos = NULL;
+	//data.is_dead = 0;
+	//data.dead_index = -1;
+	//data.forks = NULL;
+	//data.philos = NULL;
 	// ft_memset(&data, 0, sizeof(t_data)); // This line is not needed as we initialize all members explicitly
 	if (argc == 5 || argc == 6)
 	{

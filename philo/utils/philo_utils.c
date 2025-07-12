@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   philo_utils.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: huozturk <huozturk@student.42.fr>          +#+  +:+       +#+        */
+/*   By: hsyn <hsyn@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/17 17:46:25 by huozturk          #+#    #+#             */
-/*   Updated: 2025/07/08 15:05:07 by huozturk         ###   ########.fr       */
+/*   Updated: 2025/07/12 16:01:05 by hsyn             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,12 @@ void	init_philo(t_data *data, char *argv[], int argc)
 	
 	i = 0;
 	parse_args(argv, data, argc);
-	data->philos = calloc(sizeof(t_philo), data->philo_count); //ft_calloc eklenecek
+	
+	data->forks = NULL;
+	data->philos = NULL;
+	data->is_dead = 0;
+	data->dead_index = -1;
+	data->philos = ft_calloc(sizeof(t_philo), data->philo_count); //ft_calloc eklenecek
 	error_check(data, ERR_MALLOC_FAIL, data->philos);
 	while (i < data->philo_count)
 	{
