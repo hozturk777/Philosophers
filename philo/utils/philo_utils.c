@@ -6,7 +6,7 @@
 /*   By: hsyn <hsyn@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/17 17:46:25 by huozturk          #+#    #+#             */
-/*   Updated: 2025/07/12 16:01:05 by hsyn             ###   ########.fr       */
+/*   Updated: 2025/07/12 16:11:52 by hsyn             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ void	init_philo(t_data *data, char *argv[], int argc)
 	data->philos = NULL;
 	data->is_dead = 0;
 	data->dead_index = -1;
-	data->philos = ft_calloc(sizeof(t_philo), data->philo_count); //ft_calloc eklenecek
+	data->philos = ft_calloc(sizeof(t_philo), data->philo_count);
 	error_check(data, ERR_MALLOC_FAIL, data->philos);
 	while (i < data->philo_count)
 	{
@@ -62,11 +62,9 @@ void	init_philo(t_data *data, char *argv[], int argc)
 		data->philos[i].eat_count = 0;
 		i++;
 	}
-	if ((data->philo_count != data->philos[i - 1].id)) // DÜZELECEK
-	{
-		printf("LAST_ID: %d\n", data->philos[i - 1].id);
-		exit(1);
-	}
+	data->philo_count--;
+	if ((data->philo_count != data->philos[i - 1].id))
+		error_check(data, ERR_THREAD_FAIL, NULL);
 }
 
 void	create_philo(t_data *data)
