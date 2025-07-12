@@ -6,7 +6,7 @@
 /*   By: hsyn <hsyn@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/17 17:46:25 by huozturk          #+#    #+#             */
-/*   Updated: 2025/07/12 16:11:52 by hsyn             ###   ########.fr       */
+/*   Updated: 2025/07/12 17:01:14 by hsyn             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,6 @@ void	init_philo(t_data *data, char *argv[], int argc)
 		data->philos[i].eat_count = 0;
 		i++;
 	}
-	data->philo_count--;
 	if ((data->philo_count != data->philos[i - 1].id))
 		error_check(data, ERR_THREAD_FAIL, NULL);
 }
@@ -87,22 +86,18 @@ void	init_forks(t_data *data)
 	int	i;
 
 	i = -1;
-	data->forks = malloc(data->philo_count * sizeof(pthread_mutex_t)); //ft_calloc eklenecek
+	error_check_mutex(data, pthread_mutex_init(&data->death_mutex, NULL));
+	error_check_mutex(data, pthread_mutex_init(&data->start_flag_mutex, NULL));
+	error_check_mutex(data, pthread_mutex_init(&data->check_meal_mutex, NULL));
+	error_check_mutex(data, pthread_mutex_init(&data->print_mutex, NULL));
+	data->forks = ft_calloc(data->philo_count, sizeof(pthread_mutex_t));
 	error_check(data, ERR_MALLOC_FAIL, data->forks);
-	
-	// Initialize global mutexes
-	// checkler eklenicek
-	pthread_mutex_init(&data->death_mutex, NULL);
-	pthread_mutex_init(&data->start_flag_mutex, NULL);
-	pthread_mutex_init(&data->check_meal_mutex, NULL);
-	pthread_mutex_init(&data->print_mutex, NULL);
 	while (++i < data->philo_count)
 	{
 		pthread_mutex_init(&data->forks[i], NULL); // AÇILDI MI AÇILMADI MI CHECK
 		pthread_mutex_init(&data->philos[i].meal_mutex, NULL);
 		
 	}
-
 	i = -1;
 	while (++i < data->philo_count)
 	{

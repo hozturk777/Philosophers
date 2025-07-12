@@ -27,3 +27,15 @@ void	error_check(t_data *data, int err_code, void *ptr)
 	exit(1);
 }
 
+void	error_check_mutex(t_data *data, int value)
+{
+	if (value == 0)
+		return ;
+	if (value != 0)
+		fprintf(stderr, "ERR_MUTEX_FAIL\n");
+	if (data)
+		cleanup(data);
+
+	exit(1);
+}
+
