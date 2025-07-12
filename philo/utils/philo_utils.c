@@ -6,7 +6,7 @@
 /*   By: hsyn <hsyn@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/17 17:46:25 by huozturk          #+#    #+#             */
-/*   Updated: 2025/07/12 17:01:14 by hsyn             ###   ########.fr       */
+/*   Updated: 2025/07/12 17:35:46 by hsyn             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,10 +94,10 @@ void	init_forks(t_data *data)
 	error_check(data, ERR_MALLOC_FAIL, data->forks);
 	while (++i < data->philo_count)
 	{
-		pthread_mutex_init(&data->forks[i], NULL); // AÇILDI MI AÇILMADI MI CHECK
-		pthread_mutex_init(&data->philos[i].meal_mutex, NULL);
-		
+		error_check_mutex(data, pthread_mutex_init(&data->forks[i], NULL));
+		error_check_mutex(data, pthread_mutex_init(&data->philos[i].meal_mutex, NULL));
 	}
+
 	i = -1;
 	while (++i < data->philo_count)
 	{

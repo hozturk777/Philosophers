@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   monitor.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: huozturk <huozturk@student.42.fr>          +#+  +:+       +#+        */
+/*   By: hsyn <hsyn@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/07 12:07:47 by huozturk          #+#    #+#             */
-/*   Updated: 2025/07/11 17:00:16 by huozturk         ###   ########.fr       */
+/*   Updated: 2025/07/12 17:21:28 by hsyn             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ void	*monitor_test(void *argv)
 	while (1)
 	{
 		i = -1;
-		while (++i < datas->philo_count)
+		while (++i < datas->philo_count) // DÜZENLENECEK MUTEX GEREK VAR MI ?
 		{
 			pthread_mutex_lock(&datas->philos[i].meal_mutex);
 			long long last = datas->philos[i].last_meal;
