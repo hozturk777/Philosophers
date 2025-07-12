@@ -21,6 +21,8 @@ void	error_check(t_data *data, int err_code, void *ptr)
 		printf("ERR_INVALID_ARG\n");
 	else if (err_code == ERR_THREAD_FAIL)
 		printf("ERR_THREAD_FAIL\n");
+	else if (err_code == ERR_ATOI_FAIL)
+		printf("ERR_ATOI_FAIL\n");
 	if (data)
 		cleanup(data);
 	

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: huozturk <huozturk@student.42.fr>          +#+  +:+       +#+        */
+/*   By: hsyn <hsyn@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/07 12:08:03 by huozturk          #+#    #+#             */
-/*   Updated: 2025/07/09 13:17:30 by huozturk         ###   ########.fr       */
+/*   Updated: 2025/07/12 18:55:07 by hsyn             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,14 +44,14 @@ int ft_atoi(char *str, int *res)
 	while ((*(str + i) >= '0' && *(str + i) <= '9') || *(str + i) != '\0')
 	{
 		if (!(*(str + i) >= '0' && *(str + i) <= '9'))
-			return (1);	// Buralara check error'a gönderip error message dönülmeli
+			error_check(NULL, ERR_ATOI_FAIL, NULL);
 		else
 			*res = (*res * 10) + (*(str + i) - '0');
 		i++;
 	}
 	*res *= sign;
 	if (*res <= 0)
-		return (1);	// Buralara check error'a gönderip error message dönülmeli
+		error_check(NULL, ERR_ATOI_FAIL, NULL);
 	return (0);
 }
 
@@ -61,9 +61,8 @@ void	sync_philo_start(t_philo *philo)
 	philo->last_meal= get_time_in_ms();
 	pthread_mutex_unlock(&philo->meal_mutex);
 
-	// ✅ SIMPLE: Basic staggering for all philosopher counts
 	if (philo->id % 2 != 0)
-		usleep(500); // 15ms delay for odd philosophers
+		usleep(500);
 }
 
 void	parse_args(char *argv[], t_data *data, int argc)
@@ -90,15 +89,13 @@ void	parse_args(char *argv[], t_data *data, int argc)
 
 void	print(t_philo *philo, char *str)
 {
-	// ✅ Check if someone died before printing
 	pthread_mutex_lock(&philo->data->death_mutex);
 	if (philo->data->is_dead)
 	{
 		pthread_mutex_unlock(&philo->data->death_mutex);
-		return; // Don't print after death
+		return ; // Don't print after death
 	}
 	pthread_mutex_unlock(&philo->data->death_mutex);
-
 	pthread_mutex_lock(&philo->data->print_mutex);
 	printf("%lld %d %s\n", get_time_in_ms() - philo->data->start_time, philo->id, str);
 	pthread_mutex_unlock(&philo->data->print_mutex);
