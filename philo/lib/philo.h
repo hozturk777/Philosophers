@@ -6,7 +6,7 @@
 /*   By: hsyn <hsyn@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/17 17:46:30 by huozturk          #+#    #+#             */
-/*   Updated: 2025/07/12 17:15:48 by hsyn             ###   ########.fr       */
+/*   Updated: 2025/07/12 20:00:20 by hsyn             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,7 @@ typedef struct s_data
 	int				time_to_eat;
 	int				time_to_sleep;
 	long long		start_time;
+	long long		last_meal_philo;
 	pthread_mutex_t	*forks;
 	pthread_mutex_t	death_mutex;  // Global death state protection
 	pthread_mutex_t	check_meal_mutex;  // Global death state protection
@@ -79,6 +80,10 @@ void		print(t_philo *philo, char *str);
 void		philo_join(t_data *data);
 void		*ft_calloc(size_t count, size_t size);
 void		error_check_mutex(t_data *data, int value);
+void		set_death_status(t_data *data, int philo_index);
+void		set_last_meal(t_data *data, int philo_index);
+void		check_and_handle_death(t_data *data, int philo_index);
+
 
 
 
