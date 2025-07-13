@@ -6,7 +6,7 @@
 /*   By: hsyn <hsyn@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/17 17:46:25 by huozturk          #+#    #+#             */
-/*   Updated: 2025/07/12 19:35:41 by hsyn             ###   ########.fr       */
+/*   Updated: 2025/07/12 20:16:14 by hsyn             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,6 @@ void	*say_hello(void *arg)
 	{
 		philo_take_fork(philo);
 		philo_eat(philo);
-		// ✅ IMPORTANT: Unlock in reverse order for consistency
 		pthread_mutex_unlock(philo->right_fork);
 		pthread_mutex_unlock(philo->left_fork);
 		philo_sleep(philo);
