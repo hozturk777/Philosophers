@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   philo_utils.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hsyn <hsyn@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: huozturk <huozturk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/17 17:46:25 by huozturk          #+#    #+#             */
-/*   Updated: 2025/07/12 20:16:14 by hsyn             ###   ########.fr       */
+/*   Updated: 2025/07/14 15:39:06 by huozturk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ void	init_philo(t_data *data, char *argv[], int argc)
 	i = 0;
 	parse_args(argv, data, argc);
 	
-	data->forks = NULL; // memset yapılabilir!
+	data->forks = NULL;
 	data->philos = NULL;
 	data->is_dead = 0;
 	data->dead_index = -1;

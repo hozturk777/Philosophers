@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hsyn <hsyn@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: huozturk <huozturk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/07 12:08:03 by huozturk          #+#    #+#             */
-/*   Updated: 2025/07/12 18:55:07 by hsyn             ###   ########.fr       */
+/*   Updated: 2025/07/14 13:05:15 by huozturk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,9 +37,8 @@ int ft_atoi(char *str, int *res)
 		return (1);
 	while (*(str + i) == '+' || *(str + i) == '-')
 	{
-		if (*(str + i) == '-')
+		if (*(str + i++) == '-')
 			sign *= -1;
-		i++;
 	}
 	while ((*(str + i) >= '0' && *(str + i) <= '9') || *(str + i) != '\0')
 	{
@@ -93,7 +92,7 @@ void	print(t_philo *philo, char *str)
 	if (philo->data->is_dead)
 	{
 		pthread_mutex_unlock(&philo->data->death_mutex);
-		return ; // Don't print after death
+		return ;
 	}
 	pthread_mutex_unlock(&philo->data->death_mutex);
 	pthread_mutex_lock(&philo->data->print_mutex);

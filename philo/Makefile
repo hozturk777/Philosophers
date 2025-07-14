@@ -4,7 +4,7 @@ SRC_DIR				= src/
 UTL_DIR				= utils/
 ERR_DIR				= error/
 CC					= @cc
-CFLAGS				= -Wall -Wextra -Werror -pthread
+CFLAGS				= -Wall -Wextra -Werror -pthread -g
 # DEBUG_FLAGS		= -fsanitize=address -g  # Memory debugging
 # THREAD_FLAGS		= -fsanitize=thread -g   # Thread debugging (sistem sorunu var)
 RM					= rm -rf

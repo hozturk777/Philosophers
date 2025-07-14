@@ -5,6 +5,7 @@
 
 void	cleanup(t_data *data)
 {
+	destroy_mutex(data);
 	if (data->philos)
 		free(data->philos);
 	if (data->forks)
@@ -39,3 +40,19 @@ void	error_check_mutex(t_data *data, int value)
 	exit(1);
 }
 
+void	destroy_mutex(t_data *data)
+{
+	int	i;
+
+	i = -1;
+	pthread_mutex_destroy(&data->check_meal_mutex);
+	pthread_mutex_destroy(&data->death_mutex);
+	pthread_mutex_destroy(&data->print_mutex);
+	pthread_mutex_destroy(&data->start_flag_mutex);
+	
+	if (data->forks)
+	{
+		while (++i < data->philo_count)
+			pthread_mutex_destroy(&data->forks[i]);
+	}
+}

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   monitor.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hsyn <hsyn@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: huozturk <huozturk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/07 12:07:47 by huozturk          #+#    #+#             */
-/*   Updated: 2025/07/12 20:01:07 by hsyn             ###   ########.fr       */
+/*   Updated: 2025/07/14 16:41:18 by huozturk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ void	*monitor_test(void *argv)
 			if (datas->must_eat == datas->philos[i].eat_count)
 				pthread_exit(NULL);
 		}
-		usleep(1000);
+		usleep(100);
 	}
 }
 
