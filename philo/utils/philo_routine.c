@@ -6,7 +6,7 @@
 /*   By: huozturk <huozturk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/07 12:07:58 by huozturk          #+#    #+#             */
-/*   Updated: 2025/07/16 15:51:55 by huozturk         ###   ########.fr       */
+/*   Updated: 2025/07/16 17:07:32 by huozturk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,8 @@
 
 void	philo_eat(t_philo *philo)
 {
-	last_meal_added(philo); // last meal update
-	handle_dead(philo); // Tek philo için yazıldı
-
+	last_meal_added(philo);
+	handle_dead(philo);
 	print(philo, "is eating");
 	philo->eat_count++;
 	usleep(philo->data->time_to_eat * 1000);
@@ -29,20 +28,19 @@ void	philo_sleep(t_philo *philo)
 	usleep(philo->data->time_to_sleep * 1000);
 }
 
-void	philo_thinking(t_philo *philo) // BAKILACAK
+void	philo_thinking(t_philo *philo)
 {
+	int think_time;
 	check_meal_goal(philo);
 	print(philo, "is thinking");
 	
-	// ✅ CRITICAL: For odd number of philosophers, add thinking time to prevent starvation
 	if (philo->data->philo_count % 2 == 1 && philo->data->philo_count > 1)
 	{
-		// Calculate thinking time to ensure all philosophers get a chance
-		int think_time = (philo->data->time_to_eat * 2) - philo->data->time_to_sleep;
+		think_time = (philo->data->time_to_eat * 2) - philo->data->time_to_sleep;
 		if (think_time > 0)
 			usleep(think_time * 1000);
 		else
-			usleep(1000); // Minimum 1ms thinking time
+			usleep(1000);
 	}
 }
 
@@ -56,9 +54,8 @@ void	philo_dead(t_philo philo)
 void	philo_take_fork(t_philo *philo)
 {
 	handle_dead(philo);
-	check_meal_goal(philo); // BURAYA EKLEDİM AMA THİNKİNG VE SLEEP DE YAZIYOR BAKILMASI GEREK
-
-	if (philo->data->philo_count == 1) // Tek philo için yazıldı
+	check_meal_goal(philo);
+	if (philo->data->philo_count == 1)
 	{
 		pthread_mutex_lock(philo->left_fork);
 		print(philo, "has taken a fork");
@@ -66,23 +63,18 @@ void	philo_take_fork(t_philo *philo)
 		philo->data->is_dead = 1;
 		return ;
 	}
-	
-	// ✅ DEADLOCK PREVENTION: Use address-based ordering for ALL counts > 1
-	pthread_mutex_t *first_fork, *second_fork;
-	
 	if (philo->left_fork < philo->right_fork)
 	{
-		first_fork = philo->left_fork;
-		second_fork = philo->right_fork;
+		philo->first_fork = philo->left_fork;
+		philo->second_fork = philo->right_fork;
 	}
 	else
 	{
-		first_fork = philo->right_fork;
-		second_fork = philo->left_fork;
+		philo->first_fork = philo->right_fork;
+		philo->second_fork = philo->left_fork;
 	}
-	
-	pthread_mutex_lock(first_fork);
+	pthread_mutex_lock(philo->first_fork);
 	print(philo, "has taken a fork");
-	pthread_mutex_lock(second_fork);
+	pthread_mutex_lock(philo->second_fork);
 	print(philo, "has taken a fork");
 }
