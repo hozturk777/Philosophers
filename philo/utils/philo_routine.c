@@ -6,7 +6,7 @@
 /*   By: huozturk <huozturk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/07 12:07:58 by huozturk          #+#    #+#             */
-/*   Updated: 2025/07/16 17:07:32 by huozturk         ###   ########.fr       */
+/*   Updated: 2025/07/16 17:41:32 by huozturk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,11 +36,11 @@ void	philo_thinking(t_philo *philo)
 	
 	if (philo->data->philo_count % 2 == 1 && philo->data->philo_count > 1)
 	{
-		think_time = (philo->data->time_to_eat * 2) - philo->data->time_to_sleep;
+		think_time = philo->data->time_to_eat - philo->data->time_to_sleep;
 		if (think_time > 0)
-			usleep(think_time * 1000);
+			usleep(think_time * 100);
 		else
-			usleep(1000);
+			usleep(100);
 	}
 }
 
@@ -65,16 +65,16 @@ void	philo_take_fork(t_philo *philo)
 	}
 	if (philo->left_fork < philo->right_fork)
 	{
-		philo->first_fork = philo->left_fork;
-		philo->second_fork = philo->right_fork;
+		pthread_mutex_lock(philo->left_fork);
+		print(philo, "has taken a fork");
+		pthread_mutex_lock(philo->right_fork);
+		print(philo, "has taken a fork");
 	}
 	else
 	{
-		philo->first_fork = philo->right_fork;
-		philo->second_fork = philo->left_fork;
+		pthread_mutex_lock(philo->right_fork);
+		print(philo, "has taken a fork");
+		pthread_mutex_lock(philo->left_fork);
+		print(philo, "has taken a fork");
 	}
-	pthread_mutex_lock(philo->first_fork);
-	print(philo, "has taken a fork");
-	pthread_mutex_lock(philo->second_fork);
-	print(philo, "has taken a fork");
 }
