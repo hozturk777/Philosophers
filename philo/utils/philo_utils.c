@@ -6,7 +6,7 @@
 /*   By: huozturk <huozturk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/17 17:46:25 by huozturk          #+#    #+#             */
-/*   Updated: 2025/07/14 15:39:06 by huozturk         ###   ########.fr       */
+/*   Updated: 2025/07/16 15:50:28 by huozturk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ void	*say_hello(void *arg)
 	{
 		if (check_start_flag(philo))
 			break;
-		usleep(100); // ✅ CRITICAL: Prevent CPU spinning!
+		usleep(100);
 	}
 	sync_philo_start(philo);
 	while (!check_dead(philo))
