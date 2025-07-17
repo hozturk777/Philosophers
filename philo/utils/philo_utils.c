@@ -6,7 +6,7 @@
 /*   By: huozturk <huozturk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/17 17:46:25 by huozturk          #+#    #+#             */
-/*   Updated: 2025/07/16 15:50:28 by huozturk         ###   ########.fr       */
+/*   Updated: 2025/07/17 12:07:16 by huozturk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 #include "../lib/error.h"
 #include <stdlib.h>
 
-void	*say_hello(void *arg)
+static void	*say_hello(void *arg)
 {
 	t_philo *philo;
 
@@ -80,7 +80,7 @@ void	create_philo(t_data *data)
 	}
 }
 
-void	init_forks(t_data *data) // Mutexler destroy edilecek mi ?
+void	init_forks(t_data *data)
 {
 	int	i;
 

@@ -204,3 +204,8 @@ if (all_philosophers_finished_eating(datas))
 # Ölüm mesajı bazen 100-200 ms geç yazılıyor
 # must meal argümanı sıkıntılı bittikten sonra düşünüyor, uyuyuor
 # Mutexler destroy edilecek mi ? (EVET) 
+
+#	ARAŞTIR!!!
+# IPC
+# ATTRIBUTElere bak
+# Mutex nasıl çalışıyo (schedular) (Struct yapısını incele)

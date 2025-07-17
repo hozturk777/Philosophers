@@ -6,7 +6,7 @@
 /*   By: huozturk <huozturk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/07 12:07:47 by huozturk          #+#    #+#             */
-/*   Updated: 2025/07/16 17:34:45 by huozturk         ###   ########.fr       */
+/*   Updated: 2025/07/17 12:06:38 by huozturk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,12 +22,9 @@ void	*monitor_test(void *argv)
 	while (1)
 	{
 		i = -1;
-		while (++i < datas->philo_count) // DÜZENLENECEK MUTEX GEREK VAR MI ?
+		while (++i < datas->philo_count)
 		{
-			//pthread_mutex_lock(&datas->philos[i].meal_mutex);
-			//long long last = datas->philos[i].last_meal;
-			//pthread_mutex_unlock(&datas->philos[i].meal_mutex);
-			set_last_meal(datas, i); // Burası belki hatalı dene!!!
+			set_last_meal(datas, i);
 			check_and_handle_death(datas, i);
 			if (datas->must_eat == datas->philos[i].eat_count)
 				pthread_exit(NULL);
