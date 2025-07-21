@@ -17,13 +17,13 @@ void	error_check(t_data *data, int err_code, void *ptr)
 	if (ptr)
 		return ;
 	if (err_code == ERR_MALLOC_FAIL)
-		printf("ERR_MALLOC_FAIL\n");
+		fprintf(stderr, "ERR_MALLOC_FAIL\n");
 	else if (err_code == ERR_INVALID_ARG)
-		printf("ERR_INVALID_ARG\n");
+		fprintf(stderr,"ERR_INVALID_ARG\n");
 	else if (err_code == ERR_THREAD_FAIL)
-		printf("ERR_THREAD_FAIL\n");
+		fprintf(stderr, "ERR_THREAD_FAIL\n");
 	else if (err_code == ERR_ATOI_FAIL)
-		printf("ERR_ATOI_FAIL\n");
+		fprintf(stderr, "ERR_ATOI_FAIL\n");
 	if (data)
 		cleanup(data);
 	exit(1);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   philo_routine.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: huozturk <huozturk@student.42.fr>          +#+  +:+       +#+        */
+/*   By: hsyn <hsyn@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/07 12:07:58 by huozturk          #+#    #+#             */
-/*   Updated: 2025/07/17 12:50:37 by huozturk         ###   ########.fr       */
+/*   Updated: 2025/07/20 19:27:26 by hsyn             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,11 +14,12 @@
 
 void	philo_eat(t_philo *philo)
 {
-	last_meal_added(philo);
+	//last_meal_added(philo); // Burada mi ?
 	handle_dead(philo);
 	print(philo, "is eating");
 	philo->eat_count++;
 	usleep(philo->data->time_to_eat * 1000);
+	last_meal_added(philo); // Burada mi ?
 }
 
 void	philo_sleep(t_philo *philo)
