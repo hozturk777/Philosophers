@@ -6,7 +6,7 @@
 /*   By: huozturk <huozturk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/07 12:08:03 by huozturk          #+#    #+#             */
-/*   Updated: 2025/07/16 17:35:33 by huozturk         ###   ########.fr       */
+/*   Updated: 2025/07/21 20:21:36 by huozturk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,9 +56,9 @@ int ft_atoi(char *str, int *res)
 
 void	sync_philo_start(t_philo *philo)
 {
-	pthread_mutex_lock(&philo->meal_mutex);
+	// pthread_mutex_lock(&philo->meal_mutex);
 	philo->last_meal= get_time_in_ms();
-	pthread_mutex_unlock(&philo->meal_mutex);
+	// pthread_mutex_unlock(&philo->meal_mutex);
 
 	if (philo->id % 2 != 0)
 		usleep(500);
@@ -88,13 +88,14 @@ void	parse_args(char *argv[], t_data *data, int argc)
 
 void	print(t_philo *philo, char *str)
 {
-	pthread_mutex_lock(&philo->data->death_mutex);
-	if (philo->data->is_dead)
-	{
-		pthread_mutex_unlock(&philo->data->death_mutex);
-		return ;
-	}
-	pthread_mutex_unlock(&philo->data->death_mutex);
+	// pthread_mutex_lock(&philo->data->death_mutex);
+	// if (philo->data->is_dead)
+	// {
+	// 	pthread_mutex_unlock(&philo->data->death_mutex);
+	// 	return ;
+	// }
+	// pthread_mutex_unlock(&philo->data->death_mutex);
+	handle_dead(philo);
 	pthread_mutex_lock(&philo->data->print_mutex);
 	printf("%lld %d %s\n", get_time_in_ms() - philo->data->start_time, philo->id, str);
 	pthread_mutex_unlock(&philo->data->print_mutex);

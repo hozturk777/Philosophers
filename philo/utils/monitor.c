@@ -6,7 +6,7 @@
 /*   By: huozturk <huozturk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/07 12:07:47 by huozturk          #+#    #+#             */
-/*   Updated: 2025/07/17 12:06:38 by huozturk         ###   ########.fr       */
+/*   Updated: 2025/07/21 20:17:28 by huozturk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ void	*monitor_test(void *argv)
 			if (datas->must_eat == datas->philos[i].eat_count)
 				pthread_exit(NULL);
 		}
-		usleep(100);
+		// usleep(100);
 	}
 }
 

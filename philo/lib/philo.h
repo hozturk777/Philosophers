@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   philo.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hsyn <hsyn@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: huozturk <huozturk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/17 17:46:30 by huozturk          #+#    #+#             */
-/*   Updated: 2025/07/20 18:19:22 by hsyn             ###   ########.fr       */
+/*   Updated: 2025/07/21 20:15:25 by huozturk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,5 +84,7 @@ void		set_death_status(t_data *data, int philo_index);
 void		set_last_meal(t_data *data, int philo_index);
 void		check_and_handle_death(t_data *data, int philo_index);
 void		destroy_mutex(t_data *data);
+void		set_time(t_data *data);
+
 
 #endif

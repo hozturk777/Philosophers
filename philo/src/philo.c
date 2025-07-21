@@ -3,28 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   philo.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hsyn <hsyn@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: huozturk <huozturk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/17 17:46:28 by huozturk          #+#    #+#             */
-/*   Updated: 2025/07/20 18:20:03 by hsyn             ###   ########.fr       */
+/*   Updated: 2025/07/21 20:15:37 by huozturk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../lib/philo.h" 
 #include <stdio.h>
-
-long long	get_time_in_ms(void) // ARAŞTIRILACAK
-{
-	struct timeval	tv;
-	gettimeofday(&tv, NULL);
-	return ((tv.tv_sec * 1000LL) + (tv.tv_usec / 1000));
-}
-
-static void	set_time(t_data *data)
-{
-	data->start_time = get_time_in_ms();
-	data->start_flag = 0;
-}
 
 int	main(int argc, char *argv[])
 {
