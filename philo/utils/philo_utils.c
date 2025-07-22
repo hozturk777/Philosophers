@@ -6,7 +6,7 @@
 /*   By: huozturk <huozturk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/17 17:46:25 by huozturk          #+#    #+#             */
-/*   Updated: 2025/07/17 12:07:16 by huozturk         ###   ########.fr       */
+/*   Updated: 2025/07/22 20:23:51 by huozturk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,14 +16,13 @@
 
 static void	*say_hello(void *arg)
 {
-	t_philo *philo;
+	t_philo	*philo;
 
 	philo = (t_philo *)arg;
-
 	while (1)
 	{
 		if (check_start_flag(philo))
-			break;
+			break ;
 		usleep(100);
 	}
 	sync_philo_start(philo);
@@ -39,14 +38,12 @@ static void	*say_hello(void *arg)
 	return (NULL);
 }
 
-
 void	init_philo(t_data *data, char *argv[], int argc)
 {
 	int	i;
-	
+
 	i = 0;
 	parse_args(argv, data, argc);
-	
 	data->forks = NULL;
 	data->philos = NULL;
 	data->is_dead = 0;
@@ -93,10 +90,11 @@ void	init_forks(t_data *data)
 	error_check(data, ERR_MALLOC_FAIL, data->forks);
 	while (++i < data->philo_count)
 	{
-		error_check_mutex(data, pthread_mutex_init(&data->forks[i], NULL));
-		error_check_mutex(data, pthread_mutex_init(&data->philos[i].meal_mutex, NULL));
+		error_check_mutex(data, pthread_mutex_init(&data->forks[i],
+				NULL));
+		error_check_mutex(data, pthread_mutex_init(&data->philos[i].meal_mutex,
+				NULL));
 	}
-
 	i = -1;
 	while (++i < data->philo_count)
 	{
