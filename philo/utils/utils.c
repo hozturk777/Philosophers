@@ -3,15 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: huozturk <huozturk@student.42.fr>          +#+  +:+       +#+        */
+/*   By: hsyn <hsyn@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/07 12:08:03 by huozturk          #+#    #+#             */
-/*   Updated: 2025/07/21 20:21:36 by huozturk         ###   ########.fr       */
+/*   Updated: 2025/07/23 01:59:57 by hsyn             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../lib/philo.h"
 #include "../lib/error.h"
+#include <stdio.h>
+#include <unistd.h>
 
 static int	check_long(char *str)
 {
@@ -25,7 +27,7 @@ static int	check_long(char *str)
 	return (0);
 }
 
-int ft_atoi(char *str, int *res)
+int	ft_atoi(char *str, int *res)
 {
 	int	i;
 	int	sign;
@@ -56,10 +58,7 @@ int ft_atoi(char *str, int *res)
 
 void	sync_philo_start(t_philo *philo)
 {
-	// pthread_mutex_lock(&philo->meal_mutex);
-	philo->last_meal= get_time_in_ms();
-	// pthread_mutex_unlock(&philo->meal_mutex);
-
+	philo->last_meal = get_time_in_ms();
 	if (philo->id % 2 != 0)
 		usleep(500);
 }
@@ -72,7 +71,7 @@ void	parse_args(char *argv[], t_data *data, int argc)
 			|| ft_atoi(argv[2], &data->time_to_die)
 			|| ft_atoi(argv[3], &data->time_to_eat)
 			|| ft_atoi(argv[4], &data->time_to_sleep))
-				error_check(data, ERR_INVALID_ARG, NULL);
+			error_check(data, ERR_INVALID_ARG, NULL);
 		data->must_eat = -1;
 	}
 	else
@@ -82,21 +81,15 @@ void	parse_args(char *argv[], t_data *data, int argc)
 			|| ft_atoi(argv[3], &data->time_to_eat)
 			|| ft_atoi(argv[4], &data->time_to_sleep)
 			|| ft_atoi(argv[5], &data->must_eat))
-				error_check(data, ERR_INVALID_ARG, NULL);
-	}	
+			error_check(data, ERR_INVALID_ARG, NULL);
+	}
 }
 
 void	print(t_philo *philo, char *str)
 {
-	// pthread_mutex_lock(&philo->data->death_mutex);
-	// if (philo->data->is_dead)
-	// {
-	// 	pthread_mutex_unlock(&philo->data->death_mutex);
-	// 	return ;
-	// }
-	// pthread_mutex_unlock(&philo->data->death_mutex);
 	handle_dead(philo);
 	pthread_mutex_lock(&philo->data->print_mutex);
-	printf("%lld %d %s\n", get_time_in_ms() - philo->data->start_time, philo->id, str);
+	printf("%lld %d %s\n", get_time_in_ms() - philo->data->start_time,
+		philo->id, str);
 	pthread_mutex_unlock(&philo->data->print_mutex);
 }

@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   philo.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: huozturk <huozturk@student.42.fr>          +#+  +:+       +#+        */
+/*   By: hsyn <hsyn@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/17 17:46:28 by huozturk          #+#    #+#             */
-/*   Updated: 2025/07/21 20:15:37 by huozturk         ###   ########.fr       */
+/*   Updated: 2025/07/23 01:57:33 by hsyn             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../lib/philo.h" 
+#include "../lib/philo.h"
 #include <stdio.h>
 
 int	main(int argc, char *argv[])

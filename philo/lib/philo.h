@@ -3,34 +3,31 @@
 /*                                                        :::      ::::::::   */
 /*   philo.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: huozturk <huozturk@student.42.fr>          +#+  +:+       +#+        */
+/*   By: hsyn <hsyn@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/17 17:46:30 by huozturk          #+#    #+#             */
-/*   Updated: 2025/07/21 20:15:25 by huozturk         ###   ########.fr       */
+/*   Updated: 2025/07/23 01:55:10 by hsyn             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef PHILO_H
 # define PHILO_H
 
-#include <unistd.h>
-#include <stdio.h>
-#include <pthread.h>
-#include <sys/time.h>
+# include <pthread.h>
 
-typedef struct s_data t_data;
+typedef struct s_data	t_data;
 
 typedef struct s_philo
 {
-	int	id;
-	int	eat_count;
-	pthread_t thread;
-	long long last_meal;
-	pthread_mutex_t *left_fork;
-	pthread_mutex_t *right_fork;
-	pthread_mutex_t meal_mutex;
-	t_data	*data;
-} t_philo;
+	int				id;
+	int				eat_count;
+	pthread_t		thread;
+	long long		last_meal;
+	pthread_mutex_t	*left_fork;
+	pthread_mutex_t	*right_fork;
+	pthread_mutex_t	meal_mutex;
+	t_data			*data;
+}	t_philo;
 
 typedef struct s_data
 {
@@ -41,6 +38,7 @@ typedef struct s_data
 	int				time_to_die;
 	int				time_to_eat;
 	int				time_to_sleep;
+	int				start_flag;
 	long long		start_time;
 	long long		last_meal_philo;
 	pthread_mutex_t	*forks;
@@ -51,12 +49,9 @@ typedef struct s_data
 	t_philo			*philos;
 	pthread_t		monitor_philo;
 
-
-	int	start_flag;
-
 }	t_data;
 
-int 		ft_atoi(char *str, int *res);
+int			ft_atoi(char *str, int *res);
 void		init_philo(t_data *data, char *argv[], int argc);
 void		init_forks(t_data *data);
 void		create_philo(t_data *data);
@@ -85,6 +80,5 @@ void		set_last_meal(t_data *data, int philo_index);
 void		check_and_handle_death(t_data *data, int philo_index);
 void		destroy_mutex(t_data *data);
 void		set_time(t_data *data);
-
 
 #endif

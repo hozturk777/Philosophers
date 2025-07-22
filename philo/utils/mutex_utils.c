@@ -3,15 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   mutex_utils.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: huozturk <huozturk@student.42.fr>          +#+  +:+       +#+        */
+/*   By: hsyn <hsyn@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/07 12:07:55 by huozturk          #+#    #+#             */
-/*   Updated: 2025/07/21 20:32:15 by huozturk         ###   ########.fr       */
+/*   Updated: 2025/07/23 01:58:56 by hsyn             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../lib/philo.h"
-#include <stdio.h>
 
 int	check_dead(t_philo *philo)
 {
@@ -22,7 +21,6 @@ int	check_dead(t_philo *philo)
 		return (1);
 	}
 	pthread_mutex_unlock(&philo->data->death_mutex);
-
 	return (0);
 }
 
@@ -35,16 +33,15 @@ int	check_start_flag(t_philo *philo)
 		return (1);
 	}
 	pthread_mutex_unlock(&philo->data->start_flag_mutex);
-	
 	return (0);
 }
 
 void	handle_dead(t_philo *philo)
 {
-	pthread_mutex_lock(&philo->data->death_mutex); // Func icerisinde yazdirma ve olme islemi
+	pthread_mutex_lock(&philo->data->death_mutex);
 	if (philo->data->is_dead)
 	{
-		pthread_mutex_unlock(&philo->data->death_mutex);			
+		pthread_mutex_unlock(&philo->data->death_mutex);
 		pthread_mutex_unlock(philo->left_fork);
 		pthread_mutex_unlock(philo->right_fork);
 		pthread_exit(NULL);
@@ -54,10 +51,10 @@ void	handle_dead(t_philo *philo)
 
 void	check_meal_goal(t_philo *philo)
 {
-	pthread_mutex_lock(&philo->data->check_meal_mutex); // Func icerisinde yazdirma ve olme islemi
+	pthread_mutex_lock(&philo->data->check_meal_mutex);
 	if (philo->eat_count == philo->data->must_eat)
 	{
-		pthread_mutex_unlock(&philo->data->check_meal_mutex);			
+		pthread_mutex_unlock(&philo->data->check_meal_mutex);
 		pthread_mutex_unlock(philo->left_fork);
 		pthread_mutex_unlock(philo->right_fork);
 		pthread_exit(NULL);

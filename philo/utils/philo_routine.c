@@ -3,19 +3,20 @@
 /*                                                        :::      ::::::::   */
 /*   philo_routine.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: huozturk <huozturk@student.42.fr>          +#+  +:+       +#+        */
+/*   By: hsyn <hsyn@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/07 12:07:58 by huozturk          #+#    #+#             */
-/*   Updated: 2025/07/22 14:36:27 by huozturk         ###   ########.fr       */
+/*   Updated: 2025/07/23 01:59:15 by hsyn             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../lib/philo.h"
+#include <stdio.h>
+#include <unistd.h>
 
 void	philo_eat(t_philo *philo)
 {
 	last_meal_added(philo);
-	// handle_dead(philo);
 	print(philo, "is eating");
 	philo->eat_count++;
 	usleep(philo->data->time_to_eat * 1000);
@@ -38,13 +39,13 @@ void	philo_thinking(t_philo *philo)
 void	philo_dead(t_philo philo)
 {
 	pthread_mutex_lock(&philo.data->print_mutex);
-	printf("%lld %d died\n", get_time_in_ms() - philo.data->start_time, philo.id);
+	printf("%lld %d died\n", get_time_in_ms() - philo.data->start_time,
+		philo.id);
 	pthread_mutex_unlock(&philo.data->print_mutex);
 }
 
 void	philo_take_fork(t_philo *philo)
 {
-	// handle_dead(philo);
 	check_meal_goal(philo);
 	if (philo->data->philo_count == 1)
 	{

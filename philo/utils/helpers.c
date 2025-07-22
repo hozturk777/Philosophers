@@ -3,23 +3,22 @@
 /*                                                        :::      ::::::::   */
 /*   helpers.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: huozturk <huozturk@student.42.fr>          +#+  +:+       +#+        */
+/*   By: hsyn <hsyn@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/04 13:30:32 by huozturk          #+#    #+#             */
-/*   Updated: 2025/07/21 20:16:24 by huozturk         ###   ########.fr       */
+/*   Updated: 2025/07/23 01:58:25 by hsyn             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../lib/philo.h"
 #include <stdlib.h>
-#include <stddef.h>
+#include <sys/time.h>
 
-void	 philo_join(t_data *data)
+void	philo_join(t_data *data)
 {
 	int	i;
 
 	i = -1;
-	
 	pthread_join(
 		data->monitor_philo,
 		NULL);
@@ -63,6 +62,7 @@ void	*ft_calloc(size_t count, size_t size)
 long long	get_time_in_ms(void) // ARAŞTIRILACAK
 {
 	struct timeval	tv;
+
 	gettimeofday(&tv, NULL);
 	return ((tv.tv_sec * 1000LL) + (tv.tv_usec / 1000));
 }
