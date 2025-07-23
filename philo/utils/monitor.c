@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   monitor.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hsyn <hsyn@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: huozturk <huozturk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/07 12:07:47 by huozturk          #+#    #+#             */
-/*   Updated: 2025/07/23 01:41:30 by hsyn             ###   ########.fr       */
+/*   Updated: 2025/07/23 18:21:32 by huozturk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ void	*monitor_test(void *argv)
 	int		i;
 
 	datas = (t_data *)argv;
-	datas->start_flag = 1;
+	datas->start_flag = 1; // MUTEX
 	while (1)
 	{
 		i = -1;
