@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   helpers.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hsyn <hsyn@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: huozturk <huozturk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/04 13:30:32 by huozturk          #+#    #+#             */
-/*   Updated: 2025/07/23 01:58:25 by hsyn             ###   ########.fr       */
+/*   Updated: 2025/07/23 15:45:16 by huozturk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ void	philo_join(t_data *data)
 	}
 }
 
-void	*ft_memset(void *b, int c, size_t len)
+static void	*ft_memset(void *b, int c, size_t len)
 {
 	unsigned char	*str;
 
@@ -59,7 +59,7 @@ void	*ft_calloc(size_t count, size_t size)
 	return (memory);
 }
 
-long long	get_time_in_ms(void) // ARAŞTIRILACAK
+long long	get_time_in_ms(void)
 {
 	struct timeval	tv;
 

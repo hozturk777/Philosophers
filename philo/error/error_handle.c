@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   error_handle.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hsyn <hsyn@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: huozturk <huozturk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/22 19:46:19 by huozturk          #+#    #+#             */
-/*   Updated: 2025/07/23 02:00:48 by hsyn             ###   ########.fr       */
+/*   Updated: 2025/07/23 15:43:54 by huozturk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,22 @@
 #include "../lib/error.h"
 #include <stdlib.h>
 #include <stdio.h>
+
+static void	destroy_mutex(t_data *data)
+{
+	int	i;
+
+	i = -1;
+	pthread_mutex_destroy(&data->check_meal_mutex);
+	pthread_mutex_destroy(&data->death_mutex);
+	pthread_mutex_destroy(&data->print_mutex);
+	pthread_mutex_destroy(&data->start_flag_mutex);
+	if (data->forks)
+	{
+		while (++i < data->philo_count)
+			pthread_mutex_destroy(&data->forks[i]);
+	}
+}
 
 void	cleanup(t_data *data)
 {
@@ -50,20 +66,4 @@ void	error_check_mutex(t_data *data, int value)
 	if (data)
 		cleanup(data);
 	exit(1);
-}
-
-void	destroy_mutex(t_data *data)
-{
-	int	i;
-
-	i = -1;
-	pthread_mutex_destroy(&data->check_meal_mutex);
-	pthread_mutex_destroy(&data->death_mutex);
-	pthread_mutex_destroy(&data->print_mutex);
-	pthread_mutex_destroy(&data->start_flag_mutex);
-	if (data->forks)
-	{
-		while (++i < data->philo_count)
-			pthread_mutex_destroy(&data->forks[i]);
-	}
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   philo_utils.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hsyn <hsyn@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: huozturk <huozturk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/17 17:46:25 by huozturk          #+#    #+#             */
-/*   Updated: 2025/07/23 01:59:49 by hsyn             ###   ########.fr       */
+/*   Updated: 2025/07/23 16:04:27 by huozturk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,6 @@ void	init_philo(t_data *data, char *argv[], int argc)
 	if ((data->philo_count != data->philos[i - 1].id))
 		error_check(data, ERR_THREAD_FAIL, NULL);
 }
-
 void	create_philo(t_data *data)
 {
 	int	i;
@@ -70,10 +69,10 @@ void	create_philo(t_data *data)
 	while (++i < data->philo_count)
 	{
 		pthread_create(
-			&data->philos[i].thread,
-			NULL,
-			say_hello,
-			&data->philos[i]);
+				&data->philos[i].thread,
+				NULL,
+				say_hello,
+				&data->philos[i]);
 	}
 }
 
