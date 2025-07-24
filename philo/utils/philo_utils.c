@@ -6,7 +6,7 @@
 /*   By: huozturk <huozturk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/17 17:46:25 by huozturk          #+#    #+#             */
-/*   Updated: 2025/07/24 17:19:53 by huozturk         ###   ########.fr       */
+/*   Updated: 2025/07/24 17:45:02 by huozturk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,7 +107,6 @@ void	init_forks(t_data *data)
 				NULL));
 		error_check_mutex(data, pthread_mutex_init(&data->philos[i].eat_count_mutex,
 				NULL));
-		
 	}
 	i = -1;
 	while (++i < data->philo_count)

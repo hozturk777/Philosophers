@@ -6,7 +6,7 @@
 /*   By: huozturk <huozturk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/07 12:07:58 by huozturk          #+#    #+#             */
-/*   Updated: 2025/07/24 17:12:03 by huozturk         ###   ########.fr       */
+/*   Updated: 2025/07/24 17:44:46 by huozturk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,19 +21,19 @@ void	philo_eat(t_philo *philo)
 	pthread_mutex_lock(&philo->eat_count_mutex);
 	philo->eat_count++;
 	pthread_mutex_unlock(&philo->eat_count_mutex);
-	usleep(philo->data->time_to_eat * 1000);
+	ft_usleep(philo->data->time_to_eat);
 }
 
 void	philo_sleep(t_philo *philo)
 {
-	check_meal_goal(philo);
+	// check_meal_goal(philo);
 	print(philo, "is sleeping");
-	usleep(philo->data->time_to_sleep * 1000);
+	ft_usleep(philo->data->time_to_sleep);
 }
 
 void	philo_thinking(t_philo *philo)
 {
-	check_meal_goal(philo);
+	// check_meal_goal(philo);
 	print(philo, "is thinking");
 	usleep(100);
 }
@@ -48,7 +48,7 @@ void	philo_dead(t_philo philo)
 
 void	philo_take_fork(t_philo *philo)
 {
-	check_meal_goal(philo);
+	// check_meal_goal(philo);
 	if (philo->data->philo_count == 1)
 	{
 		pthread_mutex_lock(philo->left_fork);
