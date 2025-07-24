@@ -6,7 +6,7 @@
 /*   By: huozturk <huozturk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/17 17:46:30 by huozturk          #+#    #+#             */
-/*   Updated: 2025/07/23 14:53:47 by huozturk         ###   ########.fr       */
+/*   Updated: 2025/07/24 14:57:02 by huozturk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,8 +25,12 @@ typedef struct s_philo
 	long long		last_meal;
 	pthread_mutex_t	*left_fork;
 	pthread_mutex_t	*right_fork;
-	pthread_mutex_t	meal_mutex;
 	t_data			*data;
+	pthread_mutex_t	eat_count_mutex;
+
+	int	left_fork_bool;
+	int	right_fork_bool;
+
 }	t_philo;
 
 typedef struct s_data
@@ -49,6 +53,11 @@ typedef struct s_data
 	t_philo			*philos;
 	pthread_t		monitor_philo;
 
+	pthread_mutex_t	meal_mutex;
+	
+	pthread_mutex_t	last_meal_mutex;
+	pthread_mutex_t	must_meal_mutex;
+	
 }	t_data;
 
 int			ft_atoi(char *str, int *res);
@@ -75,8 +84,8 @@ void		print(t_philo *philo, char *str);
 void		philo_join(t_data *data);
 void		*ft_calloc(size_t count, size_t size);
 void		error_check_mutex(t_data *data, int value);
-void		set_last_meal(t_data *data, int philo_index);
 void		check_and_handle_death(t_data *data, int philo_index);
 void		set_time(t_data *data);
+void		ft_usleep(int wait_time);
 
 #endif

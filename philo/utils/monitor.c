@@ -6,11 +6,13 @@
 /*   By: huozturk <huozturk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/07 12:07:47 by huozturk          #+#    #+#             */
-/*   Updated: 2025/07/23 18:21:32 by huozturk         ###   ########.fr       */
+/*   Updated: 2025/07/24 14:56:53 by huozturk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../lib/philo.h"
+#include <unistd.h>
+#include <stdio.h>
 
 void	*monitor_test(void *argv)
 {
@@ -18,16 +20,28 @@ void	*monitor_test(void *argv)
 	int		i;
 
 	datas = (t_data *)argv;
-	datas->start_flag = 1; // MUTEX
+	while (1)
+	{
+		pthread_mutex_lock(&datas->start_flag_mutex);
+		if (datas->start_flag == 1)
+		{
+			pthread_mutex_unlock(&datas->start_flag_mutex);	
+			break ;
+		}
+		pthread_mutex_unlock(&datas->start_flag_mutex);
+	}
 	while (1)
 	{
 		i = -1;
 		while (++i < datas->philo_count)
 		{
-			set_last_meal(datas, i);
+
 			check_and_handle_death(datas, i);
-			if (datas->must_eat == datas->philos[i].eat_count)
+
+			pthread_mutex_lock(&datas->philos[i].eat_count_mutex);
+			if (datas->must_eat == datas->philos[i].eat_count) // MUTEX
 				pthread_exit(NULL);
+			pthread_mutex_unlock(&datas->philos[i].eat_count_mutex);
 		}
 	}
 }

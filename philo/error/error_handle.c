@@ -6,7 +6,7 @@
 /*   By: huozturk <huozturk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/22 19:46:19 by huozturk          #+#    #+#             */
-/*   Updated: 2025/07/23 15:43:54 by huozturk         ###   ########.fr       */
+/*   Updated: 2025/07/24 15:20:24 by huozturk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,10 +24,14 @@ static void	destroy_mutex(t_data *data)
 	pthread_mutex_destroy(&data->death_mutex);
 	pthread_mutex_destroy(&data->print_mutex);
 	pthread_mutex_destroy(&data->start_flag_mutex);
+
+	i = -1;
 	if (data->forks)
 	{
 		while (++i < data->philo_count)
+		{
 			pthread_mutex_destroy(&data->forks[i]);
+		}
 	}
 }
 

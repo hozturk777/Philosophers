@@ -6,7 +6,7 @@
 /*   By: huozturk <huozturk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/17 17:46:25 by huozturk          #+#    #+#             */
-/*   Updated: 2025/07/23 16:04:27 by huozturk         ###   ########.fr       */
+/*   Updated: 2025/07/24 15:23:58 by huozturk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ static void	*say_hello(void *arg)
 	{
 		if (check_start_flag(philo))
 			break ;
-		usleep(100);
+		// usleep(100);
 	}
 	sync_philo_start(philo);
 	while (!check_dead(philo))
@@ -32,6 +32,8 @@ static void	*say_hello(void *arg)
 		philo_eat(philo);
 		pthread_mutex_unlock(philo->right_fork);
 		pthread_mutex_unlock(philo->left_fork);
+		philo->left_fork_bool = 0;
+		philo->right_fork_bool = 0;
 		philo_sleep(philo);
 		philo_thinking(philo);
 	}
@@ -48,6 +50,7 @@ void	init_philo(t_data *data, char *argv[], int argc)
 	data->philos = NULL;
 	data->is_dead = 0;
 	data->dead_index = -1;
+	data->start_flag = 0;
 	data->philos = ft_calloc(sizeof(t_philo), data->philo_count);
 	error_check(data, ERR_MALLOC_FAIL, data->philos);
 	while (i < data->philo_count)
@@ -56,6 +59,8 @@ void	init_philo(t_data *data, char *argv[], int argc)
 		data->philos[i].data = data;
 		data->philos[i].last_meal = get_time_in_ms();
 		data->philos[i].eat_count = 0;
+		data->philos[i].left_fork_bool = 0;
+		data->philos[i].right_fork_bool = 0;
 		i++;
 	}
 	if ((data->philo_count != data->philos[i - 1].id))
@@ -74,6 +79,10 @@ void	create_philo(t_data *data)
 				say_hello,
 				&data->philos[i]);
 	}
+	set_time(data);
+	pthread_mutex_lock(&data->start_flag_mutex);
+	data->start_flag = 1; // MUTEX
+	pthread_mutex_unlock(&data->start_flag_mutex);
 }
 
 void	init_forks(t_data *data)
@@ -85,14 +94,20 @@ void	init_forks(t_data *data)
 	error_check_mutex(data, pthread_mutex_init(&data->start_flag_mutex, NULL));
 	error_check_mutex(data, pthread_mutex_init(&data->check_meal_mutex, NULL));
 	error_check_mutex(data, pthread_mutex_init(&data->print_mutex, NULL));
+	error_check_mutex(data, pthread_mutex_init(&data->last_meal_mutex, NULL));
+	error_check_mutex(data, pthread_mutex_init(&data->must_meal_mutex, NULL));
+	error_check_mutex(data, pthread_mutex_init(&data->meal_mutex, NULL));
+
+
 	data->forks = ft_calloc(data->philo_count, sizeof(pthread_mutex_t));
 	error_check(data, ERR_MALLOC_FAIL, data->forks);
 	while (++i < data->philo_count)
 	{
 		error_check_mutex(data, pthread_mutex_init(&data->forks[i],
 				NULL));
-		error_check_mutex(data, pthread_mutex_init(&data->philos[i].meal_mutex,
+		error_check_mutex(data, pthread_mutex_init(&data->philos[i].eat_count_mutex,
 				NULL));
+		
 	}
 	i = -1;
 	while (++i < data->philo_count)

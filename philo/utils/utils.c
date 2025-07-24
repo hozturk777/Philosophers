@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hsyn <hsyn@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: huozturk <huozturk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/07 12:08:03 by huozturk          #+#    #+#             */
-/*   Updated: 2025/07/23 01:59:57 by hsyn             ###   ########.fr       */
+/*   Updated: 2025/07/24 13:31:19 by huozturk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,10 @@ int	ft_atoi(char *str, int *res)
 
 void	sync_philo_start(t_philo *philo)
 {
+	pthread_mutex_lock(&philo->data->meal_mutex);
 	philo->last_meal = get_time_in_ms();
+	pthread_mutex_unlock(&philo->data->meal_mutex);
+
 	if (philo->id % 2 != 0)
 		usleep(500);
 }

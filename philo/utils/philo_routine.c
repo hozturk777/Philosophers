@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   philo_routine.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hsyn <hsyn@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: huozturk <huozturk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/07 12:07:58 by huozturk          #+#    #+#             */
-/*   Updated: 2025/07/23 01:59:15 by hsyn             ###   ########.fr       */
+/*   Updated: 2025/07/24 15:22:58 by huozturk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,10 @@ void	philo_eat(t_philo *philo)
 {
 	last_meal_added(philo);
 	print(philo, "is eating");
+	pthread_mutex_lock(&philo->eat_count_mutex);
 	philo->eat_count++;
+	pthread_mutex_unlock(&philo->eat_count_mutex);
+
 	usleep(philo->data->time_to_eat * 1000);
 }
 
@@ -58,15 +61,19 @@ void	philo_take_fork(t_philo *philo)
 	if (philo->left_fork < philo->right_fork)
 	{
 		pthread_mutex_lock(philo->left_fork);
+		philo->left_fork_bool = 1;
 		print(philo, "has taken a fork");
 		pthread_mutex_lock(philo->right_fork);
+		philo->right_fork_bool = 1;
 		print(philo, "has taken a fork");
 	}
 	else
 	{
 		pthread_mutex_lock(philo->right_fork);
+		philo->right_fork_bool = 1;
 		print(philo, "has taken a fork");
 		pthread_mutex_lock(philo->left_fork);
+		philo->left_fork_bool = 1;
 		print(philo, "has taken a fork");
 	}
 }

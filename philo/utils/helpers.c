@@ -6,7 +6,7 @@
 /*   By: huozturk <huozturk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/04 13:30:32 by huozturk          #+#    #+#             */
-/*   Updated: 2025/07/23 15:45:16 by huozturk         ###   ########.fr       */
+/*   Updated: 2025/07/24 15:10:38 by huozturk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,5 +70,5 @@ long long	get_time_in_ms(void)
 void	set_time(t_data *data)
 {
 	data->start_time = get_time_in_ms();
-	data->start_flag = 0;
+	// data->start_flag = 0;
 }
