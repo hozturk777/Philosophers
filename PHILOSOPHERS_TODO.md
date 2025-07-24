@@ -197,13 +197,8 @@ if (all_philosophers_finished_eating(datas))
 **🎯 Hedef Tamamlama:** 12 Temmuz 2025
 
 
-# mutex init oluştu mu check & thread oluştu mu check
-# Philo ölüm yazdırmayı monitor içinden alınacak joinlerden sonra ya da philoların fonksiyonun da yazdırılacak (Oldu gibi ama bi kontrol edilecek)
-# ./philo 200 800 200 200    Ölmemesi gerek ölüyor
-# $ ./philo 200 401 200 200     çok geç ölüm mesajı yazıyor
-# Ölüm mesajı bazen 100-200 ms geç yazılıyor
-# must meal argümanı sıkıntılı bittikten sonra düşünüyor, uyuyuor
-# Mutexler destroy edilecek mi ? (EVET) 
+# thread create gerçekleşti mi check
+# .philo 3 610 200 100 ölüyor neden ?
 
 #	ARAŞTIR!!!
 # IPC
