@@ -6,7 +6,7 @@
 /*   By: huozturk <huozturk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/23 12:01:48 by huozturk          #+#    #+#             */
-/*   Updated: 2025/07/24 17:33:11 by huozturk         ###   ########.fr       */
+/*   Updated: 2025/07/24 18:57:53 by huozturk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ void	check_and_handle_death(t_data *data, int philo_index)
 	pthread_mutex_lock(&data->meal_mutex);
 	data->last_meal_philo = data->philos[philo_index].last_meal;
 	pthread_mutex_unlock(&data->meal_mutex);	
-	if (get_time_in_ms() - data->last_meal_philo > data->time_to_die)
+	if (get_time_in_ms() - data->last_meal_philo >= data->time_to_die)
 	{
 		set_death_status(data, philo_index);
 		pthread_exit(NULL);

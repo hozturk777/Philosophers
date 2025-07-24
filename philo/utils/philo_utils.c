@@ -6,7 +6,7 @@
 /*   By: huozturk <huozturk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/17 17:46:25 by huozturk          #+#    #+#             */
-/*   Updated: 2025/07/24 17:45:02 by huozturk         ###   ########.fr       */
+/*   Updated: 2025/07/24 18:43:17 by huozturk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,6 +71,7 @@ void	create_philo(t_data *data)
 	int	i;
 
 	i = -1;
+	
 	while (++i < data->philo_count)
 	{
 		pthread_create(

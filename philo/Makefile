@@ -4,7 +4,7 @@ SRC_DIR				= src/
 UTL_DIR				= utils/
 ERR_DIR				= error/
 CC					= @cc
-CFLAGS				= -Wall -Wextra -Werror 
+CFLAGS				= -Wall -Wextra -Werror
 RM					= rm -rf
 
 PHILO_DIR			=	$(SRC_DIR)philo.c \
