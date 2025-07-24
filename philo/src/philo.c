@@ -6,23 +6,13 @@
 /*   By: huozturk <huozturk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/17 17:46:28 by huozturk          #+#    #+#             */
-/*   Updated: 2025/07/24 12:49:34 by huozturk         ###   ########.fr       */
+/*   Updated: 2025/07/24 17:19:51 by huozturk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../lib/philo.h"
 #include <stdio.h>
 #include <unistd.h>
-
-
-// void	ft_usleep(int wait_time)
-// {
-// 	unsigned long long	time;
-
-// 	time = get_time_in_ms();
-// 	while (get_time_in_ms() - time < ((unsigned long long)wait_time / 100))
-// 		usleep(100);
-// }
 
 int	main(int argc, char *argv[])
 {
