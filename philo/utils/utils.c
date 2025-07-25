@@ -6,7 +6,7 @@
 /*   By: huozturk <huozturk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/07 12:08:03 by huozturk          #+#    #+#             */
-/*   Updated: 2025/07/24 18:43:20 by huozturk         ###   ########.fr       */
+/*   Updated: 2025/07/25 19:12:39 by huozturk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,8 +90,8 @@ void	parse_args(char *argv[], t_data *data, int argc)
 
 void	print(t_philo *philo, char *str)
 {
-	handle_dead(philo);
 	check_meal_goal(philo);
+	handle_dead(philo);
 	pthread_mutex_lock(&philo->data->print_mutex);
 	printf("%lld %d %s\n", get_time_in_ms() - philo->data->start_time,
 		philo->id, str);
