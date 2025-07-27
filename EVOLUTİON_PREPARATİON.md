@@ -2,7 +2,7 @@
 
 ---
 
-### 	void	ft_usleep(int wait_time)
+###		**void	ft_usleep(int wait_time)**
 ```c
 void	ft_usleep(int wait_time)
 {
@@ -22,7 +22,7 @@ void	ft_usleep(int wait_time)
 
 ---
 
-### 	init_philo(t_data *data, char *argv[], int argc)
+###		**void	init_philo(t_data *data, char *argv[], int argc)**
 ```c
 void	init_philo(t_data *data, char *argv[], int argc)
 {
