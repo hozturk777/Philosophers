@@ -58,3 +58,45 @@ void	init_philo(t_data *data, char *argv[], int argc)
 - Her filozofun ve datanın başlangıç değer atamasını yapar.
 
 ---
+
+###		**void	init_forks(t_data *data)**
+```c
+void	init_forks(t_data *data)
+{
+	int	i;
+
+	i = -1;
+	error_check_mutex(data, pthread_mutex_init(&data->death_mutex, NULL));
+	error_check_mutex(data, pthread_mutex_init(&data->start_flag_mutex, NULL));
+	error_check_mutex(data, pthread_mutex_init(&data->check_meal_mutex, NULL));
+	error_check_mutex(data, pthread_mutex_init(&data->print_mutex, NULL));
+	error_check_mutex(data, pthread_mutex_init(&data->last_meal_mutex, NULL));
+	error_check_mutex(data, pthread_mutex_init(&data->must_meal_mutex, NULL));
+	error_check_mutex(data, pthread_mutex_init(&data->meal_mutex, NULL));
+
+
+	data->forks = ft_calloc(data->philo_count, sizeof(pthread_mutex_t));
+	error_check(data, ERR_MALLOC_FAIL, data->forks);
+	while (++i < data->philo_count)
+	{
+		error_check_mutex(data, pthread_mutex_init(&data->forks[i],
+				NULL));
+		error_check_mutex(data, pthread_mutex_init(&data->philos[i].eat_count_mutex,
+				NULL));
+	}
+	i = -1;
+	while (++i < data->philo_count)
+	{
+		data->philos[i].left_fork = &data->forks[i];
+		data->philos[i].right_fork = &data->forks[(i + 1) % data->philo_count];
+	}
+}
+```
+
+### 🔧 **Açıklama:**
+- Bu fonksiyon, her fork(çatal) mutex'in ve diğer mutexlerin doğum yeridir
+- Her fork için dinamik olarak bellek yer tahsis eder.
+- Her mutex'i ```c int pthread_mutex_init ``` ile initialize eder.
+- Left, right forklara da atamalarını yapar.
+
+---
