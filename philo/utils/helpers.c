@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   helpers.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: huozturk <huozturk@student.42.fr>          +#+  +:+       +#+        */
+/*   By: hsyn <hsyn@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/04 13:30:32 by huozturk          #+#    #+#             */
-/*   Updated: 2025/07/24 15:10:38 by huozturk         ###   ########.fr       */
+/*   Updated: 2025/07/27 16:54:05 by hsyn             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@ void	philo_join(t_data *data)
 	int	i;
 
 	i = -1;
+	
 	pthread_join(
 		data->monitor_philo,
 		NULL);

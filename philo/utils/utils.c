@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: huozturk <huozturk@student.42.fr>          +#+  +:+       +#+        */
+/*   By: hsyn <hsyn@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/07 12:08:03 by huozturk          #+#    #+#             */
-/*   Updated: 2025/07/25 19:12:39 by huozturk         ###   ########.fr       */
+/*   Updated: 2025/07/27 17:02:11 by hsyn             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,7 +93,11 @@ void	print(t_philo *philo, char *str)
 	check_meal_goal(philo);
 	handle_dead(philo);
 	pthread_mutex_lock(&philo->data->print_mutex);
-	printf("%lld %d %s\n", get_time_in_ms() - philo->data->start_time,
-		philo->id, str);
+	if (!philo->data->is_dead)
+	{
+		printf("%lld %d %s\n", get_time_in_ms() - philo->data->start_time,
+			philo->id, str);
+	}
+	
 	pthread_mutex_unlock(&philo->data->print_mutex);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   monitor.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: huozturk <huozturk@student.42.fr>          +#+  +:+       +#+        */
+/*   By: hsyn <hsyn@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/07 12:07:47 by huozturk          #+#    #+#             */
-/*   Updated: 2025/07/25 16:13:11 by huozturk         ###   ########.fr       */
+/*   Updated: 2025/07/27 16:57:10 by hsyn             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,9 +35,7 @@ void	*monitor_test(void *argv)
 		i = -1;
 		while (++i < datas->philo_count)
 		{
-
 			check_and_handle_death(datas, i);
-
 			pthread_mutex_lock(&datas->philos[i].eat_count_mutex);
 			if (datas->must_eat == datas->philos[i].eat_count) // MUTEX
 				pthread_exit(NULL);
