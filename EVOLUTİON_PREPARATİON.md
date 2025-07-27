@@ -96,7 +96,56 @@ void	init_forks(t_data *data)
 ### 🔧 **Açıklama:**
 - Bu fonksiyon, her fork(çatal) mutex'in ve diğer mutexlerin doğum yeridir
 - Her fork için dinamik olarak bellek yer tahsis eder.
-- Her mutex'i ```c int pthread_mutex_init ``` ile initialize eder.
+- Her mutex'i ` int pthread_mutex_init ` ile initialize eder.
 - Left, right forklara da atamalarını yapar.
 
+---
+
+###		**void	monitor_philo(t_data *data) && static void	*monitor_process(void *argv)**
+```c
+void	*monitor_test(void *argv)
+{
+	t_data	*datas;
+	int		i;
+
+	datas = (t_data *)argv;
+	while (1)
+	{
+		pthread_mutex_lock(&datas->start_flag_mutex);
+		if (datas->start_flag == 1)
+		{
+			pthread_mutex_unlock(&datas->start_flag_mutex);	
+			break ;
+		}
+		pthread_mutex_unlock(&datas->start_flag_mutex);
+	}
+	while (1)
+	{
+		i = -1;
+		while (++i < datas->philo_count)
+		{
+			check_and_handle_death(datas, i);
+			pthread_mutex_lock(&datas->philos[i].eat_count_mutex);
+			if (datas->must_eat == datas->philos[i].eat_count) // MUTEX
+				pthread_exit(NULL);
+			pthread_mutex_unlock(&datas->philos[i].eat_count_mutex);
+		}
+	}
+}
+
+void	monitor_philo(t_data *data)
+{
+	pthread_create(
+		&data->monitor_philo,
+		NULL,
+		monitor_test,
+		&*data);
+}
+```
+
+### 🔧 **Açıklama:**
+- Filozofları arka planda sürekli izleyen bir gözetleme thread’idir.
+- Her filozof ölüyor mu, hedef kadar yemek yedi mi diye kontrol eder.
+- Simülasyon başlamadan önce, start_flag = 1 olana kadar sürekli bekler.(init_philo fonksiyonu start_flag=1 yapar.)
+- `pthread_create` fonksiyonu parametre olarak posix thread'in adresini, Attribute yani thread özelliklerini, thread'in çalıştıracağı fonksiyonu ve fonksiyonun parametresini alır.
 ---
