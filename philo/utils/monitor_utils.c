@@ -6,11 +6,12 @@
 /*   By: hsyn <hsyn@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/23 12:01:48 by huozturk          #+#    #+#             */
-/*   Updated: 2025/07/27 16:50:48 by hsyn             ###   ########.fr       */
+/*   Updated: 2025/07/27 19:53:23 by hsyn             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../lib/philo.h"
+#include <unistd.h>
 
 static void	set_death_status(t_data *data, int philo_index) // MUTEX
 {
@@ -29,5 +30,19 @@ void	check_and_handle_death(t_data *data, int philo_index)
 	{
 		set_death_status(data, philo_index);
 		pthread_exit(NULL);
+	}
+}
+
+void	wait_start(t_data *data)
+{
+	while (1)
+	{
+		pthread_mutex_lock(&data->start_flag_mutex);
+			if (data->start_flag == 1)
+			{
+				pthread_mutex_unlock(&data->start_flag_mutex);	
+				break ;
+			}
+		pthread_mutex_unlock(&data->start_flag_mutex);
 	}
 }
