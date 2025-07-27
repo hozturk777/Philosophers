@@ -6,7 +6,7 @@
 /*   By: hsyn <hsyn@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/07 12:08:03 by huozturk          #+#    #+#             */
-/*   Updated: 2025/07/27 17:02:11 by hsyn             ###   ########.fr       */
+/*   Updated: 2025/07/27 20:14:22 by hsyn             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,7 @@ void	sync_philo_start(t_philo *philo)
 	pthread_mutex_unlock(&philo->data->meal_mutex);
 	
 	if (philo->id % 2 != 0)
-		ft_usleep(200);
+		ft_usleep(200); // ft_usleep(200): 200ms usleep(200): 0.2ms bakılacak.
 }
 
 void	parse_args(char *argv[], t_data *data, int argc)

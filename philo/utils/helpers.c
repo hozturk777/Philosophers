@@ -6,7 +6,7 @@
 /*   By: hsyn <hsyn@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/04 13:30:32 by huozturk          #+#    #+#             */
-/*   Updated: 2025/07/27 16:54:05 by hsyn             ###   ########.fr       */
+/*   Updated: 2025/07/27 20:02:38 by hsyn             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,5 +71,4 @@ long long	get_time_in_ms(void)
 void	set_time(t_data *data)
 {
 	data->start_time = get_time_in_ms();
-	// data->start_flag = 0;
 }

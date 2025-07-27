@@ -6,7 +6,7 @@
 /*   By: hsyn <hsyn@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/17 17:46:25 by huozturk          #+#    #+#             */
-/*   Updated: 2025/07/27 17:03:27 by hsyn             ###   ########.fr       */
+/*   Updated: 2025/07/27 19:58:33 by hsyn             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 #include "../lib/error.h"
 #include <unistd.h>
 
-static void	*say_hello(void *arg)
+static void	*philo_process(void *arg)
 {
 	t_philo	*philo;
 
@@ -77,7 +77,7 @@ void	create_philo(t_data *data)
 		pthread_create(
 				&data->philos[i].thread,
 				NULL,
-				say_hello,
+				philo_process,
 				&data->philos[i]);
 	}
 	set_time(data);

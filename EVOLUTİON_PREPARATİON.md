@@ -149,3 +149,59 @@ void	monitor_philo(t_data *data)
 - Simülasyon başlamadan önce, start_flag = 1 olana kadar sürekli bekler.(init_philo fonksiyonu start_flag=1 yapar.)
 - `pthread_create` fonksiyonu parametre olarak posix thread'in adresini, Attribute yani thread özelliklerini, thread'in çalıştıracağı fonksiyonu ve fonksiyonun parametresini alır.
 ---
+
+###		**void	create_philo(t_data *data) && static void	*philo_process(void *arg) **
+```c
+static void	*philo_process(void *arg)
+{
+	t_philo	*philo;
+
+	philo = (t_philo *)arg;
+	while (1)
+	{
+		if (check_start_flag(philo))
+			break ;
+		// usleep(100);
+	}
+	sync_philo_start(philo);
+	while (!check_dead(philo))
+	{
+		philo_take_fork(philo);
+		philo_eat(philo);
+		pthread_mutex_unlock(philo->right_fork);
+		pthread_mutex_unlock(philo->left_fork);
+		philo->left_fork_bool = 0;
+		philo->right_fork_bool = 0;
+		philo_sleep(philo);
+		philo_thinking(philo);
+	}
+	return (NULL);
+}
+
+void	create_philo(t_data *data)
+{
+	int	i;
+
+	i = -1;
+	
+	while (++i < data->philo_count)
+	{
+		pthread_create(
+				&data->philos[i].thread,
+				NULL,
+				philo_process,
+				&data->philos[i]);
+	}
+	set_time(data);
+	pthread_mutex_lock(&data->start_flag_mutex);
+	data->start_flag = 1; // MUTEX
+	pthread_mutex_unlock(&data->start_flag_mutex);
+}
+```
+
+### 🔧 **Açıklama:**
+- `create_philo` fonksiyonu verilen philo_count kadar philoyu çalıştırıyor.
+- Tüm philolar çalıştırıldıktan sonra start_flag değeri 1 olarak değiştiriliyor ve monitor_thread ve tüm threadler aynı anda çalışmaya başlıyor.
+- `set_time` fonksiyonu Process'in başlangıç zamanının atamasını yapıyor.
+- `sync_philo_start` fonksiyonu her thread'in başlangıç last_meal değer atamasını yapıp aynı zamanda id değeri tek olan philoları 200
+---
