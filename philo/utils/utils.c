@@ -6,7 +6,7 @@
 /*   By: huozturk <huozturk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/07 12:08:03 by huozturk          #+#    #+#             */
-/*   Updated: 2025/07/28 13:09:17 by huozturk         ###   ########.fr       */
+/*   Updated: 2025/07/28 14:52:21 by huozturk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,9 +61,8 @@ void	sync_philo_start(t_philo *philo)
 	pthread_mutex_lock(&philo->data->meal_mutex);
 	philo->last_meal = get_time_in_ms();
 	pthread_mutex_unlock(&philo->data->meal_mutex);
-	
 	if (philo->id % 2 != 0)
-		ft_usleep(200); // ft_usleep(200): 200ms usleep(200): 0.2ms bakılacak.
+		ft_usleep(200);
 }
 
 void	parse_args(char *argv[], t_data *data, int argc)
@@ -93,7 +92,7 @@ void	print(t_philo *philo, char *str)
 	check_meal_goal(philo);
 	handle_dead(philo);
 	pthread_mutex_lock(&philo->data->print_mutex);
-	if (!philo->data->is_dead)
+	if (!check_dead(philo))
 	{
 		printf("%lld %d %s\n", get_time_in_ms() - philo->data->start_time,
 			philo->id, str);
