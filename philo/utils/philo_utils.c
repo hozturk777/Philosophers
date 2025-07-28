@@ -6,7 +6,7 @@
 /*   By: huozturk <huozturk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/17 17:46:25 by huozturk          #+#    #+#             */
-/*   Updated: 2025/07/28 13:00:12 by huozturk         ###   ########.fr       */
+/*   Updated: 2025/07/28 20:45:20 by huozturk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,11 +23,18 @@ static void	*philo_process(void *arg)
 	{
 		if (check_start_flag(philo))
 			break ;
+		
 		usleep(100);
+	}
+	if (philo->data->philo_count != philo->data->test_philo_count)
+	{
+		// handle_dead(philo);
+		return (NULL);
 	}
 	sync_philo_start(philo);
 	while (!check_dead(philo))
 	{
+		
 		philo_take_fork(philo);
 		philo_eat(philo);
 		pthread_mutex_unlock(philo->right_fork);
@@ -51,6 +58,7 @@ void	init_philo(t_data *data, char *argv[], int argc)
 	data->is_dead = 0;
 	data->dead_index = -1;
 	data->start_flag = 0;
+	data->test_philo_count = 0;
 	data->philos = ft_calloc(sizeof(t_philo), data->philo_count);
 	error_check(data, ERR_MALLOC_FAIL, data->philos);
 	while (i < data->philo_count)
@@ -79,6 +87,7 @@ void	create_philo(t_data *data) // KONTROL EDİLECEK
 				NULL,
 				philo_process,
 				&data->philos[i]);
+		data->test_philo_count++;
 	}
 	set_time(data);
 	pthread_mutex_lock(&data->start_flag_mutex);

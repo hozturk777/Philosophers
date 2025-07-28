@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   philo.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hsyn <hsyn@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: huozturk <huozturk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/17 17:46:30 by huozturk          #+#    #+#             */
-/*   Updated: 2025/07/27 19:51:39 by hsyn             ###   ########.fr       */
+/*   Updated: 2025/07/28 20:24:59 by huozturk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ typedef struct s_data
 	pthread_mutex_t	last_meal_mutex;
 	pthread_mutex_t	must_meal_mutex;
 	
-
+	int		test_philo_count;
 
 	
 }	t_data;
