@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hsyn <hsyn@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: huozturk <huozturk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/07 12:08:03 by huozturk          #+#    #+#             */
-/*   Updated: 2025/07/27 20:14:22 by hsyn             ###   ########.fr       */
+/*   Updated: 2025/07/28 13:09:17 by huozturk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ static int	check_long(char *str)
 	return (0);
 }
 
-int	ft_atoi(char *str, int *res)
+int	ft_atoi(char *str, int *res) // INT MAX KONTROL ET!
 {
 	int	i;
 	int	sign;

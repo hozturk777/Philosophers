@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   philo_routine.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hsyn <hsyn@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: huozturk <huozturk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/07 12:07:58 by huozturk          #+#    #+#             */
-/*   Updated: 2025/07/27 17:01:23 by hsyn             ###   ########.fr       */
+/*   Updated: 2025/07/28 13:05:46 by huozturk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ void	philo_sleep(t_philo *philo)
 void	philo_thinking(t_philo *philo)
 {
 	print(philo, "is thinking");
-	usleep(philo->data->time_to_die - (philo->data->time_to_eat + philo->data->time_to_sleep));
+	usleep(philo->data->time_to_die - (philo->data->time_to_eat + philo->data->time_to_sleep)); // BAKILACAK KONTROL ET!
 }
 
 void	philo_dead(t_philo philo)

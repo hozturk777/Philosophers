@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   philo_utils.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hsyn <hsyn@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: huozturk <huozturk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/17 17:46:25 by huozturk          #+#    #+#             */
-/*   Updated: 2025/07/27 19:58:33 by hsyn             ###   ########.fr       */
+/*   Updated: 2025/07/28 13:00:12 by huozturk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ static void	*philo_process(void *arg)
 	{
 		if (check_start_flag(philo))
 			break ;
-		// usleep(100);
+		usleep(100);
 	}
 	sync_philo_start(philo);
 	while (!check_dead(philo))
@@ -66,7 +66,7 @@ void	init_philo(t_data *data, char *argv[], int argc)
 	if ((data->philo_count != data->philos[i - 1].id))
 		error_check(data, ERR_THREAD_FAIL, NULL);
 }
-void	create_philo(t_data *data)
+void	create_philo(t_data *data) // KONTROL EDİLECEK
 {
 	int	i;
 
