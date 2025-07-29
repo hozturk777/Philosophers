@@ -6,7 +6,7 @@
 /*   By: huozturk <huozturk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/07 12:07:47 by huozturk          #+#    #+#             */
-/*   Updated: 2025/07/29 17:10:53 by huozturk         ###   ########.fr       */
+/*   Updated: 2025/07/29 17:19:50 by huozturk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,9 +37,13 @@ static void	*monitor_process(void *argv)
 
 void	monitor_philo(t_data *data)
 {
-	pthread_create(
+	if (pthread_create(
 		&data->monitor_philo,
 		NULL,
 		monitor_process,
-		&*data);
+		&*data))
+	{
+		data->start_flag = 1;
+		data->is_dead = 2;
+	}
 }
