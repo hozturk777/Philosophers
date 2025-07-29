@@ -6,7 +6,7 @@
 /*   By: huozturk <huozturk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/17 17:46:25 by huozturk          #+#    #+#             */
-/*   Updated: 2025/07/28 20:45:20 by huozturk         ###   ########.fr       */
+/*   Updated: 2025/07/29 17:14:02 by huozturk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,16 +26,15 @@ static void	*philo_process(void *arg)
 		
 		usleep(100);
 	}
-	if (philo->data->philo_count != philo->data->test_philo_count)
-	{
-		// handle_dead(philo);
-		return (NULL);
-	}
+	// if (philo->data->philo_count != philo->data->test_philo_count)
+	// {
+	// 	return (NULL);
+	// }
 	sync_philo_start(philo);
 	while (!check_dead(philo))
-	{
-		
+	{		
 		philo_take_fork(philo);
+
 		philo_eat(philo);
 		pthread_mutex_unlock(philo->right_fork);
 		pthread_mutex_unlock(philo->left_fork);
@@ -82,11 +81,16 @@ void	create_philo(t_data *data) // KONTROL EDİLECEK
 	
 	while (++i < data->philo_count)
 	{
-		pthread_create(
+		if (pthread_create(
 				&data->philos[i].thread,
 				NULL,
 				philo_process,
-				&data->philos[i]);
+				&data->philos[i]))
+		{
+			data->start_flag = 1;
+			data->is_dead = 2;
+			break;
+		}
 		data->test_philo_count++;
 	}
 	set_time(data);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   mutex_utils.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hsyn <hsyn@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: huozturk <huozturk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/07 12:07:55 by huozturk          #+#    #+#             */
-/*   Updated: 2025/07/27 17:00:16 by hsyn             ###   ########.fr       */
+/*   Updated: 2025/07/29 17:14:14 by huozturk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,8 +15,9 @@
 int	check_dead(t_philo *philo)
 {
 	pthread_mutex_lock(&philo->data->death_mutex);
-	if (philo->data->is_dead)
+	if (philo->data->is_dead == 1 || philo->data->is_dead == 2)
 	{
+
 		pthread_mutex_unlock(&philo->data->death_mutex);
 		return (1);
 	}
@@ -39,7 +40,7 @@ int	check_start_flag(t_philo *philo)
 void	handle_dead(t_philo *philo)
 {
 	pthread_mutex_lock(&philo->data->death_mutex);
-	if (philo->data->is_dead)
+	if (philo->data->is_dead == 1)
 	{
 		pthread_mutex_unlock(&philo->data->death_mutex);
 		if (philo->right_fork_bool)

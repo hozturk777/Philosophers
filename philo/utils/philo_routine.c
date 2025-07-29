@@ -6,7 +6,7 @@
 /*   By: huozturk <huozturk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/07 12:07:58 by huozturk          #+#    #+#             */
-/*   Updated: 2025/07/29 13:03:16 by huozturk         ###   ########.fr       */
+/*   Updated: 2025/07/29 17:04:41 by huozturk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,6 +57,7 @@ void	philo_take_fork(t_philo *philo)
 	}
 	if (philo->id % 2 == 0) // çift idler olarak yapılabilir
 	{
+
 		pthread_mutex_lock(philo->left_fork);
 		philo->left_fork_bool = 1;
 		print(philo, "has taken a fork");
@@ -74,4 +75,5 @@ void	philo_take_fork(t_philo *philo)
 		philo->left_fork_bool = 1;
 		print(philo, "has taken a fork");
 	}
+
 }
