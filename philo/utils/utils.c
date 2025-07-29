@@ -6,7 +6,7 @@
 /*   By: huozturk <huozturk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/07 12:08:03 by huozturk          #+#    #+#             */
-/*   Updated: 2025/07/28 14:52:21 by huozturk         ###   ########.fr       */
+/*   Updated: 2025/07/29 16:44:54 by huozturk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ static int	check_long(char *str)
 	return (0);
 }
 
-int	ft_atoi(char *str, int *res) // INT MAX KONTROL ET!
+int	ft_atoi(char *str, int *res)
 {
 	int	i;
 	int	sign;
@@ -36,7 +36,7 @@ int	ft_atoi(char *str, int *res) // INT MAX KONTROL ET!
 	i = 0;
 	sign = 1;
 	if (check_long(str))
-		return (1);
+		error_check(NULL, ERR_ATOI_FAIL, NULL);
 	while (*(str + i) == '+' || *(str + i) == '-')
 	{
 		if (*(str + i++) == '-')
@@ -51,7 +51,7 @@ int	ft_atoi(char *str, int *res) // INT MAX KONTROL ET!
 		i++;
 	}
 	*res *= sign;
-	if (*res <= 0)
+	if (*res <= 0 || *res > 2147483647)
 		error_check(NULL, ERR_ATOI_FAIL, NULL);
 	return (0);
 }
@@ -62,7 +62,7 @@ void	sync_philo_start(t_philo *philo)
 	philo->last_meal = get_time_in_ms();
 	pthread_mutex_unlock(&philo->data->meal_mutex);
 	if (philo->id % 2 != 0)
-		ft_usleep(200);
+		ft_usleep(philo->data->time_to_eat);
 }
 
 void	parse_args(char *argv[], t_data *data, int argc)
