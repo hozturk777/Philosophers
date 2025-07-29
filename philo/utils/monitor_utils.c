@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   monitor_utils.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hsyn <hsyn@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: huozturk <huozturk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/23 12:01:48 by huozturk          #+#    #+#             */
-/*   Updated: 2025/07/27 19:53:23 by hsyn             ###   ########.fr       */
+/*   Updated: 2025/07/29 20:04:25 by huozturk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,10 @@ void	check_and_handle_death(t_data *data, int philo_index)
 		set_death_status(data, philo_index);
 		pthread_exit(NULL);
 	}
+	else if (check_dead(data->philos))
+		pthread_exit(NULL);
+
+	
 }
 
 void	wait_start(t_data *data)

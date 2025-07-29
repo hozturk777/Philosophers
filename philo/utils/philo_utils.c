@@ -6,7 +6,7 @@
 /*   By: huozturk <huozturk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/17 17:46:25 by huozturk          #+#    #+#             */
-/*   Updated: 2025/07/29 17:20:28 by huozturk         ###   ########.fr       */
+/*   Updated: 2025/07/29 20:14:01 by huozturk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,15 +26,20 @@ static void	*philo_process(void *arg)
 		
 		usleep(100);
 	}
-	// if (philo->data->philo_count != philo->data->test_philo_count)
-	// {
-	// 	return (NULL);
-	// }
+	if (philo->data->philo_count == 1) // Düzenlenecek
+	{
+		pthread_mutex_lock(philo->left_fork);
+		print(philo, "has taken a fork");
+		pthread_mutex_unlock(philo->left_fork);
+		pthread_mutex_lock(&philo->data->death_mutex);
+		philo->data->is_dead = 1;
+		pthread_mutex_unlock(&philo->data->death_mutex);
+		pthread_exit(NULL);
+	}
 	sync_philo_start(philo);
 	while (!check_dead(philo))
-	{		
+	{
 		philo_take_fork(philo);
-
 		philo_eat(philo);
 		pthread_mutex_unlock(philo->right_fork);
 		pthread_mutex_unlock(philo->left_fork);
@@ -87,11 +92,15 @@ void	create_philo(t_data *data) // KONTROL EDİLECEK
 				philo_process,
 				&data->philos[i]))
 		{
+			pthread_mutex_lock(&data->start_flag_mutex);
 			data->start_flag = 1;
+			pthread_mutex_unlock(&data->start_flag_mutex);
+			pthread_mutex_lock(&data->death_mutex);
 			data->is_dead = 2;
+			pthread_mutex_unlock(&data->death_mutex);
 			break;
 		}
-		data->test_philo_count++;
+
 	}
 	set_time(data);
 	pthread_mutex_lock(&data->start_flag_mutex);

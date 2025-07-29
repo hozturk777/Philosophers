@@ -6,7 +6,7 @@
 /*   By: huozturk <huozturk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/07 12:07:58 by huozturk          #+#    #+#             */
-/*   Updated: 2025/07/29 17:04:41 by huozturk         ###   ########.fr       */
+/*   Updated: 2025/07/29 17:32:18 by huozturk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,14 +47,14 @@ void	philo_dead(t_philo philo)
 
 void	philo_take_fork(t_philo *philo)
 {
-	if (philo->data->philo_count == 1)
-	{
-		pthread_mutex_lock(philo->left_fork);
-		print(philo, "has taken a fork");
-		pthread_mutex_unlock(philo->left_fork);
-		philo->data->is_dead = 1;
-		return ;
-	}
+	// if (philo->data->philo_count == 1)
+	// {
+	// 	pthread_mutex_lock(philo->left_fork);
+	// 	print(philo, "has taken a fork");
+	// 	pthread_mutex_unlock(philo->left_fork);
+	// 	philo->data->is_dead = 1;
+	// 	return ;
+	// }
 	if (philo->id % 2 == 0) // çift idler olarak yapılabilir
 	{
 

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   helpers.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hsyn <hsyn@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: huozturk <huozturk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/04 13:30:32 by huozturk          #+#    #+#             */
-/*   Updated: 2025/07/27 20:02:38 by hsyn             ###   ########.fr       */
+/*   Updated: 2025/07/29 20:13:28 by huozturk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ void	philo_join(t_data *data)
 		data->monitor_philo,
 		NULL);
 	if (data->dead_index != -1)
-		philo_dead(data->philos[data->dead_index]);
+		philo_dead(data->philos[data->dead_index]);	
 	while (++i < data->philo_count)
 	{
 		pthread_join(
