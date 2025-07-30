@@ -3,17 +3,18 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: huozturk <huozturk@student.42.fr>          +#+  +:+       +#+        */
+/*   By: hsyn <hsyn@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/07 12:08:03 by huozturk          #+#    #+#             */
-/*   Updated: 2025/07/29 17:47:03 by huozturk         ###   ########.fr       */
+/*   Updated: 2025/07/30 19:50:16 by hsyn             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../lib/philo.h"
 #include "../lib/error.h"
-#include <stdio.h>
 #include <unistd.h>
+#include <stdio.h>
+
 
 static int	check_long(char *str)
 {
@@ -62,7 +63,7 @@ void	sync_philo_start(t_philo *philo)
 	philo->last_meal = get_time_in_ms();
 	pthread_mutex_unlock(&philo->data->meal_mutex);
 	if (philo->id % 2 != 0)
-		ft_usleep(philo->data->time_to_eat);
+		ft_usleep(philo->data->time_to_eat, philo);
 }
 
 void	parse_args(char *argv[], t_data *data, int argc)

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   philo.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: huozturk <huozturk@student.42.fr>          +#+  +:+       +#+        */
+/*   By: hsyn <hsyn@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/17 17:46:30 by huozturk          #+#    #+#             */
-/*   Updated: 2025/07/28 20:24:59 by huozturk         ###   ########.fr       */
+/*   Updated: 2025/07/30 19:46:06 by hsyn             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,7 +89,7 @@ void		*ft_calloc(size_t count, size_t size);
 void		error_check_mutex(t_data *data, int value);
 void		check_and_handle_death(t_data *data, int philo_index);
 void		set_time(t_data *data);
-void		ft_usleep(int wait_time);
+void		ft_usleep(int wait_time, t_philo *philo);
 void		wait_start(t_data *data);
 
 

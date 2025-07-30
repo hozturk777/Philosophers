@@ -3,16 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   philo_utils.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: huozturk <huozturk@student.42.fr>          +#+  +:+       +#+        */
+/*   By: hsyn <hsyn@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/17 17:46:25 by huozturk          #+#    #+#             */
-/*   Updated: 2025/07/29 20:14:01 by huozturk         ###   ########.fr       */
+/*   Updated: 2025/07/30 19:49:27 by hsyn             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../lib/philo.h"
 #include "../lib/error.h"
 #include <unistd.h>
+
 
 static void	*philo_process(void *arg)
 {
@@ -34,7 +35,8 @@ static void	*philo_process(void *arg)
 		pthread_mutex_lock(&philo->data->death_mutex);
 		philo->data->is_dead = 1;
 		pthread_mutex_unlock(&philo->data->death_mutex);
-		pthread_exit(NULL);
+		//return ;
+		//pthread_exit(NULL);
 	}
 	sync_philo_start(philo);
 	while (!check_dead(philo))
@@ -48,6 +50,7 @@ static void	*philo_process(void *arg)
 		philo_sleep(philo);
 		philo_thinking(philo);
 	}
+
 	return (NULL);
 }
 

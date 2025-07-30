@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   philo_routine.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: huozturk <huozturk@student.42.fr>          +#+  +:+       +#+        */
+/*   By: hsyn <hsyn@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/07 12:07:58 by huozturk          #+#    #+#             */
-/*   Updated: 2025/07/29 17:32:18 by huozturk         ###   ########.fr       */
+/*   Updated: 2025/07/30 19:46:28 by hsyn             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,13 +21,13 @@ void	philo_eat(t_philo *philo)
 	pthread_mutex_lock(&philo->eat_count_mutex);
 	philo->eat_count++;
 	pthread_mutex_unlock(&philo->eat_count_mutex);
-	ft_usleep(philo->data->time_to_eat);
+	ft_usleep(philo->data->time_to_eat, philo);
 }
 
 void	philo_sleep(t_philo *philo)
 {
 	print(philo, "is sleeping");
-	ft_usleep(philo->data->time_to_sleep);
+	ft_usleep(philo->data->time_to_sleep, philo);
 }
 
 void	philo_thinking(t_philo *philo)
