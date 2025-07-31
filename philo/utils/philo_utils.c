@@ -6,7 +6,7 @@
 /*   By: huozturk <huozturk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/17 17:46:25 by huozturk          #+#    #+#             */
-/*   Updated: 2025/07/31 19:53:01 by huozturk         ###   ########.fr       */
+/*   Updated: 2025/07/31 20:17:26 by huozturk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,18 @@
 #include "../lib/error.h"
 #include <unistd.h>
 
+static void	one_philo_handle(t_philo *philo)
+{
+	if (philo->data->philo_count == 1)
+	{
+		pthread_mutex_lock(philo->left_fork);
+		print(philo, "has taken a fork");
+		pthread_mutex_unlock(philo->left_fork);
+		pthread_mutex_lock(&philo->data->death_mutex);
+		philo->data->is_dead = 1;
+		pthread_mutex_unlock(&philo->data->death_mutex);
+	}
+}
 
 static void	*philo_process(void *arg)
 {
@@ -26,15 +38,7 @@ static void	*philo_process(void *arg)
 			break ;
 		usleep(100);
 	}
-	if (philo->data->philo_count == 1) // Düzenlenecek
-	{
-		pthread_mutex_lock(philo->left_fork);
-		print(philo, "has taken a fork");
-		pthread_mutex_unlock(philo->left_fork);
-		pthread_mutex_lock(&philo->data->death_mutex);
-		philo->data->is_dead = 1;
-		pthread_mutex_unlock(&philo->data->death_mutex);
-	}
+	one_philo_handle(philo);
 	sync_philo_start(philo);
 	while (!check_dead(philo))
 	{
@@ -78,12 +82,11 @@ void	init_philo(t_data *data, char *argv[], int argc)
 	if ((data->philo_count != data->philos[i - 1].id))
 		error_check(data, ERR_THREAD_FAIL, NULL);
 }
-void	create_philo(t_data *data) // KONTROL EDİLECEK
+void	create_philo(t_data *data)
 {
 	int	i;
 
 	i = -1;
-	
 	while (++i < data->philo_count)
 	{
 		if (pthread_create(
@@ -100,11 +103,10 @@ void	create_philo(t_data *data) // KONTROL EDİLECEK
 			pthread_mutex_unlock(&data->death_mutex);
 			break;
 		}
-
 	}
 	set_time(data);
 	pthread_mutex_lock(&data->start_flag_mutex);
-	data->start_flag = 1; // MUTEX
+	data->start_flag = 1;
 	pthread_mutex_unlock(&data->start_flag_mutex);
 }
 
@@ -119,8 +121,6 @@ void	init_forks(t_data *data)
 	error_check_mutex(data, pthread_mutex_init(&data->print_mutex, NULL));
 	error_check_mutex(data, pthread_mutex_init(&data->must_meal_mutex, NULL));
 	error_check_mutex(data, pthread_mutex_init(&data->meal_mutex, NULL));
-
-
 	data->forks = ft_calloc(data->philo_count, sizeof(pthread_mutex_t));
 	error_check(data, ERR_MALLOC_FAIL, data->forks);
 	while (++i < data->philo_count)
