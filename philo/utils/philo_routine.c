@@ -6,7 +6,7 @@
 /*   By: huozturk <huozturk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/07 12:07:58 by huozturk          #+#    #+#             */
-/*   Updated: 2025/07/31 14:45:38 by huozturk         ###   ########.fr       */
+/*   Updated: 2025/07/31 15:28:24 by huozturk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,8 +20,8 @@ void	philo_eat(t_philo *philo)
 	print(philo, "is eating");
 	pthread_mutex_lock(&philo->eat_count_mutex);
 	philo->eat_count++;
-	if (philo->data->must_eat)
-		philo->eat_loop--;
+	// if (philo->eat_loop)
+	philo->eat_loop--;
 	pthread_mutex_unlock(&philo->eat_count_mutex);
 	ft_usleep(philo->data->time_to_eat, philo);
 }

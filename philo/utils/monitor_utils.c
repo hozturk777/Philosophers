@@ -6,7 +6,7 @@
 /*   By: huozturk <huozturk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/23 12:01:48 by huozturk          #+#    #+#             */
-/*   Updated: 2025/07/31 14:46:24 by huozturk         ###   ########.fr       */
+/*   Updated: 2025/07/31 15:23:48 by huozturk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@ static void	set_death_status(t_data *data, int philo_index) // MUTEX
 	pthread_mutex_unlock(&data->death_mutex);
 }
 
+#include <stdio.h>
 void	check_and_handle_death(t_data *data, int philo_index)
 {
 	pthread_mutex_lock(&data->meal_mutex);
@@ -28,7 +29,6 @@ void	check_and_handle_death(t_data *data, int philo_index)
 	pthread_mutex_unlock(&data->meal_mutex);	
 	if (get_time_in_ms() - data->last_meal_philo >= data->time_to_die)
 	{
-		
 		set_death_status(data, philo_index);
 		pthread_exit(NULL);
 	}

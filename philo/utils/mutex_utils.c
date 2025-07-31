@@ -6,7 +6,7 @@
 /*   By: huozturk <huozturk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/07 12:07:55 by huozturk          #+#    #+#             */
-/*   Updated: 2025/07/31 14:31:06 by huozturk         ###   ########.fr       */
+/*   Updated: 2025/07/31 15:41:13 by huozturk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,6 +57,11 @@ void	check_meal_goal(t_philo *philo)
 	pthread_mutex_lock(&philo->data->check_meal_mutex);
 	if (philo->eat_count == philo->data->must_eat)
 	{
+		pthread_mutex_lock(&philo->data->must_meal_mutex);
+		philo->data->must_meal_num++;
+		pthread_mutex_unlock(&philo->data->must_meal_mutex);
+
+		
 		pthread_mutex_unlock(&philo->data->check_meal_mutex);
 		if (philo->left_fork_bool)
 			pthread_mutex_unlock(philo->left_fork);
