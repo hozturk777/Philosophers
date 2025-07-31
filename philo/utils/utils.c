@@ -3,16 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hsyn <hsyn@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: huozturk <huozturk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/07 12:08:03 by huozturk          #+#    #+#             */
-/*   Updated: 2025/07/30 19:50:16 by hsyn             ###   ########.fr       */
+/*   Updated: 2025/07/31 19:53:15 by huozturk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../lib/philo.h"
 #include "../lib/error.h"
-#include <unistd.h>
 #include <stdio.h>
 
 

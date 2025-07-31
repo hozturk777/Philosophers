@@ -6,13 +6,12 @@
 /*   By: huozturk <huozturk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/07 12:07:55 by huozturk          #+#    #+#             */
-/*   Updated: 2025/07/31 15:41:13 by huozturk         ###   ########.fr       */
+/*   Updated: 2025/07/31 19:52:15 by huozturk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../lib/philo.h"
 
-#include <stdio.h>
 int	check_dead(t_philo *philo)
 {
 	pthread_mutex_lock(&philo->data->death_mutex);

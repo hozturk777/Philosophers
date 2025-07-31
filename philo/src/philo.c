@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   philo.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hsyn <hsyn@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: huozturk <huozturk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/17 17:46:28 by huozturk          #+#    #+#             */
-/*   Updated: 2025/07/30 19:47:24 by hsyn             ###   ########.fr       */
+/*   Updated: 2025/07/31 19:51:25 by huozturk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 #include <stdio.h>
 #include <unistd.h>
 
-void	ft_usleep(int wait_time, t_philo *philo) // PHİLO ÖLÜP ÖLMEDİ Mİ CHECK handle_dead ile
+void	ft_usleep(int wait_time, t_philo *philo)
 {
 	unsigned long long	time;
 
@@ -34,10 +34,9 @@ int	main(int argc, char *argv[])
 	{
 		init_philo(&data, argv, argc);
 		init_forks(&data);
-		monitor_philo(&data);
+		monitor_philo_create(&data);
 		create_philo(&data);
 		philo_join(&data);
-
 		cleanup(&data);
 		return (0);
 	}

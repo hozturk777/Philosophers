@@ -6,7 +6,7 @@
 /*   By: huozturk <huozturk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/17 17:46:25 by huozturk          #+#    #+#             */
-/*   Updated: 2025/07/31 15:41:30 by huozturk         ###   ########.fr       */
+/*   Updated: 2025/07/31 19:53:01 by huozturk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,6 @@ void	init_philo(t_data *data, char *argv[], int argc)
 	data->is_dead = 0;
 	data->dead_index = -1;
 	data->start_flag = 0;
-	data->test_philo_count = 0;
 	data->must_meal_num = 0;
 	data->philos = ft_calloc(sizeof(t_philo), data->philo_count);
 	error_check(data, ERR_MALLOC_FAIL, data->philos);
@@ -72,7 +71,6 @@ void	init_philo(t_data *data, char *argv[], int argc)
 		data->philos[i].data = data;
 		data->philos[i].last_meal = get_time_in_ms();
 		data->philos[i].eat_count = 0;
-		data->philos[i].eat_loop = data->must_eat;
 		data->philos[i].left_fork_bool = 0;
 		data->philos[i].right_fork_bool = 0;
 		i++;
@@ -119,7 +117,6 @@ void	init_forks(t_data *data)
 	error_check_mutex(data, pthread_mutex_init(&data->start_flag_mutex, NULL));
 	error_check_mutex(data, pthread_mutex_init(&data->check_meal_mutex, NULL));
 	error_check_mutex(data, pthread_mutex_init(&data->print_mutex, NULL));
-	error_check_mutex(data, pthread_mutex_init(&data->last_meal_mutex, NULL));
 	error_check_mutex(data, pthread_mutex_init(&data->must_meal_mutex, NULL));
 	error_check_mutex(data, pthread_mutex_init(&data->meal_mutex, NULL));
 

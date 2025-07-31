@@ -6,7 +6,7 @@
 /*   By: huozturk <huozturk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/07 12:07:58 by huozturk          #+#    #+#             */
-/*   Updated: 2025/07/31 15:28:24 by huozturk         ###   ########.fr       */
+/*   Updated: 2025/07/31 19:52:46 by huozturk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,8 +20,6 @@ void	philo_eat(t_philo *philo)
 	print(philo, "is eating");
 	pthread_mutex_lock(&philo->eat_count_mutex);
 	philo->eat_count++;
-	// if (philo->eat_loop)
-	philo->eat_loop--;
 	pthread_mutex_unlock(&philo->eat_count_mutex);
 	ft_usleep(philo->data->time_to_eat, philo);
 }
@@ -49,17 +47,8 @@ void	philo_dead(t_philo philo)
 
 void	philo_take_fork(t_philo *philo)
 {
-	// if (philo->data->philo_count == 1)
-	// {
-	// 	pthread_mutex_lock(philo->left_fork);
-	// 	print(philo, "has taken a fork");
-	// 	pthread_mutex_unlock(philo->left_fork);
-	// 	philo->data->is_dead = 1;
-	// 	return ;
-	// }
-	if (philo->id % 2 == 0) // çift idler olarak yapılabilir
+	if (philo->id % 2 == 0)
 	{
-
 		pthread_mutex_lock(philo->left_fork);
 		philo->left_fork_bool = 1;
 		print(philo, "has taken a fork");

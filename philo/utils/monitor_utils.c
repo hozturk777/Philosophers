@@ -6,12 +6,11 @@
 /*   By: huozturk <huozturk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/23 12:01:48 by huozturk          #+#    #+#             */
-/*   Updated: 2025/07/31 15:23:48 by huozturk         ###   ########.fr       */
+/*   Updated: 2025/07/31 19:51:57 by huozturk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../lib/philo.h"
-#include <unistd.h>
 
 static void	set_death_status(t_data *data, int philo_index) // MUTEX
 {
@@ -21,7 +20,6 @@ static void	set_death_status(t_data *data, int philo_index) // MUTEX
 	pthread_mutex_unlock(&data->death_mutex);
 }
 
-#include <stdio.h>
 void	check_and_handle_death(t_data *data, int philo_index)
 {
 	pthread_mutex_lock(&data->meal_mutex);

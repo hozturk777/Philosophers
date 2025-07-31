@@ -6,7 +6,7 @@
 /*   By: huozturk <huozturk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/17 17:46:30 by huozturk          #+#    #+#             */
-/*   Updated: 2025/07/31 15:38:02 by huozturk         ###   ########.fr       */
+/*   Updated: 2025/07/31 19:50:25 by huozturk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,18 +20,15 @@ typedef struct s_data	t_data;
 typedef struct s_philo
 {
 	int				id;
+	int				left_fork_bool;
+	int				right_fork_bool;
 	int				eat_count;
-	int				eat_loop;
 	pthread_t		thread;
 	long long		last_meal;
 	pthread_mutex_t	*left_fork;
 	pthread_mutex_t	*right_fork;
 	t_data			*data;
 	pthread_mutex_t	eat_count_mutex;
-
-	int	left_fork_bool;
-	int	right_fork_bool;
-
 }	t_philo;
 
 typedef struct s_data
@@ -44,27 +41,18 @@ typedef struct s_data
 	int				time_to_eat;
 	int				time_to_sleep;
 	int				start_flag;
+	int				must_meal_num;
 	long long		start_time;
 	long long		last_meal_philo;
+	pthread_t		monitor_philo;
 	pthread_mutex_t	*forks;
 	pthread_mutex_t	death_mutex;
 	pthread_mutex_t	check_meal_mutex;
 	pthread_mutex_t	start_flag_mutex;
 	pthread_mutex_t	print_mutex;
-	t_philo			*philos;
-	pthread_t		monitor_philo;
-
 	pthread_mutex_t	meal_mutex;
-	
-	pthread_mutex_t	last_meal_mutex;
-	
 	pthread_mutex_t	must_meal_mutex;
-	int				must_meal_num;
-	
-	
-	int		test_philo_count;
-
-	
+	t_philo			*philos;
 }	t_data;
 
 int			ft_atoi(char *str, int *res);
@@ -74,15 +62,15 @@ void		create_philo(t_data *data);
 void		error_check(t_data *data, int err_code, void *ptr);
 void		cleanup(t_data *data);
 long long	get_time_in_ms(void);
-void		monitor_philo(t_data *data);
+void		monitor_philo_create(t_data *data);
 int			check_dead(t_philo *philo);
 int			check_start_flag(t_philo *philo);
 void		handle_dead(t_philo *philo);
 void		philo_eat(t_philo *philo);
 void		philo_sleep(t_philo *philo);
-void		last_meal_added(t_philo *philo);
 void		philo_thinking(t_philo *philo);
 void		philo_dead(t_philo philo);
+void		last_meal_added(t_philo *philo);
 void		sync_philo_start(t_philo *philo);
 void		parse_args(char *argv[], t_data *data, int argc);
 void		check_meal_goal(t_philo *philo);

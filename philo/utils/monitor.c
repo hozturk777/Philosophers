@@ -6,13 +6,11 @@
 /*   By: huozturk <huozturk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/07 12:07:47 by huozturk          #+#    #+#             */
-/*   Updated: 2025/07/31 15:42:58 by huozturk         ###   ########.fr       */
+/*   Updated: 2025/07/31 19:52:08 by huozturk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../lib/philo.h"
-#include <unistd.h>
-#include <stdio.h>
 
 static void	*monitor_process(void *argv)
 {
@@ -39,7 +37,7 @@ static void	*monitor_process(void *argv)
 	}
 }
 
-void	monitor_philo(t_data *data)
+void	monitor_philo_create(t_data *data)
 {
 	if (pthread_create(
 		&data->monitor_philo,
