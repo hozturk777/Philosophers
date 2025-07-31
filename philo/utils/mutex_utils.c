@@ -6,18 +6,18 @@
 /*   By: huozturk <huozturk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/07 12:07:55 by huozturk          #+#    #+#             */
-/*   Updated: 2025/07/29 17:14:14 by huozturk         ###   ########.fr       */
+/*   Updated: 2025/07/31 14:31:06 by huozturk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../lib/philo.h"
 
+#include <stdio.h>
 int	check_dead(t_philo *philo)
 {
 	pthread_mutex_lock(&philo->data->death_mutex);
-	if (philo->data->is_dead == 1 || philo->data->is_dead == 2)
+	if (philo->data->is_dead == 1 || philo->data->is_dead == 2 || philo->data->is_dead == 3)
 	{
-
 		pthread_mutex_unlock(&philo->data->death_mutex);
 		return (1);
 	}

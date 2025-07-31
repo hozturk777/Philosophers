@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   philo_utils.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hsyn <hsyn@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: huozturk <huozturk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/17 17:46:25 by huozturk          #+#    #+#             */
-/*   Updated: 2025/07/30 19:49:27 by hsyn             ###   ########.fr       */
+/*   Updated: 2025/07/31 14:43:46 by huozturk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,6 +74,7 @@ void	init_philo(t_data *data, char *argv[], int argc)
 		data->philos[i].data = data;
 		data->philos[i].last_meal = get_time_in_ms();
 		data->philos[i].eat_count = 0;
+		data->philos[i].eat_loop = data->must_eat;
 		data->philos[i].left_fork_bool = 0;
 		data->philos[i].right_fork_bool = 0;
 		i++;

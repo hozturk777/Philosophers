@@ -6,7 +6,7 @@
 /*   By: huozturk <huozturk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/07 12:07:47 by huozturk          #+#    #+#             */
-/*   Updated: 2025/07/29 19:52:06 by huozturk         ###   ########.fr       */
+/*   Updated: 2025/07/31 14:46:07 by huozturk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,8 +28,14 @@ static void	*monitor_process(void *argv)
 		{
 			check_and_handle_death(datas, i);
 			pthread_mutex_lock(&datas->philos[i].eat_count_mutex);
-			if (datas->must_eat == datas->philos[i].eat_count)
+			// printf("EAT_LOOP: %d\n", datas->philos[i].eat_loop);
+			if (datas->must_eat != -1 && (datas->philos[i].eat_loop + 1 == 0))
+			{
+				printf("DATA_IS_DEAD : %d\n", datas->is_dead);
+				datas->is_dead = 3;
+				// printf("is_dead: %d\n", datas->is_dead);
 				pthread_exit(NULL);
+			}
 			pthread_mutex_unlock(&datas->philos[i].eat_count_mutex);
 		}
 	}
