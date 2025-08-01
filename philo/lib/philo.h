@@ -6,7 +6,7 @@
 /*   By: huozturk <huozturk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/17 17:46:30 by huozturk          #+#    #+#             */
-/*   Updated: 2025/07/31 19:50:25 by huozturk         ###   ########.fr       */
+/*   Updated: 2025/08/01 18:03:27 by huozturk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,12 +23,12 @@ typedef struct s_philo
 	int				left_fork_bool;
 	int				right_fork_bool;
 	int				eat_count;
-	pthread_t		thread;
 	long long		last_meal;
+	pthread_t		thread;
 	pthread_mutex_t	*left_fork;
 	pthread_mutex_t	*right_fork;
-	t_data			*data;
 	pthread_mutex_t	eat_count_mutex;
+	t_data			*data;
 }	t_philo;
 
 typedef struct s_data

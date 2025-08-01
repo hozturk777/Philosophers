@@ -6,7 +6,7 @@
 /*   By: huozturk <huozturk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/17 17:46:28 by huozturk          #+#    #+#             */
-/*   Updated: 2025/07/31 19:51:25 by huozturk         ###   ########.fr       */
+/*   Updated: 2025/08/01 18:23:28 by huozturk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ int	main(int argc, char *argv[])
 	}
 	else
 	{
-		fprintf(stderr, "ERR_INVALID_ARG\n");
+		printf("ERR_INVALID_ARG\n");
 		return (1);
 	}
 }

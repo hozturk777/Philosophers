@@ -6,7 +6,7 @@
 /*   By: huozturk <huozturk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/07 12:08:03 by huozturk          #+#    #+#             */
-/*   Updated: 2025/07/31 19:53:15 by huozturk         ###   ########.fr       */
+/*   Updated: 2025/08/01 18:41:38 by huozturk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ int	ft_atoi(char *str, int *res)
 	sign = 1;
 	if (check_long(str))
 		error_check(NULL, ERR_ATOI_FAIL, NULL);
-	while (*(str + i) == '+' || *(str + i) == '-')
+	while (*(str + i) == '+' || *(str + i) == '-') // Buraya error check eklenecek (HAMZA)
 	{
 		if (*(str + i++) == '-')
 			sign *= -1;
