@@ -6,7 +6,7 @@
 /*   By: huozturk <huozturk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/04 13:30:32 by huozturk          #+#    #+#             */
-/*   Updated: 2025/08/04 17:55:36 by huozturk         ###   ########.fr       */
+/*   Updated: 2025/08/04 19:39:31 by huozturk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,6 @@
 #include <stdlib.h>
 #include <sys/time.h>
 
-#include <stdio.h>
 void	philo_join(t_data *data)
 {
 	int	i;

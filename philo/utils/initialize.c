@@ -6,13 +6,12 @@
 /*   By: huozturk <huozturk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/04 19:33:28 by huozturk          #+#    #+#             */
-/*   Updated: 2025/08/04 19:34:19 by huozturk         ###   ########.fr       */
+/*   Updated: 2025/08/04 19:39:45 by huozturk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../lib/philo.h"
 #include "../lib/error.h"
-
 
 void	init_philo(t_data *data, char *argv[], int argc)
 {
