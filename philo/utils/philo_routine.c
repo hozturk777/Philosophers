@@ -6,7 +6,7 @@
 /*   By: huozturk <huozturk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/07 12:07:58 by huozturk          #+#    #+#             */
-/*   Updated: 2025/07/31 19:52:46 by huozturk         ###   ########.fr       */
+/*   Updated: 2025/08/04 17:31:27 by huozturk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,14 +26,16 @@ void	philo_eat(t_philo *philo)
 
 void	philo_sleep(t_philo *philo)
 {
+	
 	print(philo, "is sleeping");
 	ft_usleep(philo->data->time_to_sleep, philo);
 }
 
 void	philo_thinking(t_philo *philo)
 {
+	
 	print(philo, "is thinking");
-	usleep(philo->data->time_to_die - (philo->data->time_to_eat + philo->data->time_to_sleep)); // BAKILACAK KONTROL ET!
+	usleep(philo->data->time_to_die - (philo->data->time_to_eat + philo->data->time_to_sleep));
 }
 
 void	philo_dead(t_philo philo)

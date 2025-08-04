@@ -6,7 +6,7 @@
 /*   By: huozturk <huozturk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/17 17:46:30 by huozturk          #+#    #+#             */
-/*   Updated: 2025/08/01 18:03:27 by huozturk         ###   ########.fr       */
+/*   Updated: 2025/08/04 18:08:48 by huozturk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,7 @@ long long	get_time_in_ms(void);
 void		monitor_philo_create(t_data *data);
 int			check_dead(t_philo *philo);
 int			check_start_flag(t_philo *philo);
-void		handle_dead(t_philo *philo);
+int			handle_dead(t_philo *philo);
 void		philo_eat(t_philo *philo);
 void		philo_sleep(t_philo *philo);
 void		philo_thinking(t_philo *philo);
@@ -73,7 +73,7 @@ void		philo_dead(t_philo philo);
 void		last_meal_added(t_philo *philo);
 void		sync_philo_start(t_philo *philo);
 void		parse_args(char *argv[], t_data *data, int argc);
-void		check_meal_goal(t_philo *philo);
+int			check_meal_goal(t_philo *philo);
 void		philo_take_fork(t_philo *philo);
 void		print(t_philo *philo, char *str);
 void		philo_join(t_data *data);

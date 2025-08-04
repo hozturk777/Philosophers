@@ -6,7 +6,7 @@
 /*   By: huozturk <huozturk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/07 12:08:03 by huozturk          #+#    #+#             */
-/*   Updated: 2025/08/01 18:41:38 by huozturk         ###   ########.fr       */
+/*   Updated: 2025/08/04 17:52:18 by huozturk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,6 +97,5 @@ void	print(t_philo *philo, char *str)
 		printf("%lld %d %s\n", get_time_in_ms() - philo->data->start_time,
 			philo->id, str);
 	}
-	
 	pthread_mutex_unlock(&philo->data->print_mutex);
 }

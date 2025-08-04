@@ -6,7 +6,7 @@
 /*   By: huozturk <huozturk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/17 17:46:28 by huozturk          #+#    #+#             */
-/*   Updated: 2025/08/01 18:23:28 by huozturk         ###   ########.fr       */
+/*   Updated: 2025/08/04 18:16:36 by huozturk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,9 +19,11 @@ void	ft_usleep(int wait_time, t_philo *philo)
 	unsigned long long	time;
 
 	time = get_time_in_ms();
-	while (get_time_in_ms() - time < (unsigned long long)wait_time)
+	while ((get_time_in_ms() - time < (unsigned long long)wait_time))
 	{
-		handle_dead(philo);
+		if (handle_dead(philo))
+			break;
+		// handle_dead(philo);
 		usleep(100);
 	}
 }

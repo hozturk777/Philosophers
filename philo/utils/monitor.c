@@ -6,7 +6,7 @@
 /*   By: huozturk <huozturk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/07 12:07:47 by huozturk          #+#    #+#             */
-/*   Updated: 2025/07/31 19:52:08 by huozturk         ###   ########.fr       */
+/*   Updated: 2025/08/04 18:02:27 by huozturk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,8 @@ static void	*monitor_process(void *argv)
 			{
 				datas->is_dead = 3;
 				pthread_mutex_unlock(&datas->must_meal_mutex);
-				pthread_exit(NULL);
+				// pthread_exit(NULL);
+				return(NULL);
 			}
 			pthread_mutex_unlock(&datas->must_meal_mutex);
 		}

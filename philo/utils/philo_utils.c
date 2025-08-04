@@ -6,7 +6,7 @@
 /*   By: huozturk <huozturk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/17 17:46:25 by huozturk          #+#    #+#             */
-/*   Updated: 2025/07/31 20:17:26 by huozturk         ###   ########.fr       */
+/*   Updated: 2025/08/04 18:13:50 by huozturk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,16 +42,27 @@ static void	*philo_process(void *arg)
 	sync_philo_start(philo);
 	while (!check_dead(philo))
 	{
+		if(philo->data->must_eat != -1 && check_meal_goal(philo)) // handle dead
+			break;
+		if (handle_dead(philo))
+			break;
 		philo_take_fork(philo);
 		philo_eat(philo);
-		pthread_mutex_unlock(philo->right_fork);
-		pthread_mutex_unlock(philo->left_fork);
-		philo->left_fork_bool = 0;
+		if (philo->right_fork_bool)
+			pthread_mutex_unlock(philo->right_fork);
 		philo->right_fork_bool = 0;
+		if (philo->left_fork_bool)
+			pthread_mutex_unlock(philo->left_fork);
+		philo->left_fork_bool = 0;
+		if(philo->data->must_eat != -1 && check_meal_goal(philo)) // handle dead
+			break;;
+		if (handle_dead(philo))
+			break;
 		philo_sleep(philo);
+		if (handle_dead(philo))
+			break;
 		philo_thinking(philo);
 	}
-
 	return (NULL);
 }
 
