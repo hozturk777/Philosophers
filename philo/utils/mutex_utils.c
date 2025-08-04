@@ -6,7 +6,7 @@
 /*   By: huozturk <huozturk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/07 12:07:55 by huozturk          #+#    #+#             */
-/*   Updated: 2025/08/04 18:14:44 by huozturk         ###   ########.fr       */
+/*   Updated: 2025/08/04 19:26:04 by huozturk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,6 @@ int	handle_dead(t_philo *philo)
 			pthread_mutex_unlock(philo->left_fork);
 			philo->left_fork_bool = 0;
 		}
-		// pthread_exit(NULL);
 		return (1);
 	}
 	pthread_mutex_unlock(&philo->data->death_mutex);

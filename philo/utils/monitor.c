@@ -6,7 +6,7 @@
 /*   By: huozturk <huozturk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/07 12:07:47 by huozturk          #+#    #+#             */
-/*   Updated: 2025/08/04 18:02:27 by huozturk         ###   ########.fr       */
+/*   Updated: 2025/08/04 19:26:02 by huozturk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,13 +24,13 @@ static void	*monitor_process(void *argv)
 		i = -1;
 		while (++i < datas->philo_count)
 		{
-			check_and_handle_death(datas, i);
+			if (check_and_handle_death(datas, i))
+				return(NULL);
 			pthread_mutex_lock(&datas->must_meal_mutex);
 			if (datas->must_eat != -1 && (datas->must_meal_num >= datas->philo_count))
 			{
 				datas->is_dead = 3;
 				pthread_mutex_unlock(&datas->must_meal_mutex);
-				// pthread_exit(NULL);
 				return(NULL);
 			}
 			pthread_mutex_unlock(&datas->must_meal_mutex);
