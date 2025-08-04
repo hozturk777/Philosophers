@@ -16,6 +16,7 @@ PHILO_SRCS			=	$(SRC_DIR)philo.c \
 							$(UTL_DIR)philo_utils.c \
 							$(UTL_DIR)mutex_utils.c \
 							$(UTL_DIR)philo_routine.c \
+							$(UTL_DIR)initialize.c \
 							$(ERR_DIR)error_handle.c \
 
 SRCS 				= $(PHILO_SRCS)
@@ -25,7 +26,6 @@ COLOR_YELLOW	=	\033[0;33m \033[1m
 COLOR_GREEN		=	\033[0;32m \033[1m
 COLOR_RED		=	\033[0;31m \033[1m
 COLOR_END		=	\033[0m
-
 all: 				$(NAME)
 
 $(NAME): 			$(OBJ)

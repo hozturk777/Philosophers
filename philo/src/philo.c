@@ -6,7 +6,7 @@
 /*   By: huozturk <huozturk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/17 17:46:28 by huozturk          #+#    #+#             */
-/*   Updated: 2025/08/04 18:16:36 by huozturk         ###   ########.fr       */
+/*   Updated: 2025/08/04 19:30:44 by huozturk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,6 @@ void	ft_usleep(int wait_time, t_philo *philo)
 	{
 		if (handle_dead(philo))
 			break;
-		// handle_dead(philo);
 		usleep(100);
 	}
 }
